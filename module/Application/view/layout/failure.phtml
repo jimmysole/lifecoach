@@ -1,0 +1,106 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<?php echo $this->headTitle('Kevin Benitez - Life Coach')->setAutoEscape(false) ?>
+	
+	<?php echo $this->headMeta()
+		->appendName('viewport', 'width=device-width, initial-scale=1.0')
+		->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+	?>
+	
+	
+	<?php echo $this->headLink()
+		->prependStylesheet($this->basePath() . '/css/w3.css'); ?>
+	
+	
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-light-blue.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	
+	<?php echo $this->headScript()
+		->prependFile($this->basePath() . '/js/jquery-3.5.1.min.js'); ?>
+	
+	<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" data-integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" data-crossorigin="anonymous"></script>
+	
+	<style>
+		html, body, h1, h2, h3, h4, h5 {
+			font-family: "Open Sans", sans-serif;
+		}
+		
+		.w3-theme-gradient {
+			color: #000 !important;
+			background: -webkit-linear-gradient(top,#64B5F6 25%,#42A5F5 75%);
+		}
+		
+		.w3-theme-gradient {
+			color: #000 !important;
+			background: -moz-linear-gradient(top,#64B5F6 25%,#42A5F5 75%);
+		}
+		
+		.w3-theme-gradient {
+			color: #000 !important;
+			background: -o-linear-gradient(top,#64B5F6 25%,#42A5F5 75%);
+		}
+		
+		.w3-theme-gradient {
+			color: #000 !important;
+			background: -ms-linear-gradient(top,#64B5F6 25%,#42A5F5 75%);
+		}
+		
+		.w3-theme-gradient {
+			color: #000 !important;
+			background: linear-gradient(top,#64B5F6 25%,#42A5F5 75%);
+		}
+	</style>
+
+
+</head>
+
+<body>
+<div class="w3-top">
+	<div class="w3-bar w3-theme-gradient w3-wide w3-padding w3-card">
+		<a href="<?php echo $this->url('home', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue">Home</a>
+		
+		<div class="w3-right w3-hide-small">
+			<div class="w3-dropdown-hover">
+				<button class="w3-button w3-theme-gradient w3-wide">Categories</button>
+				<div class="w3-dropdown-content w3-bar-block w3-border w3-theme-gradient">
+					<?php foreach ($this->categories as $value): ?>
+						<a href="<?php echo $this->url('home/categories', array('action' => strtolower($value['type']))); ?>" class="w3-bar-item w3-button w3-hover-blue"><?php echo $value['type'] . ' ' . '(' . $value['number'] . ')';?></a>
+					<?php endforeach; ?>
+				</div>
+			</div>
+			<a href="<?php echo $this->url('home/register', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Register">Register</a>
+			<a href="<?php echo $this->url('home/login', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Login">Login</a>
+			<a href="#" class="w3-bar-item w3-button w3-hover-blue" title="Test">Stores</a>
+			<a href="#" class="w3-bar-item w3-button w3-hover-blue" title="Test">About</a>
+			<a href="#" class="w3-bar-item w3-button w3-hover-blue" title="Test">Contact</a>
+		</div>
+	</div>
+</div>
+
+
+<br><br><br><br><br><br>
+
+<header class="w3-display-container w3-content w3-wide" style="max-width: 1500px;" id="home">
+	<div class="w3-display-middle w3-margin-top w3-center">
+		
+		<h1 class="w3-xxlarge w3-text-black">Oops! A login error occurred</h1>
+	</div>
+</header>
+
+<br><br><br><br><br><br>
+<div class="w3-content w3-padding" style="max-width: 1564px;">
+	<?php echo $this->content; ?>
+</div>
+
+<br><br>
+<footer class="w3-container w3-bottom w3-theme-gradient w3-padding-tiny w3-margin-0">
+	<p class="w3-center">&copy; <?php echo date('Y'); ?> Kevin Benitez and James Sole. All Rights Reserved.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<div class="w3-container w3-padding-32" id="sites">
+<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">New Articles</h3>
+</div>
+
+
+<div class="w3-row-padding">
+    <div class="w3-col l3 m6 w3-margin-bottom">
+        <div class="w3-display-container">
+            <div class="w3-display-topleft w3-theme-gradient w3-padding">How To Combat Anxiety</div>
+            <img src="<?php echo $this->basePath() . '/images/house5.jpg'; ?>" alt="Combatting Anxiety" style="width: 100%;">
+            <div class="w3-display-bottomright w3-theme-gradient w3-padding">Kevin Benitez</div>
+        </div>
+    </div>
+
+    <div class="w3-col l3 m6 w3-margin-bottom">
+        <div class="w3-display-container">
+            <div class="w3-display-topleft w3-theme-gradient w3-padding">Seeking Joy</div>
+            <img src="<?php echo $this->basePath() . '/images/house5.jpg'; ?>" alt="Seeking Joy" style="width: 100%;">
+            <div class="w3-display-bottomright w3-theme-gradient w3-padding">Kevin Benitez</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="w3-container w3-padding-32" id="life-coaches">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Life Coaches</h3>
+</div>
+
+<div class="w3-row-padding w3-grayscale">
+    <div class="w3-col l3 m6 w3-margin-bottom">
+        <img src="<?php echo $this->basePath() . '/images/team4.jpg'; ?>" alt="Kevin" style="width: 100%;">
+        <h3>Kevin Benitez</h3>
+        <p class="w3-opacity">Life Coach</p>
+        <p>View Bio for more info</p>
+        <p><button class="w3-button w3-light-grey w3-block" id="kevin-bio">View Bio</button></p>
+    </div>
+</div>
+
+&nbsp;&nbsp;&nbsp;
+
+<div class="w3-row-padding w3-grayscale">
+    <div class="w3-col l12 w3-margin-bottom">
+        <h3>Why Use A Life Coach?</h3>
+        <p class="w3-opacity">Reasons</p>
+        <p>Faith-strengthening experience for men just like you who have struggled with deceit, fear, anger, sadness/loss, and shame. Men find healing, strength, and freedom. Be radically TRANSFORMED, find your mission, and become the man God created you to be.
+            Life coaching offers men a safe, intense, life-changing, and personally challenging opportunity to radically transform their faith through exploring their wounds, discovering the reasons behind the hurts, and finding healing through Jesus.</p>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#kevin-bio').on('click', function() {
+       document.getElementById('kevin-bio-modal').style.display = 'block';
+    });
+</script>
+
+<div class="w3-modal" id="kevin-bio-modal">
+    <div class="w3-modal-content w3-card-4 w3-round">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('kevin-bio-modal').style.display = 'none'" class="w3-button w3-theme-gradient w3-display-topright">&times;</span>
+            <h2 class="w3-center">Kevin Benitez</h2>
+        </header>
+
+        <br><br>
+        <div class="w3-container">
+            <img src="<?php echo $this->basePath() . '/images/team4.jpg'; ?>" alt="Kevin Benitez" class="w3-border w3-padding">
+        </div>
+
+        
+        <br><br>
+        <div class="w3-cell-row">
+            <div class="w3-container w3-cell">
+                <p class="w3-left">My name is Kevin Benitez, and I am a life coach/trainer. I am here to help you figure out this thing called life. I am here to be an ear to listen and a friend to help you find the truth side-by-side.
+                    You have come to the right place if you are struggling with things such as fear, shame, anger, loss and deceit or just need that push in the right direction. I am ready to walk this path with you.
+
+                    <br>
+                    <br>
+                <p id="diff">Some of the common difficulties we face are:</p><br><br>
+                <ul class="w3-ul" style="text-shadow: 1px 1px #000000;" id="difficulties">
+                    <li>You feel lost</li>
+                    <li>You doubt yourself</li>
+                    <li>You want to change your career</li>
+                    <li>You need to improve your health and well-being</li>
+                    <li>You keep quitting</li>
+                    <li>You procrastinate</li>
+                </ul>
+                </p>
+                &nbsp;
+                <button type="button" id="contact-kevin" class="w3-right w3-btn w3-theme-gradient w3-border w3-round-large">Contact Kevin</button>
+            </div>
+        </div>
+        
+        <div class="w3-cell-row" id="contact-k" style="display: none;">
+            <div class="w3-container w3-cell">
+                &nbsp;
+                <label for="email">Email Address</label>
+                <input type="text" name="email" id="email" class="w3-input w3-border w3-round-large" required>
+                &nbsp;
+                <label for="fname">First Name</label>
+                <input type="text" name="fname" id="fname" class="w3-input w3-border w3-round-large" required>
+                &nbsp;
+                <label for="lname">Last Name</label>
+                <input type="text" name="lname" id="lname" class="w3-input w3-border w3-round-large" required>
+                &nbsp;
+                <label for="tel">Telephone Number</label>
+                <input type="tel" name="tel" id="tel" class="w3-input w3-input w3-border w3-round-large" placeholder="(000)000-0000" required>
+                &nbsp;
+                <label for="body-msg">Message</label>
+                <textarea id="body-msg" class="w3-input w3-border w3-round-large" style="resize: none;"></textarea>
+                <br>
+                <button name="send-msg" id="send-msg" class="w3-btn w3-theme-gradient w3-border w3-round-large">Send</button>
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+            $('#contact-kevin').on('click', function() {
+                $('#diff').attr('style', 'display: none;');
+                $('#difficulties').attr('style', 'display: none;');
+                $('#contact-k').attr('style', 'display: block;');
+            });
+            
+            $('#send-msg').on('click', function() {
+                $(this).attr('disabled', true);
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/contact'); ?>",
+                    data: {
+                        email: $('#email').val(),
+                        first_name: $('#fname').val(),
+                        last_name: $('#lname').val(),
+                        telephone: $('#tel').val(),
+                        message: $('#body-msg').val()
+                    }
+                }).done(function(message) {
+                    $('#footer-msg').html("<p class=\"w3-center\">" + message + "</p>");
+                    $('#email').val("");
+                    $('#fname').val("");
+                    $('#lname').val("");
+                    $('#tel').val("");
+                    $('#body-msg').val("");
+                }).fail(function(message) {
+                    $('#footer-msg').html("<p class=\"w3-center\">" + message + "</p>");
+                    $('#send-msg').attr('disabled', false);
+                });
+                
+            });
+        </script>
+        
+        &nbsp;
+        <footer class="w3-container w3-theme-gradient">
+            <div class="w3-bar w3-theme-gradient" id="footer-msg">
+                &nbsp;
+            </div>
+        </footer>
+    </div>
+</div>
+
+
+<script>
+    const kbcontact = document.getElementById('kevin-bio-modal');
+    
+    window.addEventListener('click', function(event) {
+       if (event.target === kbcontact) {
+           event.target.style.display = 'none';
+           
+           $('#diff').attr('style', 'display: block;');
+           $('#difficulties').attr('style', 'text-shadow: 1px 1px #000000; display: block;');
+           $('#contact-k').attr('style', 'display: none;');
+           $('#send-msg').attr('disabled', false);
+       }
+    });
+</script>

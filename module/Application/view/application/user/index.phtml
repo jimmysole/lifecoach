@@ -1,0 +1,487 @@
+<div class="w3-container w3-padding-32" id="main-options">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center">User Options</h3>
+</div>
+
+<div class="w3-row-padding">
+    <div class="w3-col l12 m12 w3-margin-bottom">
+        <?php if ($this->admin == 1): ?>
+            <div class="w3-display-container">
+                <button class="w3-button w3-round w3-hover-blue" id="view-requested-meetings" onclick="document.getElementById('view-requested-meetings-modal').style.display = 'block';">View Requested Meetings</button>
+                <button class="w3-button w3-round w3-hover-blue" id="confirm-meeting" onclick="document.getElementById('confirm-meeting-modal').style.display = 'block';">Confirm Meeting</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="cancel-meeting" onclick="document.getElementById('cancel-meeting-modal').style.display = 'block';">Cancel Meeting</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="reschedule-meeting" onclick="document.getElementById('reschedule-meeting-modal').style.display = 'block';">Reschedule Meeting</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="start-meeting" onclick="document.getElementById('start-meeting-modal').style.display = 'block';">Start Meeting</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="post-article" onclick="document.getElementById('post-article-modal').style.display = 'block';">Post Article</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="remove-article">Remove Article</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="edit-article">Edit Article</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="view-users">View Users</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="schedule">Schedule</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="user-access">Set Access</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="ban-user">Ban User</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="upload-file">Upload File</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="remove-file">Remove File</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="change-file-status">Change File Status</button>&nbsp;
+            </div>
+        <?php else: ?>
+        <div class="w3-display-container">
+            <button class="w3-button w3-round w3-hover-blue" id="send-message">Send A Message</button>&nbsp;
+            <button class="w3-button w3-round w3-hover-blue" id="request-session">Request A Session</button>&nbsp;
+            <button class="w3-button w3-round w3-hover-blue" id="view-articles">View Articles</button>&nbsp;
+        </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+
+<!-- modals -->
+<div id="view-requested-meetings-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('view-meeting-modal').style.display='none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Requested Meetings For <?php echo $this->full_name; ?></h2>
+        </header>
+
+        <div class="w3-container">
+            <p></p>
+            <table class="w3-table-all" style="display: none; overflow: auto;" id="cmeetings">
+                <tr>
+                    <th>User</th>
+                    <th>Message</th>
+                    <th>Date Submitted</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/user', ['action' => 'view-requested-meetings']); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#cmeetings').attr('style', 'display: block;');
+
+                        $.each(data, function (key, value) {
+                            $('#cmeetings').append("<tr><td>" + value.user + "</td><td>" + value.message + "</td><td>" + value.time + "</td></tr>");
+                        });
+                    } else {
+                        $('#v-footer').html("No requested meetings.");
+                    }
+                }).fail(function() {
+                    $('#v-footer').html("Error fetching requested meetings.");
+                });
+            </script>
+        </div>
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="v-footer">&nbsp;</footer>
+    </div>
+</div>
+
+<div id="confirm-meeting-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('confirm-meeting-modal').style.display='none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Confirm A Meeting</h2>
+        </header>
+
+        <div class="w3-container">
+            <p></p>
+            <table class="w3-table-all" style="display: none; overflow: auto;" id="confirm-meetings-table">
+                <tr>
+                    <th>User</th>
+                    <th>Message</th>
+                    <th>Date Submitted</th>
+                    <th>Confirm Date</th>
+                    <th>Duration (in Minutes)</th>
+                    <th>Confirm</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/user', ['action' => 'view-requested-meetings']); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#confirm-meetings-table').attr('style', 'display: block;');
+
+                        $.each(data, function (key, value) {
+                            $('#confirm-meetings-table').append("<tr><input type=\"hidden\" name=\"mid\" id=\"" + value.id + "\" class=\"mid\" value=\"" + value.id + "\"><td class=\"user\">" + value.user + "</td><td class=\"message\">" + value.message + "</td><td class=\"s-time\">" + value.time + "</td><td class=\"date\"><input type=\"datetime-local\" class=\"w3-input date-box\"></td><td class=\"duration\"><input type=\"number\" class=\"w3-input time\" min=\"20\" max=\"60\"></td><td><input type=\"checkbox\" class=\"w3-check\" id=\"" + key + "\"></td></tr>");
+                        });
+                    } else {
+                        $('#c-footer').html("<p class=\"w3-center\">No requested meetings.</p>");
+                    }
+                }).fail(function() {
+                    $('#c-footer').html("<p class=\"w3-center\">An error occurred while fetching requested meetings.</p>");
+                });
+            </script>
+            <br><br>
+            <button class="w3-button w3-round w3-hover-blue w3-right" id="confirm-all">Confirm</button>
+
+            <script type="text/javascript">
+                $('#confirm-all').on('click', function() {
+                    let checked = [];
+
+                    $('#confirm-meetings-table input:checked').each(function() {
+                       let id, user, counselor, message, time,  dateMeet, duration;
+
+                       id = $(this).closest('tr').find('.mid').val();
+                       user = $(this).closest('tr').find('.user').html();
+                       counselor = "<?php echo $this->admin; ?>";
+                       message = $(this).closest('tr').find('.message').html();
+                       time = $(this).closest('tr').find('.s-time').html();
+                       dateMeet = $(this).closest('tr').find('.date-box').val();
+                       duration = $(this).closest('tr').find('.time').val();
+
+                       checked.push(id, user, counselor, message, time, dateMeet, duration);
+
+                       $.ajax({
+                           type: "POST",
+                           url: "<?php echo $this->url('home/user', [ 'action' => 'confirm-meeting' ]); ?>",
+                           data: {
+                               info: checked.join(', ')
+                           }
+                       }).done(function(msg) {
+                           $('#c-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                           $('#confirm-meetings-table input:checked').prop('checked', false);
+                       }).fail(function(msg) {
+                           $('#c-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                       });
+                    });
+                });
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="c-footer">&nbsp;</footer>
+    </div>
+</div>
+
+<div id="cancel-meeting-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('cancel-meeting-modal').style.display='none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Cancel A Meeting for <?php echo $this->full_name; ?></h2>
+        </header>
+
+        <div class="w3-container" style="overflow: auto;">
+            <p></p>
+
+            <table class="w3-table-all" style="display: none; height: 500px; overflow: auto;" id="cancel-meetings-table">
+                <tr>
+                    <th>User</th>
+                    <th>Message</th>
+                    <th>Date Submitted</th>
+                    <th>Confirmed Date</th>
+                    <th>Duration (in Minutes)</th>
+                    <th>Cancel</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/user', ['action' => 'view-confirmed-meetings']); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#cancel-meetings-table').attr('style', 'display: block;');
+
+                        $.each(data, function (key, value) {
+                            $('#cancel-meetings-table').append("<tr><input type=\"hidden\" name=\"mid\" id=\"" + value.id + "\" class=\"mid\" value=\"" + value.id + "\"><td class=\"user\">" + value.user
+                                + "</td><td class=\"message\">" + value.message + "</td><td class=\"s-time\">"
+                                + value.submitted_date + "</td><td class=\"c-time\">" + value.approved_date + "</td><td class=\"duration\">" + value.duration + "</td><td><input type=\"checkbox\" class=\"w3-check\" id=\"" + key + "\"></td></tr>");
+                        });
+                    } else {
+                        $('#cancel-footer').html("<p class=\"w3-center\">No requested meetings.</p>");
+                    }
+                }).fail(function() {
+                    $('#cancel-footer').html("<p class=\"w3-center\">An error occurred while fetching requested meetings.</p>");
+                });
+            </script>
+            <br><br>
+            <button class="w3-button w3-round w3-hover-blue w3-right" id="cancel-all">Cancel</button>
+
+
+            <script type="text/javascript">
+                $('#cancel-all').on('click', function() {
+                    let checked = [];
+
+                    $('#cancel-meetings-table input:checked').each(function() {
+                       let id;
+
+                       id = $(this).closest('tr').find('.mid').val();
+
+                       checked.push(id);
+
+                       $.ajax({
+                           type: "POST",
+                           url: "<?php echo $this->url('home/user', [ 'action' => 'cancel-meeting' ]); ?>",
+                           data: {
+                               info: checked.join(", ")
+                           }
+                       }).done(function(msg) {
+                           $('#cancel-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                       }).fail(function(msg) {
+                           $('#cancel-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                       });
+                    });
+                });
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="cancel-footer">&nbsp;</footer>
+    </div>
+</div>
+
+<div id="reschedule-meeting-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('reschedule-meeting-modal').style.display='none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Reschedule A Meeting for <?php echo $this->full_name; ?></h2>
+        </header>
+
+        <div class="w3-container" style="overflow: auto;">
+            <p></p>
+
+            <table class="w3-table-all" style="display: none; height: 500px;" id="reschedule-meetings-table">
+                <tr>
+                    <th>User</th>
+                    <th>Message</th>
+                    <th>Date Submitted</th>
+                    <th>Confirmed Date</th>
+                    <th>Duration (in Minutes)</th>
+                    <th>Reschedule</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/user', ['action' => 'view-confirmed-meetings']); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#reschedule-meetings-table').attr('style', 'display: block;');
+
+                        $.each(data, function (key, value) {
+                            $('#reschedule-meetings-table').append("<tr><input type=\"hidden\" name=\"mid\" id=\"" + value.id + "\" class=\"mid\" value=\"" + value.id + "\"><td class=\"user\">" + value.user
+                                + "</td><td class=\"message\">" + value.message + "</td><td class=\"s-time\">"
+                                + value.submitted_date + "</td><td class=\"c-time\" contenteditable='true'>" + value.approved_date + "</td><td class=\"duration\" contenteditable='true'>" + value.duration + "</td><td><input type=\"checkbox\" class=\"w3-check\" id=\"" + key + "\"></td></tr>");
+                        });
+                    } else {
+                        $('#reschedule-footer').html("<p class=\"w3-center\">No requested meetings.</p>");
+                    }
+                }).fail(function() {
+                    $('#reschedule-footer').html("<p class=\"w3-center\">An error occurred while fetching requested meetings.</p>");
+                });
+            </script>
+            <br><br>
+            <button class="w3-button w3-round w3-hover-blue w3-right" id="reschedule-all">Reschedule</button>
+
+
+            <script type="text/javascript">
+                $('#reschedule-all').on('click', function() {
+                    let checked = [];
+
+                    $('#reschedule-meetings-table input:checked').each(function() {
+                        let id, approved_date, duration_meeting;
+
+                        id = $(this).closest('tr').find('.mid').val();
+                        approved_date = $(this).closest('tr').find('.c-time').text();
+                        duration_meeting = $(this).closest('tr').find('.duration').text();
+
+                        checked.push(id, approved_date, duration_meeting);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo $this->url('home/user', [ 'action' => 'reschedule-meeting' ]); ?>",
+                            data: {
+                                info: checked.join(", ")
+                            }
+                        }).done(function(msg) {
+                            $('#reschedule-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                        }).fail(function(msg) {
+                            $('#reschedule-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                        });
+                    });
+                });
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="reschedule-footer">&nbsp;</footer>
+    </div>
+</div>
+
+<div id="start-meeting-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('start-meeting-modal').style.display='none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Start A Meeting for <?php echo $this->full_name; ?></h2>
+        </header>
+
+        <div class="w3-container" style="overflow: auto;">
+            <p></p>
+
+            <table class="w3-table-all" style="display: none; height: 500px;" id="start-meetings-table">
+                <tr>
+                    <th>User</th>
+                    <th>Message</th>
+                    <th>Date Submitted</th>
+                    <th>Confirmed Date</th>
+                    <th>Duration (in Minutes)</th>
+                    <th>Start</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/user', ['action' => 'view-confirmed-meetings']); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#start-meetings-table').attr('style', 'display: block;');
+
+                        $.each(data, function (key, value) {
+                            $('#start-meetings-table').append("<tr><input type=\"hidden\" name=\"mid\" id=\"" + value.id + "\" class=\"mid\" value=\"" + value.id + "\"><td class=\"user\">" + value.user
+                                + "</td><td class=\"message\">" + value.message + "</td><td class=\"s-time\">"
+                                + value.submitted_date + "</td><td class=\"c-time\">" + value.approved_date + "</td><td class=\"duration\">" + value.duration + "</td><td><input type=\"checkbox\" class=\"w3-check\" id=\"" + key + "\"></td></tr>");
+                        });
+                    } else {
+                        $('#reschedule-footer').html("<p class=\"w3-center\">No requested meetings.</p>");
+                    }
+                }).fail(function() {
+                    $('#reschedule-footer').html("<p class=\"w3-center\">An error occurred while fetching requested meetings.</p>");
+                });
+            </script>
+
+            <br><br>
+            <button class="w3-button w3-round w3-hover-blue w3-right" id="start">Start</button>
+
+            <script type="text/javascript">
+                $('#start').on('click', function() {
+                    let checked = [];
+
+                    $('#start-meetings-table input:checked').each(function() {
+                        let id;
+
+                        id = $(this).closest('tr').find('.mid').val();
+
+                        checked.push(id);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo $this->url('home/user', [ 'action' => 'start-meeting' ]); ?>",
+                            data: {
+                                info: checked.join(", ")
+                            }
+                        }).done(function(msg) {
+                            $('#start-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                        }).fail(function(msg) {
+                            $('#start-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                        });
+                    });
+                });
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="start-footer">&nbsp;</footer>
+    </div>
+</div>
+
+<div id="post-article-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('post-article-modal').style.display='none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Post An Article</h2>
+        </header>
+
+        <div class="w3-container" style="overflow: auto;">
+            <p></p>
+
+            <label for="author">Author</label>
+            <input type="text" class="w3-input" id="author" value="<?php echo $this->full_name; ?>" disabled>
+            <br>
+            <label for="title">Title</label>
+            <input type="text" class="w3-input" id="title" placeholder="Title goes here">
+            <br>
+            <label for="article-body">Article Body</label>
+            <textarea class="w3-input" id="article-body" placeholder="Article body goes here"></textarea>
+            <br><br>
+            <button class="w3-button w3-round w3-hover-blue w3-right" id="post-article-btn">Post An Article</button>
+
+            <script type="text/javascript">
+                $('#post-article-btn').on('click', function() {
+                    let checked = [];
+
+                    $('#start-meetings-table input:checked').each(function() {
+                        let id;
+
+                        id = $(this).closest('tr').find('.mid').val();
+
+                        checked.push(id);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo $this->url('home/user', [ 'action' => 'start-meeting' ]); ?>",
+                            data: {
+                                info: checked.join(", ")
+                            }
+                        }).done(function(msg) {
+                            $('#start-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                        }).fail(function(msg) {
+                            $('#start-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                        });
+                    });
+                });
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="start-footer">&nbsp;</footer>
+    </div>
+
+<script type="text/javascript">
+    const modal1 = document.getElementById('view-requested-meetings-modal');
+    const modal2 = document.getElementById('confirm-meeting-modal');
+    const modal3 = document.getElementById('cancel-meeting-modal');
+    const modal4 = document.getElementById('reschedule-meeting-modal');
+    const modal5 = document.getElementById('start-meeting-modal');
+    const modal6 = document.getElementById('post-article-modal');
+
+    window.onclick = function (event) {
+        if (event.target === modal1) {
+            modal1.style.display = 'none';
+        }
+
+        if (event.target === modal2) {
+            modal2.style.display = 'none';
+        }
+
+        if (event.target === modal3) {
+            modal3.style.display = 'none';
+        }
+
+        if (event.target === modal4) {
+            modal4.style.display = 'none';
+        }
+
+        if (event.target === modal5) {
+            modal5.style.display = 'none';
+        }
+
+        if (event.target === modal6) {
+            modal6.style.display = 'none';
+        }
+    }
+</script>
+
+
+
+
+
+

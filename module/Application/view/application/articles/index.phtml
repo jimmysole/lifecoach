@@ -1,0 +1,11 @@
+<?php
+	if (!empty($this->article)):
+		?>
+	<div>
+		<?php foreach ($this->article as $value): ?>
+		    <div>Author: <?php echo $value['author']; ?></div>
+		<?php endforeach; ?>
+	</div>
+	<?php else: ?>
+
+<?php endif; ?>
