@@ -22,7 +22,7 @@
 
 
         // article methods
-		public function postArticle(string $title, string $subject, string $body) : AdminInterface|bool;
+		public function postArticle(string $subject, string $title, string $body) : AdminInterface|bool;
 
         public function removeArticle(int $article_id) : AdminInterface|bool;
 

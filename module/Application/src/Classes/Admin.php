@@ -321,7 +321,7 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         // article methods
-        public function postArticle(string $title, string $subject, string $body): AdminInterface|bool
+        public function postArticle(string $subject, string $title, string $body): AdminInterface|bool
         {
             $this->title     = !empty($title)     ? $title     : "Untitled";
             $this->subject   = !empty($subject)   ? $subject   : "No Subject";
@@ -331,7 +331,7 @@
             // insert the article now
             $insert = $this->insert->into('articles')->columns(['article_id', 'author', 'title', 'subject', 'body', 'date_written'])
                 ->values(['article_id' => rand(0, 1000), 'author' => $this->user, 'title' => $this->title, 'subject' => $this->subject, 'body' => $this->body,
-                    'date_written' => 'NOW()']);
+                    'date_written' => date('Y-m-d h:i:s')]);
 
             $query = $this->gateway->getAdapter()->query(
                 $this->sql->buildSqlString($insert), Adapter::QUERY_MODE_EXECUTE
