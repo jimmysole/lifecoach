@@ -183,7 +183,12 @@ class UserController extends AbstractActionController
         $this->view_model->setTerminal(true);
 
         if ($this->request->isPost()) {
-
+            if (false !== $this->user_service->postArticle($this->params()->fromPost('articleSubject'),
+                $this->params()->fromPost('articleTitle'), $this->params()->fromPost('articleBody'))) {
+                echo "Article was posted!";
+            } else {
+                echo "Error posting article, please try again";
+            }
         }
 
         return $this->view_model;

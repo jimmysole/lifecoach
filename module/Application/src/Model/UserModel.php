@@ -166,4 +166,10 @@
         {
             return $this->admin->startMeeting($meeting_id);
         }
+
+
+        public function postArticle(string $title, string $subject, string $body) : AdminInterface|bool
+        {
+            return $this->admin->postArticle($title, $subject, $body);
+        }
 	}

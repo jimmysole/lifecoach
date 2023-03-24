@@ -75,7 +75,7 @@
         {
             $select = $this->select->columns(['id', 'user', 'message', 'submitted_date', 'approved_date', 'duration'])
                 ->from('confirmed_sessions')
-                ->where(['counselor' => $this->user]);
+                ->where("counselor = '" . $this->user . "' AND started != 1");
 
             $query = $this->gateway->getAdapter()->query(
                 $this->sql->buildSqlString($select),
