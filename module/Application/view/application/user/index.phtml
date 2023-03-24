@@ -432,9 +432,9 @@
                                 info: checked.join(", ")
                             }
                         }).done(function(msg) {
-                            $('#start-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                            $('#post-article-footer').html("<p class=\"w3-center\">" + msg + "</p>");
                         }).fail(function(msg) {
-                            $('#start-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                            $('#post-article-footer').html("<p class=\"w3-center\">" + msg + "</p>");
                         });
                     });
                 });
@@ -442,7 +442,7 @@
         </div>
 
         <br><br><br>
-        <footer class="w3-container w3-theme-gradient" id="start-footer">&nbsp;</footer>
+        <footer class="w3-container w3-theme-gradient" id="post-article-footer">&nbsp;</footer>
     </div>
 
 <script type="text/javascript">
