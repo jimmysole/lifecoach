@@ -1,11 +1,23 @@
 <?php
 	if (!empty($this->article)):
-		?>
-	<div>
-		<?php foreach ($this->article as $value): ?>
-		    <div>Author: <?php echo $value['author']; ?></div>
-		<?php endforeach; ?>
-	</div>
-	<?php else: ?>
+        foreach ($this->article as $value):
+        ?>
+	<div class="w3-container w3-theme-gradient w3-border-black">
+        <h3 class="w3-center"><?php echo $value['title']; ?> - By <?php echo $value['author']; ?></h3>
+    </div>
 
+    <img src="<?php echo $this->basePath() . '/images/anxiety.jpg'; ?>" alt="Anxiety" style="width: 100%;">
+
+    <div class="w3-container">
+        <h4><?php echo $value['body']; ?></h4>
+	</div>
+
+    <div class="w3-container w3-theme-gradient w3-border-black">
+        <h5 class="w3-center">Written on <?php echo $value['date_written']; ?></h5>
+    </div>
+    <?php endforeach; ?>
+    <br><br><br>
+	<?php else: ?>
+    <div class="w3-container">No articles were found</div>
 <?php endif; ?>
+

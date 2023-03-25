@@ -10,36 +10,20 @@
 	class ArticleModel
 	{
 		private TableGateway $gateway;
-		private string $article;
+		private Articles $article;
 		private string $user;
 		private int $article_criteria;
 		
 		private string $title;
 		private string $text;
 		
-		public function __construct(TableGateway $gateway, $user)
+		public function __construct(TableGateway $gateway)
 		{
 			$this->gateway = $gateway;
-			$this->user = $user;
 			
-			$this->article = new Articles($this->gateway, $this->user);
+			$this->article = new Articles($this->gateway);
 		}
-		
-		public function postArticle(string $title, string $text) : bool
-		{
-			$this->title = $title;
-			$this->text = $text;
-			
-			try {
-				 $this->article->writeArticle($this->title, $this->text);
-			} catch (\Exception $e) {
-				return false;
-			}
-			
-			return true;
-		}
-		
-		
+
 		public function viewAllArticles() : array
 		{
 			return $this->article->viewAllArticles();

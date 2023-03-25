@@ -222,7 +222,7 @@ class Module implements ConfigProviderInterface
 	            
 	            ArticleModel::class => function ($container) {
                 	$table_gateway = $container->get(ArticleService::class);
-                	return new ArticleModel($table_gateway, $container->get(AuthenticationService::class)->getIdentity());
+                	return new ArticleModel($table_gateway);
 	            },
 	            
 	            ArticleService::class => function ($container) {

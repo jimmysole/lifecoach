@@ -40,18 +40,5 @@
 			
 			return $this->view_model;
 		}
-		
-		
-		public function postArticleAction(): ViewModel
-		{
-			$layout = $this->layout();
-			$layout->setTerminal(true);
-			
-			$view_model =  new ViewModel();
-			$view_model->setTerminal(true);
-			
-			
-			
-			return $view_model;
-		}
+
 	}
