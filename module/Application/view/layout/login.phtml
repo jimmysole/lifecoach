@@ -67,16 +67,16 @@
        	   		
        	   		<div class="w3-right w3-hide-small">
        	   			<div class="w3-dropdown-hover">
-       	   				<button class="w3-button w3-theme-gradient w3-wide">Categories</button>
+       	   				<button class="w3-button w3-theme-gradient w3-wide">Articles</button>
        	   				<div class="w3-dropdown-content w3-bar-block w3-border w3-theme-gradient">
-       	   				<?php foreach ($this->categories as $value): ?>
-       	   					<a href="<?php echo $this->url('home/categories', array('action' => strtolower($value['type']))); ?>" class="w3-bar-item w3-button w3-hover-blue"><?php echo $value['type'] . ' ' . '(' . $value['number'] . ')';?></a>
-       	   				<?php endforeach; ?>
+                            <?php foreach ($this->articles as $value):  ?>
+                                <a href="<?php echo $this->url('home/articles', array('article_id' => $value['article_id'])); ?>" class="w3-bar-item w3-button w3-hover-blue"><?php echo $value['title']; ?></a>
+                            <?php endforeach; ?>
        	   				</div>
        	   			</div>
        	   			<a href="<?php echo $this->url('home/register', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Register">Register</a>
        	   			<a href="<?php echo $this->url('home/login', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Login">Login</a>
-       	   			<a href="#" class="w3-bar-item w3-button w3-hover-blue" title="Test">Stores</a>
+       	   			<a href="#" class="w3-bar-item w3-button w3-hover-blue" title="Test">Life Coaches</a>
        	   			<a href="#" class="w3-bar-item w3-button w3-hover-blue" title="Test">About</a>
        	   			<a href="#" class="w3-bar-item w3-button w3-hover-blue" title="Test">Contact</a>
        	   		</div>

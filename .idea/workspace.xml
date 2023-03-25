@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
-      <change afterPath="$PROJECT_DIR$/public/images/anxiety.jfif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/anxiety.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Articles.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Articles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/ArticlesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/ArticlesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Interfaces/ArticlesInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Interfaces/ArticlesInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/ArticleModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/ArticleModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Module.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/articles/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/articles/index.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/user/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/user/index.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/user.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/user.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/login.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/login.phtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +156,7 @@
       <workItem from="1678315062519" duration="24260000" />
       <workItem from="1678808055999" duration="1197000" />
       <workItem from="1678894631113" duration="19574000" />
-      <workItem from="1679266028072" duration="27718000" />
+      <workItem from="1679266028072" duration="28403000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>
