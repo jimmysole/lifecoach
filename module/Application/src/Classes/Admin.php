@@ -348,8 +348,6 @@
 
         public function uploadArticleImage(array $image) : AdminInterface|bool
         {
-            //var_dump($image);
-
             $this->image = count($image, 1) > 0 ? $image : [];
 
             // upload the image
