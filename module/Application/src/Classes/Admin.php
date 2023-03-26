@@ -353,8 +353,8 @@
             // upload the image
             $path = getcwd() . '/public/images/articles/';
 
-            if (is_uploaded_file($image['file']['tmp_name'])) {
-                if (move_uploaded_file($image['file']['tmp_name'], $path . $image['file']['name'])) {
+            if (is_uploaded_file($this->image['file']['tmp_name'])) {
+                if (move_uploaded_file($this->image['file']['tmp_name'], $path . $this->image['file']['name'])) {
                     return $this;
                 } else {
                     return false;
