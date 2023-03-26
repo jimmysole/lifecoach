@@ -28,6 +28,7 @@
 		private string $title;
 		private string $subject;
 		private string $body;
+        private array $image;
 
         private array $meeting_details = [];
 		
@@ -321,17 +322,17 @@
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         // article methods
-        public function postArticle(string $subject, string $title, string $body): AdminInterface|bool
+        public function postArticle(string $subject, string $title, string $body, string $image): AdminInterface|bool
         {
-            $this->title     = !empty($title)     ? $title     : "Untitled";
-            $this->subject   = !empty($subject)   ? $subject   : "No Subject";
-            $this->body      = !empty($body)      ? $body      : "Placeholder text for body";
+            $this->title     = !empty($title)             ? $title   : "Untitled";
+            $this->subject   = !empty($subject)           ? $subject : "No Subject";
+            $this->body      = !empty($body)              ? $body    : "Placeholder text for body";
 
 
             // insert the article now
-            $insert = $this->insert->into('articles')->columns(['article_id', 'author', 'title', 'subject', 'body', 'date_written'])
+            $insert = $this->insert->into('articles')->columns(['article_id', 'author', 'title', 'subject', 'body', 'date_written', 'image'])
                 ->values(['article_id' => rand(0, 1000), 'author' => $this->user, 'title' => $this->title, 'subject' => $this->subject, 'body' => $this->body,
-                    'date_written' => date('Y-m-d h:i:s')]);
+                    'date_written' => date('Y-m-d h:i:s'), 'image' => $image]);
 
             $query = $this->gateway->getAdapter()->query(
                 $this->sql->buildSqlString($insert), Adapter::QUERY_MODE_EXECUTE
@@ -339,9 +340,30 @@
 
             if ($query->count() > 0) {
                 return $this;
+            } else {
+                return false;
             }
+        }
 
-            return false;
+
+        public function uploadArticleImage(array $image) : AdminInterface|bool
+        {
+            //var_dump($image);
+
+            $this->image = count($image, 1) > 0 ? $image : [];
+
+            // upload the image
+            $path = getcwd() . '/public/images/articles/';
+
+            if (is_uploaded_file($image['file']['tmp_name'])) {
+                if (move_uploaded_file($image['file']['tmp_name'], $path . $image['file']['name'])) {
+                    return $this;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
 
 

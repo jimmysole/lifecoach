@@ -184,10 +184,28 @@ class UserController extends AbstractActionController
 
         if ($this->request->isPost()) {
             if (false !== $this->user_service->postArticle($this->params()->fromPost('articleSubject'),
-                $this->params()->fromPost('articleTitle'), $this->params()->fromPost('articleBody'))) {
+                $this->params()->fromPost('articleTitle'), $this->params()->fromPost('articleBody'),
+                $this->params()->fromPost('articleFile'))) {
                 echo "Article was posted!";
             } else {
                 echo "Error posting article, please try again";
+            }
+        }
+
+        return $this->view_model;
+    }
+
+
+    public function uploadarticleimageAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        if ($this->request->isPost()) {
+            if (false !== $this->user_service->uploadArticleImage($this->params()->fromFiles())) {
+                echo "Image uploaded";
+            } else {
+                echo "Error uploading the image";
             }
         }
 

@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
-      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/module/Application/view/application/user/upload-article-image.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Articles.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Articles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Interfaces/AdminInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Interfaces/AdminInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/UserModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/UserModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/application/articles/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/articles/index.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/application/user/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/user/index.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/anxiety.jfif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/anxiety.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/articles/anxiety.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +140,7 @@
       <recent name="F:\xampp\htdocs\module\Admin\view" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\xampp\htdocs\public\images\articles" />
       <recent name="F:\xampp\htdocs\module\Admin\view\admin" />
     </key>
   </component>
@@ -155,7 +166,7 @@
       <workItem from="1678315062519" duration="24260000" />
       <workItem from="1678808055999" duration="1197000" />
       <workItem from="1678894631113" duration="19574000" />
-      <workItem from="1679266028072" duration="28640000" />
+      <workItem from="1679266028072" duration="39763000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>

@@ -22,7 +22,9 @@
 
 
         // article methods
-		public function postArticle(string $subject, string $title, string $body) : AdminInterface|bool;
+		public function postArticle(string $subject, string $title, string $body, string $image) : AdminInterface|bool;
+
+        public function uploadArticleImage(array $image) : AdminInterface|bool;
 
         public function removeArticle(int $article_id) : AdminInterface|bool;
 

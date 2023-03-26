@@ -168,8 +168,14 @@
         }
 
 
-        public function postArticle(string $subject, string $title, string $body) : AdminInterface|bool
+        public function postArticle(string $subject, string $title, string $body, string $image) : AdminInterface|bool
         {
-            return $this->admin->postArticle($subject, $title, $body);
+            return $this->admin->postArticle($subject, $title, $body, $image);
+        }
+
+
+        public function uploadArticleImage(array $image) : AdminInterface|bool
+        {
+            return $this->admin->uploadArticleImage($image);
         }
 	}

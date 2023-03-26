@@ -6,7 +6,7 @@
         <h3 class="w3-center"><?php echo $value['title']; ?> - By <?php echo $value['author']; ?></h3>
     </div>
 
-    <img src="<?php echo $this->basePath() . '/images/anxiety.jpg'; ?>" alt="Anxiety" style="width: 100%;">
+    <img src="<?php echo $this->basePath() . '/images/articles/' . $value['image']; ?>" alt="Anxiety" style="width: 100%;">
 
     <div class="w3-container">
         <h4><?php echo $value['body']; ?></h4>

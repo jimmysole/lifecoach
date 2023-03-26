@@ -35,7 +35,7 @@
 
         public function viewAllArticles(): array
         {
-            $select = $this->select->columns(['article_id', 'author', 'title', 'subject', 'body', 'date_written'])->from('articles')->where('id IS NOT NULL');
+            $select = $this->select->columns(['article_id', 'author', 'title', 'subject', 'body', 'date_written', 'image'])->from('articles')->where('id IS NOT NULL');
 				
             $query = $this->sql->getAdapter()->query(
                 $this->sql->buildSqlString($select),
@@ -58,7 +58,7 @@
 		
         public function viewArticle(int $criteria): array
         {
-            $select = $this->select->columns(['article_id', 'author', 'title', 'subject', 'body', 'date_written'])->from('articles')->where(['article_id' => $criteria]);
+            $select = $this->select->columns(['article_id', 'author', 'title', 'subject', 'body', 'date_written', 'image'])->from('articles')->where(['article_id' => $criteria]);
 				
             $query = $this->sql->getAdapter()->query(
                 $this->sql->buildSqlString($select),

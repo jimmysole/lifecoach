@@ -403,18 +403,38 @@
         <div class="w3-container" style="overflow: auto;">
             <p></p>
 
-            <label for="author">Subject</label>
-            <input type="text" class="w3-input" id="subject" placeholder="Subject goes here">
-            <br>
-            <label for="title">Title</label>
-            <input type="text" class="w3-input" id="title" placeholder="Title goes here">
-            <br>
-            <label for="article-body">Article Body</label>
-            <textarea class="w3-input" id="article-body" placeholder="Article body goes here"></textarea>
+            <form method="post" name="article-form" id="article-form" enctype="multipart/form-data">
+                <label for="author">Subject</label>
+                <input type="text" class="w3-input" id="subject" placeholder="Subject goes here">
+                <br>
+                <label for="title">Title</label>
+                <input type="text" class="w3-input" id="title" placeholder="Title goes here">
+                <br>
+                <label for="article-body">Article Body</label>
+                <textarea class="w3-input" id="article-body" placeholder="Article body goes here"></textarea>
+                <br>
+                <label for="image">Image</label>
+                <input type="file" name="image" id="image">
+            </form>
+
             <br><br>
             <button class="w3-button w3-round w3-hover-blue w3-right" id="post-article-btn">Post An Article</button>
 
             <script type="text/javascript">
+                $('input[type="file"]').on('change', function() {
+                    let file = document.getElementById('image').files[0];
+                    let formData = new FormData();
+                    formData.append("file", file);
+
+                    $.ajax({
+                        type: "POST",
+                        processData: false,
+                        contentType: false,
+                        url: "<?php echo $this->url('home/user', [ 'action' => 'upload-article-image']); ?>",
+                        data: formData
+                    });
+                });
+
                 $('#post-article-btn').on('click', function() {
                     let subject, title, article_body;
 
@@ -428,7 +448,8 @@
                         data: {
                             articleSubject: subject,
                             articleTitle: title,
-                            articleBody: article_body
+                            articleBody: article_body,
+                            articleFile: $('#image').val().replace(/C:\\fakepath\\/i, '')
                         }
                     }).done(function(msg) {
                         $('#post-article-footer').html("<p class=\"w3-center\">" + msg + "</p>");
