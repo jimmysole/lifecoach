@@ -62,8 +62,6 @@
 
 		public function getUserId()
 		{
-
-			
 			$select = $this->select->columns(['id'])->from('users')
 				->where(['username' => $this->user]);
 			
@@ -177,5 +175,17 @@
         public function uploadArticleImage(array $image) : AdminInterface|bool
         {
             return $this->admin->uploadArticleImage($image);
+        }
+
+
+        public function removeArticle(int $article_id) : AdminInterface|bool
+        {
+            return $this->admin->removeArticle($article_id);
+        }
+
+
+        public function viewArticles() : array
+        {
+            return $this->admin->viewArticles();
         }
 	}

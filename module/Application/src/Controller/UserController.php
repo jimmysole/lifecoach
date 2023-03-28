@@ -211,4 +211,35 @@ class UserController extends AbstractActionController
 
         return $this->view_model;
     }
+
+
+    public function viewarticlesAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        echo json_encode($this->user_service->viewArticles());
+
+        return $this->view_model;
+    }
+
+
+    public function removearticleAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        if ($this->request->isPost()) {
+            if (false !== $this->user_service->removeArticle(intval($this->params()->fromPost('info')))) {
+                echo "Article was removed";
+            } else {
+                echo "Error removing article, please try again";
+            }
+        }
+
+        return $this->view_model;
+    }
+
+
+
 }

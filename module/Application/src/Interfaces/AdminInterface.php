@@ -30,6 +30,8 @@
 
         public function editArticle(int $article_id, array $edits = []) : AdminInterface|bool;
 
+        public function viewArticles() : array;
+
 
 
 

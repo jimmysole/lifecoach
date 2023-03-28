@@ -365,12 +365,34 @@
         }
 
 
+        public function viewArticles(): array
+        {
+            $select = $this->select->columns(['article_id', 'author', 'title', 'subject', 'body', 'date_written'])->from('articles')->where('id IS NOT NULL');
+
+            $query = $this->sql->getAdapter()->query(
+                $this->sql->buildSqlString($select),
+                Adapter::QUERY_MODE_EXECUTE
+            );
+
+            if ($query->count() > 0) {
+                $rows = [];
+
+                foreach ($query as $values) {
+                    $rows[] = $values;
+                }
+            } else {
+                return [];
+            }
+
+            return $rows;
+        }
+
         public function removeArticle(int $article_id): AdminInterface|bool
         {
             if (preg_match("/[0-9+]/", $article_id)) {
                 // article id is an int
                 // locate it now
-                $delete = $this->delete->from('articles')->where(['id' => $article_id]);
+                $delete = $this->delete->from('articles')->where(['article_id' => $article_id]);
 
                 $query = $this->gateway->getAdapter()->query(
                     $this->sql->buildSqlString($delete),
