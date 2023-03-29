@@ -13,7 +13,7 @@
                 <button class="w3-button w3-round w3-hover-blue" id="start-meeting" onclick="document.getElementById('start-meeting-modal').style.display = 'block';">Start Meeting</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="post-article" onclick="document.getElementById('post-article-modal').style.display = 'block';">Post Article</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="remove-article" onclick="document.getElementById('remove-article-modal').style.display = 'block';">Remove Article</button>&nbsp;
-                <button class="w3-button w3-round w3-hover-blue" id="edit-article">Edit Article</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="edit-article" onclick="document.getElementById('edit-article-modal').style.display = 'block';">Edit Article</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="view-users">View Users</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="schedule">Schedule</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="user-access">Set Access</button>&nbsp;
@@ -540,6 +540,85 @@
     </div>
 </div>
 
+<div id="edit-article-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('edit-article-modal').style.display='none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Edit An Article</h2>
+        </header>
+
+        <div class="w3-container">
+            <p></p>
+            <table class="w3-table-all" style="display: none; overflow: auto;"  id="edit-articles-table">
+                <tr>
+                    <th>Title</th>
+                    <th>Subject</th>
+                    <th>Body</th>
+                    <th>Edit</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/user', ['action' => 'view-articles' ]); ?>",
+                    dataType: "json",
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#edit-articles-table').attr('style', 'display: block;');
+
+                        $.each(data, function (key, value) {
+                            $('#edit-articles-table').append("<tr><input type=\"hidden\" name=\"eid\" id=\"" + value.article_id + "\" class=\"eid\" value=\"" + value.article_id + "\"><td class=\"title\" contenteditable='true'>" + value.title
+                                + "</td><td class=\"subject\" contenteditable='true'>"
+                                + value.subject + "</td><td class=\"body\" contenteditable='true'>" + value.body + "</td><td><input type=\"checkbox\" class=\"w3-check\" id=\"" + key + "\"></td></tr>");
+                        });
+                    } else {
+                        $('#ra-footer').html("<p class=\"w3-center\">No articles exist.</p>");
+                    }
+                }).fail(function() {
+                    $('#ra-footer').html("<p class=\"w3-center\">Error retrieving articles.</p>");
+                });
+            </script>
+
+            <br><br>
+            <button class="w3-button w3-round w3-hover-blue w3-right" id="edit-article-btn">Edit Article</button>
+
+            <script type="text/javascript">
+                $('#edit-article-btn').on('click', function() {
+                    $('#edit-articles-table input:checked').each(function() {
+                        let id, title, subject, body;
+
+                        id       = $(this).closest('tr').find('.eid').val();
+                        title    = $(this).closest('tr').find('.subject').html();
+                        subject  = $(this).closest('tr').find('.subject').html();
+                        body     = $(this).closest('tr').find('.body').html();
+
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo $this->url('home/user', [ 'action' => 'edit-article' ]); ?>",
+                            data: {
+                                articleId: id,
+                                articleTitle: title,
+                                articleSubject: subject,
+                                articleBody: body
+                            }
+                        }).done(function(msg) {
+                            $('#ea-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                        }).fail(function(msg) {
+                            $('#ea-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                        });
+                    });
+                });
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="ea-footer">&nbsp;</footer>
+    </div>
+</div>
+
+
 <script type="text/javascript">
     const modal1 = document.getElementById('view-requested-meetings-modal');
     const modal2 = document.getElementById('confirm-meeting-modal');
@@ -548,6 +627,7 @@
     const modal5 = document.getElementById('start-meeting-modal');
     const modal6 = document.getElementById('post-article-modal');
     const modal7 = document.getElementById('remove-article-modal');
+    const modal8 = document.getElementById('edit-article-modal');
 
     window.onclick = function (event) {
         if (event.target === modal1) {
@@ -576,6 +656,10 @@
 
         if (event.target === modal7) {
             modal7.style.display = 'none';
+        }
+
+        if (event.target === modal8) {
+            modal8.style.display = 'none';
         }
     }
 </script>

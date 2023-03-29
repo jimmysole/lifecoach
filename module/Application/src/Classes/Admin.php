@@ -387,6 +387,7 @@
             return $rows;
         }
 
+
         public function removeArticle(int $article_id): AdminInterface|bool
         {
             if (preg_match("/[0-9+]/", $article_id)) {
@@ -433,19 +434,13 @@
 
                     if ($query->count() > 0) {
                         // article found
-                        $row_id = [];
-
-                        foreach ($query as $key => $value) {
-                            $row_id[$key] = $value;
-                        }
-
                         $title = $article_edits['title'];
                         $subject = $article_edits['subject'];
                         $body = $article_edits['body'];
 
                         $update = $this->update->table('articles')
                             ->set(['title' => $title, 'subject' => $subject, 'body' => $body])
-                            ->where(['id' => $row_id['id']]);
+                            ->where(['article_id' => $article_id]);
 
                         $query = $this->gateway->getAdapter()->query(
                             $this->sql->buildSqlString($update),

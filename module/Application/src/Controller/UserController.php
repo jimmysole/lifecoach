@@ -241,5 +241,20 @@ class UserController extends AbstractActionController
     }
 
 
+    public function editarticleAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
 
+        if ($this->request->isPost()) {
+            if (false !== $this->user_service->editArticle($this->params()->fromPost('articleId'),
+                [ 'title' => $this->params()->fromPost('articleTitle'), 'subject' => $this->params()->fromPost('articleSubject'), 'body' => $this->params()->fromPost('articleBody') ])) {
+                echo "Article was edited successfully.";
+            } else {
+                echo "Error editing article, please try again";
+            }
+        }
+
+        return $this->view_model;
+    }
 }

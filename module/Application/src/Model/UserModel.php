@@ -188,4 +188,10 @@
         {
             return $this->admin->viewArticles();
         }
+
+
+        public function editArticle(int $article_id, array $edits = []) : AdminInterface|bool
+        {
+            return $this->admin->editArticle($article_id, $edits);
+        }
 	}
