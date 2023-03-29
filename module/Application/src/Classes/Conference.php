@@ -15,11 +15,15 @@
 	class Conference implements ConferenceInterface
 	{
 			private string $user;
+
 			private TableGateway $gateway;
+
 			private array $user_details = [];
 			
 			private string $title = "Individual Chat Session with Kevin Benitez";
+
 			private array $room_details = [];
+
 			private Insert $insert;
 		
 			public function __construct(TableGateway $gateway, string $user)

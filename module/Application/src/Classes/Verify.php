@@ -11,9 +11,9 @@
 	
 	class Verify implements VerifyInterface
 	{
-		protected $table_gateway;
+		protected TableGateway $table_gateway;
 		
-		protected $code;
+		protected string $code;
 		
 		
 		public function __construct(TableGateway $gateway)

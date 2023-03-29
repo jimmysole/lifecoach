@@ -12,17 +12,19 @@
 	
 	class Photos implements PhotosInterface
 	{
-		public $set_edit_option;
-		public $user_id;
-		public $photo;
-		public $edits;
-		public $store_name;
-		public $item_id;
-		public $store_id;
-		public $sql;
-		public $insert;
+		public int $set_edit_option;
+		public int $user_id;
+		public array $photo;
+		public array $edits;
+		public string $store_name;
+		public int $item_id;
+		public int $store_id;
+
+		public Sql $sql;
+
+		public Insert $insert;
 		
-		private $imagick;
+		private \Imagick $imagick;
 		
 		
 		public function __construct(TableGateway $gateway, int $user_id, int $edit, int $item_id, int $store_id, string $store_name, string $photo, array $edits)

@@ -9,7 +9,7 @@
 	class Profile implements ProfileInterface
 	{
 		
-		private $profile_details = [];
+		private array $profile_details = [];
 		
 		public function createProfile(array $profile_details): bool
 		{

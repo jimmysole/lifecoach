@@ -14,7 +14,9 @@
 	class Logout implements LogoutInterface
 	{
 		protected TableGateway $table_gateway;
+
 		protected Sql $sql;
+
 		protected AdapterInterface $adapter;
 		
 		

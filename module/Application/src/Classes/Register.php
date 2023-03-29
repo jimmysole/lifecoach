@@ -22,14 +22,17 @@
 	
 	class Register implements RegisterInterface
 	{
-		protected $table_gateway;
-		protected $sql;
-		protected $select;
-		protected $insert;
+		protected TableGateway $table_gateway;
+
+		protected Sql $sql;
+
+		protected Select $select;
+
+		protected Insert $insert;
 		
-		private $verification_code;
+		private string $verification_code;
 		
-		protected $register_params = [];
+		protected array $register_params = [];
 		
 		
 		public function __construct(TableGateway $gateway)

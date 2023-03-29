@@ -15,7 +15,9 @@
 	class Login implements Interfaces\LoginInterface
 	{
 		protected TableGateway\TableGateway $table_gateway;
+
 		protected Sql\Sql $sql;
+
 		protected Adapter\AdapterInterface $adapter;
 		
 		

@@ -14,7 +14,9 @@
 		private array $contact_params = [];
 		
 		private Sql $sql;
+
 		private Insert $insert;
+
 		private TableGateway $gateway;
 		
 		

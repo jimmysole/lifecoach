@@ -19,7 +19,9 @@
         protected string $user;
 		    
         private TableGateway $gateway;
+
         private Sql $sql;
+
         private Select $select;
 
 		    
