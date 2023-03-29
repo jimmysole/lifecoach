@@ -496,8 +496,8 @@
 
         public function upcomingSchedule(): array|bool
         {
-            $select = $this->select->columns(['client', 'meeting_time', 'duration'])
-                ->from('meetings');
+            $select = $this->select->columns(['user', 'approved_date', 'duration'])
+                ->from('confirmed_sessions');
 
             $query = $this->gateway->getAdapter()->query(
                 $this->sql->buildSqlString($select),
@@ -541,9 +541,9 @@
                         'change_file_status'  => true,
                     ];
 
-                    if (!file_exists('../../../data/' . $admin . 'txt')) {
+                    if (!file_exists(getcwd() . 'data/' . $admin . '.txt')) {
                         // create the file
-                        $fp = fopen("../../../data/$admin.txt", "w");
+                        $fp = fopen(getcwd() . "data/$admin.txt", "w");
 
                         fwrite($fp, implode(",", $privileges));
 
@@ -551,7 +551,7 @@
 
                         // save file path to db
                         $update = $this->update->table('admins')
-                            ->set(['role' => 1, 'perms_file' => '../../../data/' . $admin . 'txt'])
+                            ->set(['role' => 1, 'perms_file' => getcwd() . 'data/' . $admin . '.txt'])
                             ->where(['username' => $admin]);
 
                         $query = $this->gateway->getAdapter()->query(
@@ -568,7 +568,7 @@
                     } else {
                         // overwrite the file contents
                         // file exists already, no need to insert it into database table
-                        $put = file_put_contents('../../../data/' . $admin . '.txt', implode(",", $privileges));
+                        $put = file_put_contents(getcwd() . 'data/' . $admin . '.txt', implode(",", $privileges));
 
                         if (false !== $put) {
                             return $this;
@@ -593,9 +593,9 @@
                         'unban_user'          => true,
                     ];
 
-                    if (!file_exists('../../../data/' . $admin . 'txt')) {
+                    if (!file_exists(getcwd() . 'data/' . $admin . '.txt')) {
                         // create the file
-                        $fp = fopen("../../../data/$admin.txt", "w");
+                        $fp = fopen(getcwd() . "data/$admin.txt", "w");
 
                         fwrite($fp, implode(",", $privileges));
 
@@ -603,7 +603,7 @@
 
                         // save file path to db
                         $update = $this->update->table('admins')
-                            ->set(['role' => 2, 'perms_file' => '../../../data/' . $admin . 'txt'])
+                            ->set(['role' => 2, 'perms_file' => getcwd() . 'data/' . $admin . '.txt'])
                             ->where(['username' => $admin]);
 
                         $query = $this->gateway->getAdapter()->query(
@@ -620,7 +620,7 @@
                     } else {
                         // overwrite the file contents
                         // file exists already, no need to insert it into database table
-                        $put = file_put_contents('../../../data/' . $admin . '.txt', implode(",", $privileges));
+                        $put = file_put_contents(getcwd() . 'data/' . $admin . '.txt', implode(",", $privileges));
 
                         if (false !== $put) {
                             return $this;
@@ -639,9 +639,9 @@
                         'unban_user'          => true,
                     ];
 
-                    if (!file_exists('../../../data/' . $admin . 'txt')) {
+                    if (!file_exists(getcwd() . 'data/' . $admin . '.txt')) {
                         // create the file
-                        $fp = fopen("../../../data/$admin.txt", "w");
+                        $fp = fopen(getcwd() . "data/$admin.txt", "w");
 
                         fwrite($fp, implode(",", $privileges));
 
@@ -649,7 +649,7 @@
 
                         // save file path to db
                         $update = $this->update->table('admins')
-                            ->set(['role' => 3, 'perms_file' => '../../../data/' . $admin . 'txt'])
+                            ->set(['role' => 3, 'perms_file' => getcwd() .  'data/' . $admin . '.txt'])
                             ->where(['username' => $admin]);
 
                         $query = $this->gateway->getAdapter()->query(
@@ -666,7 +666,7 @@
                     } else {
                         // overwrite the file contents
                         // file exists already, no need to insert it into database table
-                        $put = file_put_contents('../../../data/' . $admin . '.txt', implode(",", $privileges));
+                        $put = file_put_contents(getcwd() . 'data/' . $admin . '.txt', implode(",", $privileges));
 
                         if (false !== $put) {
                             return $this;
@@ -798,7 +798,7 @@
         public function uploadFile(array $file, string $access = 'private'): AdminInterface|bool
         {
             if (is_file($file['name'])) {
-                $path = "../../../../data/" . $this->user;
+                $path = getcwd() . "data/" . $this->user;
 
                 if (is_dir($path)) {
                     // proceed to upload the file
@@ -813,9 +813,9 @@
                     }
                 } else {
                     // create the dir
-                    mkdir("../../../../data/" . $this->user);
+                    mkdir(getcwd() . "data/" . $this->user);
 
-                    $new_path = "../../../../data/" . $this->user;
+                    $new_path =  getcwd() . "data/" . $this->user;
 
                     // proceed to upload the file
                     if (is_uploaded_file($file['tmp'])) {
@@ -855,7 +855,7 @@
                     // restrict access
                     // based on session id?
                     // or chmod properties?
-                    if (is_dir("../../../../data/" . $this->user)) {
+                    if (is_dir(getcwd() . "data/" . $this->user)) {
                         chmod($file, 0600); // read and write for owner ($this->user)
 
                         return $this;
@@ -863,7 +863,7 @@
                         return false;
                     }
                 } else if ($access == 'public') {
-                    if (is_dir("../../../../data/" . $this->user)) {
+                    if (is_dir(getcwd() . "data/" . $this->user)) {
                         chmod($file, 0777); // all access for everyone
 
                         return $this;
