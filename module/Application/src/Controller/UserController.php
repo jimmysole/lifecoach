@@ -269,4 +269,15 @@ class UserController extends AbstractActionController
 
         return $this->view_model;
     }
+
+
+    public function viewscheduleAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        echo json_encode($this->user_service->upcomingSchedule());
+
+        return $this->view_model;
+    }
 }

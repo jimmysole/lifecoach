@@ -15,12 +15,7 @@
                 <button class="w3-button w3-round w3-hover-blue" id="remove-article" onclick="document.getElementById('remove-article-modal').style.display = 'block';">Remove Article</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="edit-article" onclick="document.getElementById('edit-article-modal').style.display = 'block';">Edit Article</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="view-users" onclick="document.getElementById('view-users-modal').style.display = 'block';">View Users</button>&nbsp;
-                <button class="w3-button w3-round w3-hover-blue" id="schedule">Schedule</button>&nbsp;
-                <button class="w3-button w3-round w3-hover-blue" id="user-access">Set Access</button>&nbsp;
-                <button class="w3-button w3-round w3-hover-blue" id="ban-user">Ban User</button>&nbsp;
-                <button class="w3-button w3-round w3-hover-blue" id="upload-file">Upload File</button>&nbsp;
-                <button class="w3-button w3-round w3-hover-blue" id="remove-file">Remove File</button>&nbsp;
-                <button class="w3-button w3-round w3-hover-blue" id="change-file-status">Change File Status</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="schedule" onclick="document.getElementById('view-schedule-modal').style.display = 'block';">View Schedule</button>
             </div>
         <?php else: ?>
         <div class="w3-display-container">
@@ -555,6 +550,8 @@
                     <th>Subject</th>
                     <th>Body</th>
                     <th>Edit</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </table>
 
@@ -570,7 +567,8 @@
                         $.each(data, function (key, value) {
                             $('#edit-articles-table').append("<tr><input type=\"hidden\" name=\"eid\" id=\"" + value.article_id + "\" class=\"eid\" value=\"" + value.article_id + "\"><td class=\"title\" contenteditable='true'>" + value.title
                                 + "</td><td class=\"subject\" contenteditable='true'>"
-                                + value.subject + "</td><td class=\"body\" contenteditable='true'>" + value.body + "</td><td><input type=\"checkbox\" class=\"w3-check\" id=\"" + key + "\"></td></tr>");
+                                + value.subject + "</td><td class=\"body\" contenteditable='true'>" + value.body + "</td><td><input type=\"checkbox\" class=\"w3-check\" id=\"" + key + "\"></td>" +
+                                "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;&nbsp;</td></tr>");
                         });
                     } else {
                         $('#ra-footer').html("<p class=\"w3-center\">No articles exist.</p>");
@@ -668,6 +666,58 @@
     </div>
 </div>
 
+<div id="view-schedule-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('view-schedule-modal').style.display='none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Current Schedule</h2>
+        </header>
+
+        <div class="w3-container">
+            <p></p>
+            <table class="w3-table-all" style="display: none; overflow: auto;" id="schedule-table">
+                <tr>
+                    <th>User</th>
+                    <th>Counselor</th>
+                    <th>Message</th>
+                    <th>Submitted Date</th>
+                    <th>Approved Date</th>
+                    <th>Duration</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/user', ['action' => 'view-schedule']); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#schedule-table').attr('style', 'display: block;');
+
+                        $.each(data, function (key, value) {
+                            $('#schedule-table').append("<tr><td>" + value.user + "</td><td>" + value.counselor + "</td>" +
+                                "<td style='white-space: nowrap;'>" + value.message + "</td><td style='white-space: nowrap;'>" + value.submitted_date + "</td>" +
+                                "<td style='white-space: nowrap;'>" + value.approved_date + "</td><td>" + value.duration + "</td><td>&nbsp;</td><td>&nbsp;</td>" +
+                                "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>");
+                        });
+                    } else {
+                        $('#schedule-footer').html("No scheduled meetings.");
+                    }
+                }).fail(function() {
+                    $('#schedule-footer').html("Error fetching schedule.");
+                });
+            </script>
+        </div>
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="schedule-footer">&nbsp;</footer>
+    </div>
+</div>
+
 <script type="text/javascript">
     const modal1 = document.getElementById('view-requested-meetings-modal');
     const modal2 = document.getElementById('confirm-meeting-modal');
@@ -678,6 +728,7 @@
     const modal7 = document.getElementById('remove-article-modal');
     const modal8 = document.getElementById('edit-article-modal');
     const modal9 = document.getElementById('view-users-modal');
+    const modal10 = document.getElementById('view-schedule-modal');
 
     window.onclick = function (event) {
         if (event.target === modal1) {
@@ -714,6 +765,10 @@
 
         if (event.target === modal9) {
             modal9.style.display = 'none';
+        }
+
+        if (event.target === modal10) {
+            modal10.style.display = 'none';
         }
     }
 </script>

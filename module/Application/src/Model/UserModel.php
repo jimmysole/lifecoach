@@ -200,4 +200,10 @@
         {
             return $this->admin->viewUserList();
         }
+
+
+        public function upcomingSchedule() : array|bool
+        {
+            return $this->admin->upcomingSchedule();
+        }
 	}

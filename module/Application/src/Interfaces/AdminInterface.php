@@ -39,16 +39,4 @@
         public function viewUserList() : array|bool;
 
         public function upcomingSchedule() : array|bool;
-
-        public function setAccess(int $role_id, string $admin) : AdminInterface|bool;
-
-        public function banUser(int $user_id, array $params = []) : AdminInterface|bool;
-
-        public function unbanUser(int $user_id) : AdminInterface|bool;
-
-        public function uploadFile(array $file, string $access = 'private') : AdminInterface|bool;
-
-        public function removeFile(string $file) : AdminInterface|bool;
-
-        public function changeFileStatus(string $file, string $access) : AdminInterface|bool;
 	}
