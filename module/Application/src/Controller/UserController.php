@@ -66,6 +66,7 @@ class UserController extends AbstractActionController
         return $this->view_model;
     }
 
+
     public function viewconfirmedmeetingsAction() : ViewModel
     {
         $this->layout()->setTerminal(true);
@@ -254,6 +255,17 @@ class UserController extends AbstractActionController
                 echo "Error editing article, please try again";
             }
         }
+
+        return $this->view_model;
+    }
+
+
+    public function viewusersAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        echo json_encode($this->user_service->viewUserList());
 
         return $this->view_model;
     }

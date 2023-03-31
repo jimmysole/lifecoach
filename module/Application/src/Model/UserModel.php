@@ -194,4 +194,10 @@
         {
             return $this->admin->editArticle($article_id, $edits);
         }
+
+
+        public function viewUserList() : array|bool
+        {
+            return $this->admin->viewUserList();
+        }
 	}

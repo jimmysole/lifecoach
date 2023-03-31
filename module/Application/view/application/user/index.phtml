@@ -14,7 +14,7 @@
                 <button class="w3-button w3-round w3-hover-blue" id="post-article" onclick="document.getElementById('post-article-modal').style.display = 'block';">Post Article</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="remove-article" onclick="document.getElementById('remove-article-modal').style.display = 'block';">Remove Article</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="edit-article" onclick="document.getElementById('edit-article-modal').style.display = 'block';">Edit Article</button>&nbsp;
-                <button class="w3-button w3-round w3-hover-blue" id="view-users">View Users</button>&nbsp;
+                <button class="w3-button w3-round w3-hover-blue" id="view-users" onclick="document.getElementById('view-users-modal').style.display = 'block';">View Users</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="schedule">Schedule</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="user-access">Set Access</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="ban-user">Ban User</button>&nbsp;
@@ -618,6 +618,55 @@
     </div>
 </div>
 
+<div id="view-users-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('view-users-modal').style.display='none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Current Users</h2>
+        </header>
+
+        <div class="w3-container">
+            <p></p>
+            <table class="w3-table-all" style="display: none; overflow: auto;" id="users-table">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zipcode</th>
+                    <th>Country</th>
+                    <th>Active</th>
+                    <th></th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/user', ['action' => 'view-users']); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#users-table').attr('style', 'display: block;');
+
+                        $.each(data, function (key, value) {
+                            $('#users-table').append("<tr><td style='white-space: nowrap;'>" + value.first_name + " " + value.last_name + "</td><td>" + value.email + "</td>" +
+                                "<td style='white-space: nowrap;'>" + value.address + "</td><td style='white-space: nowrap;'>" + value.city + "</td><td>" + value.state + "</td>" +
+                                "<td>" + value.zipcode + "</td><td style='white-space: nowrap;'>" + value.country + "</td><td>" + value.active + "</td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>");
+                        });
+                    } else {
+                        $('#users-footer').html("No active users.");
+                    }
+                }).fail(function() {
+                    $('#users-footer').html("Error fetching user list.");
+                });
+            </script>
+        </div>
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="users-footer">&nbsp;</footer>
+    </div>
+</div>
 
 <script type="text/javascript">
     const modal1 = document.getElementById('view-requested-meetings-modal');
@@ -628,6 +677,7 @@
     const modal6 = document.getElementById('post-article-modal');
     const modal7 = document.getElementById('remove-article-modal');
     const modal8 = document.getElementById('edit-article-modal');
+    const modal9 = document.getElementById('view-users-modal');
 
     window.onclick = function (event) {
         if (event.target === modal1) {
@@ -660,6 +710,10 @@
 
         if (event.target === modal8) {
             modal8.style.display = 'none';
+        }
+
+        if (event.target === modal9) {
+            modal9.style.display = 'none';
         }
     }
 </script>
