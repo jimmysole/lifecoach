@@ -682,9 +682,7 @@
                     <th>Message</th>
                     <th>Submitted Date</th>
                     <th>Approved Date</th>
-                    <th>Duration</th>
-                    <th></th>
-                    <th></th>
+                    <th style="white-space: nowrap;">Duration (in minutes)</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -702,8 +700,7 @@
                         $.each(data, function (key, value) {
                             $('#schedule-table').append("<tr><td>" + value.user + "</td><td>" + value.counselor + "</td>" +
                                 "<td style='white-space: nowrap;'>" + value.message + "</td><td style='white-space: nowrap;'>" + value.submitted_date + "</td>" +
-                                "<td style='white-space: nowrap;'>" + value.approved_date + "</td><td>" + value.duration + "</td><td>&nbsp;</td><td>&nbsp;</td>" +
-                                "<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>");
+                                "<td style='white-space: nowrap;'>" + value.approved_date + "</td><td>" + value.duration + "</td><td>&nbsp;</td><td>&nbsp;&nbsp;</td></tr>");
                         });
                     } else {
                         $('#schedule-footer').html("No scheduled meetings.");
