@@ -9,7 +9,9 @@
     <div class="w3-col l3 m6 w3-margin-bottom">
         <div class="w3-display-container">
             <div class="w3-display-topleft w3-theme-gradient w3-padding"><?php echo $values['title']; ?></div>
-            <img src="<?php echo $this->basePath() . '/images/articles/' . $values['image']; ?>" alt="<?php echo $values['subject']; ?>" style="width: 100%;">
+            <a href="<?php echo $this->url('home/articles', ['action' => 'index', 'article_id' => $values['article_id']]); ?>">
+                <img src="<?php echo $this->basePath() . '/images/articles/' . $values['image']; ?>" alt="<?php echo $values['subject']; ?>" style="width: 100%;">
+            </a>
             <div class="w3-display-bottomright w3-theme-gradient w3-padding"><?php echo $values['author']; ?></div>
         </div>
     </div>
