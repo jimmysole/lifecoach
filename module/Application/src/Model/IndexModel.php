@@ -11,8 +11,7 @@ use Application\Classes\Index;
 
 class IndexModel
 {
-    protected $index_class;
-    protected $categories = array();
+    protected Index $index_class;
     
     
     public function __construct(TableGateway $gateway)

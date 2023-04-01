@@ -2,25 +2,19 @@
 <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">New Articles</h3>
 </div>
 
-
 <div class="w3-row-padding">
+<?php
+    foreach ($this->articles as $values):
+?>
     <div class="w3-col l3 m6 w3-margin-bottom">
         <div class="w3-display-container">
-            <div class="w3-display-topleft w3-theme-gradient w3-padding">How To Combat Anxiety</div>
-            <img src="<?php echo $this->basePath() . '/images/house5.jpg'; ?>" alt="Combatting Anxiety" style="width: 100%;">
-            <div class="w3-display-bottomright w3-theme-gradient w3-padding">Kevin Benitez</div>
+            <div class="w3-display-topleft w3-theme-gradient w3-padding"><?php echo $values['title']; ?></div>
+            <img src="<?php echo $this->basePath() . '/images/articles/' . $values['image']; ?>" alt="<?php echo $values['subject']; ?>" style="width: 100%;">
+            <div class="w3-display-bottomright w3-theme-gradient w3-padding"><?php echo $values['author']; ?></div>
         </div>
     </div>
-
-    <div class="w3-col l3 m6 w3-margin-bottom">
-        <div class="w3-display-container">
-            <div class="w3-display-topleft w3-theme-gradient w3-padding">Seeking Joy</div>
-            <img src="<?php echo $this->basePath() . '/images/house5.jpg'; ?>" alt="Seeking Joy" style="width: 100%;">
-            <div class="w3-display-bottomright w3-theme-gradient w3-padding">Kevin Benitez</div>
-        </div>
-    </div>
+<?php endforeach; ?>
 </div>
-
 
 <div class="w3-container w3-padding-32" id="life-coaches">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Life Coaches</h3>

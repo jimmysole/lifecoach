@@ -238,7 +238,17 @@ class Module implements ConfigProviderInterface
 	            ContactModel::class => function ($container) {
 					$table_gateway = $container->get(ContactService::class);
 					return new ContactModel($table_gateway);
-	            }
+	            },
+
+                IndexModel::class => function($container) {
+                    $table_gateway = $container->get(IndexService::class);
+                    return new IndexModel($table_gateway);
+                },
+
+                IndexService::class => function ($container) {
+                    $db_adapter = $container->get(AdapterInterface::class);
+                    return new TableGateway('articles', $db_adapter);
+                }
             )
         );
     } 

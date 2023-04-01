@@ -35,7 +35,7 @@
 		public function listArticles(): array
 		{
 			$select = $this->select->columns([
-				'article_id', 'author', 'title', 'body', 'date_written' ]
+				'article_id', 'author', 'title', 'subject', 'body', 'date_written', 'image' ]
 			)->from('articles');
 			
 			$query = $this->sql->getAdapter()->query(

@@ -21,8 +21,6 @@ class UserController extends AbstractActionController
     {
         $this->user_service = $user_model;
         $this->view_model = new ViewModel();
-
-
     }
 
     public function indexAction() : ViewModel
