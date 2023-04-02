@@ -13,6 +13,7 @@ use Application\Controller\IndexController;
 use Application\Controller\LoginController;
 use Application\Controller\LogoutController;
 use Application\Controller\RegisterController;
+use Application\Controller\SocialController;
 use Application\Controller\UserController;
 use Application\Controller\VerifyController;
 use Application\Model\Storage\LoginAuthServiceGateway;
@@ -145,6 +146,17 @@ return [
 				            ],
 			            ],
 		            ],
+
+                    'social' => [
+                        'type' => 'Segment',
+                        'options' => [
+                            'route' => 'social[/:action][/:id]',
+                            'defaults' => [
+                                'controller' => SocialController::class,
+                                'action'     => 'index',
+                            ],
+                        ],
+                    ],
                 ],
             ],
 	           
@@ -171,6 +183,7 @@ return [
 			Controller\ArticlesController::class => ReflectionBasedAbstractFactory::class,
 			Controller\ContactController::class => ReflectionBasedAbstractFactory::class,
             Controller\VerifyController::class => ReflectionBasedAbstractFactory::class,
+            Controller\SocialController::class => ReflectionBasedAbstractFactory::class,
 		],
 	],
 	
