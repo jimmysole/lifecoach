@@ -5,13 +5,19 @@ namespace Application\Classes;
 
 
 use Application\Interfaces\SocialInterface;
+use Laminas\Db\TableGateway\TableGateway;
 
 
 class Social implements SocialInterface
 {
-    public function __construct()
-    {
+    private TableGateway $gateway;
 
+    private string $user;
+
+    public function __construct(TableGateway $gateway, string $user)
+    {
+        $this->gateway = $gateway;
+        $this->user = $user;
     }
 
 
