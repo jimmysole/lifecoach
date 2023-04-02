@@ -36,7 +36,7 @@
 		{
 			$select = $this->select->columns([
 				'article_id', 'author', 'title', 'subject', 'body', 'date_written', 'image' ]
-			)->from('articles');
+			)->from('articles')->limit(5);
 			
 			$query = $this->sql->getAdapter()->query(
 				$this->sql->buildSqlString($select),
