@@ -6,7 +6,7 @@ namespace Application\Interfaces;
 
 interface SocialInterface
 {
-    public function chat(string $with, array $params) : SocialInterface|bool;
+    public function sendChatRequest(string $with, array $params) : SocialInterface|bool;
 
-
+    public function viewChatRequests() : array|bool;
 }
