@@ -127,7 +127,7 @@ class Social implements SocialInterface
 
     public function acceptChatRequest(array $params): bool
     {
-        $select = $this->select->columns(['recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
+        $select = $this->select->columns(['id', 'recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
             ->from('pending_chat_requests')
             ->where(['recipient' => $this->user]);
 
@@ -157,7 +157,20 @@ class Social implements SocialInterface
                 );
 
                 if ($query->count() > 0) {
-                    return true;
+                    // delete from pending chat requests
+                    $delete = $this->delete->from('pending_chat_requests')
+                        ->where('id IN ' . implode(", ", array_values($chats['id'])));
+
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($delete),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
