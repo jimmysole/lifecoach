@@ -181,4 +181,47 @@ class Social implements SocialInterface
             return false;
         }
     }
+
+
+    public function denyChatRequest(array $params): bool
+    {
+        $select = $this->select->columns(['id', 'recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
+            ->from('pending_chat_requests')
+            ->where(['recipient' => $this->user]);
+
+        $query = $this->gateway->getAdapter()->query(
+            $this->sql->buildSqlString($select),
+            Adapter::QUERY_MODE_EXECUTE
+        );
+
+        if ($query->count() > 0) {
+            $chats = [];
+
+            foreach ($query as $key => $value) {
+                $chats[$key] = $value;
+            }
+
+            if ($params['chat_accepted'] == 2) {
+                // set the chat to declined
+                $update = $this->update->table('pending_chat_requests')
+                    ->set(['chat_accepted' => 2])
+                    ->where('id IN (' . implode(", ", array_values($chats['id'])) . ')');
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($update),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
