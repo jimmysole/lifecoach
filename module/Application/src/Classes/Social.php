@@ -127,6 +127,31 @@ class Social implements SocialInterface
     }
 
 
+    public function viewIncomingChatRequests(): array|bool
+    {
+        $select = $this->select->columns(['recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
+            ->from('pending_chat_requests')
+            ->where(['recipient' => $this->user]);
+
+        $query = $this->gateway->getAdapter()->query(
+            $this->sql->buildSqlString($select),
+            Adapter::QUERY_MODE_EXECUTE
+        );
+
+        if ($query->count() > 0) {
+            $rows = [];
+
+            foreach ($query as $key => $value) {
+                $rows[$key] = $value;
+            }
+
+            return $rows;
+        } else {
+            return false;
+        }
+    }
+
+
     public function acceptChatRequest(array $params): bool
     {
         $select = $this->select->columns(['id', 'recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
