@@ -100,7 +100,7 @@ class Social implements SocialInterface
     }
 
 
-    public function viewChatRequests(): array|bool
+    public function viewOutgoingChatRequests(): array|bool
     {
         $select = $this->select->columns(['recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
             ->from('pending_chat_requests')
@@ -119,6 +119,51 @@ class Social implements SocialInterface
             }
 
             return $rows;
+        } else {
+            return false;
+        }
+    }
+
+
+    public function acceptChatRequest(array $params): bool
+    {
+        $select = $this->select->columns(['recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
+            ->from('pending_chat_requests')
+            ->where(['recipient' => $this->user]);
+
+        $query = $this->gateway->getAdapter()->query(
+            $this->sql->buildSqlString($select),
+            Adapter::QUERY_MODE_EXECUTE
+        );
+
+        if ($query->count() > 0) {
+            $chats = [];
+
+            foreach ($query as $key => $value) {
+                $chats[$key] = $value;
+            }
+
+            if ($params['chat_accepted'] == 1) {
+                // set the chat to accepted
+                // and move it to the chat table
+                // and delete it from pending chats
+                $insert = $this->insert->into('chats')->columns(['room_title', 'room_members', 'room_moderators', 'room_transcript'])
+                    ->values(['room_title' => 'Chat between ' . $chats['recipient'] . ' and ' . $chats['sent_by'], 'room_members' => implode(", ", [$chats['recipient'], $chats['sent_by']]),
+                        'room_moderators' => implode(", ", [$chats['recipient'], $chats['sent_by']]), 'room_transcript' => $chats['message']]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($insert),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
