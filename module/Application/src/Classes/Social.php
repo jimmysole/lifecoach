@@ -159,7 +159,7 @@ class Social implements SocialInterface
                 if ($query->count() > 0) {
                     // delete from pending chat requests
                     $delete = $this->delete->from('pending_chat_requests')
-                        ->where('id IN ' . implode(", ", array_values($chats['id'])));
+                        ->where('id IN (' . implode(", ", array_values($chats['id'])) . ')');
 
                     $query = $this->gateway->getAdapter()->query(
                         $this->sql->buildSqlString($delete),
