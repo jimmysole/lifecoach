@@ -5,6 +5,7 @@ namespace Application\Classes;
 
 
 use Application\Interfaces\SocialInterface;
+
 use Laminas\Db\Adapter\Adapter;
 use Laminas\Db\Sql\Delete;
 use Laminas\Db\Sql\Insert;
@@ -31,6 +32,7 @@ class Social implements SocialInterface
     private string $user;
 
     private array $chat_settings = [];
+
 
     public function __construct(TableGateway $gateway, string $user)
     {
