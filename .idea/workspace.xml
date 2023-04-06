@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Social.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Social.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Interfaces/SocialInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Interfaces/SocialInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/application/social/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/social/index.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/user.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/user.phtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,13 +24,26 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="b579679b-bbc7-4cd0-820d-becf7e5007ed" />
+        <option name="url" value="https://github.com/jimmysole/lifecoach.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="PhpTemplates">
     <option name="NEW_PHP_FILE_LAST_EXTENSION" value="phtml" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="F:\xampp\php\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
       <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
@@ -111,22 +125,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;dumpAutoload F:/xampp/htdocs/composer.json&quot;: &quot;--no-interaction --ansi --verbose --optimize&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/xampp/htdocs/module/Admin/view&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "dumpAutoload F:/xampp/htdocs/composer.json": "--no-interaction --ansi --verbose --optimize",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "F:/xampp/htdocs/module/Admin/view",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\xampp\htdocs\module\Admin\view" />
@@ -159,7 +174,9 @@
       <workItem from="1678808055999" duration="1197000" />
       <workItem from="1678894631113" duration="19574000" />
       <workItem from="1679266028072" duration="55652000" />
-      <workItem from="1680117997695" duration="39078000" />
+      <workItem from="1680117997695" duration="40369000" />
+      <workItem from="1680745040077" duration="1225000" />
+      <workItem from="1680808651113" duration="2544000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>

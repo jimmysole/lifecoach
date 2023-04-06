@@ -130,7 +130,11 @@
                 <a href="<?php echo $this->url('home/login', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Login">Login</a>
             <?php endif; ?>
             <a href="#" class="w3-bar-item w3-button w3-hover-blue" title="Test">Life Coaches</a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-blue" title="Test">Social</a>
+            <?php if (empty($this->user)): ?>
+                <a href="<?php echo $this->url('home/login', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Social Login">Login to Social</a>
+            <?php else: ?>
+                <a href="<?php echo $this->url('home/social', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Social">Social</a>
+            <?php endif; ?>
             <a href="#" class="w3-bar-item w3-button w3-hover-blue" title="Test">Contact</a>
         </div>
     </div>
