@@ -38,13 +38,37 @@ class Social implements SocialInterface
     {
         $this->gateway = $gateway;
         $this->user = $user;
-        $this->sql = new Sql($this->gateway);
+        $this->sql = new Sql($this->gateway->getAdapter());
         $this->insert = new Insert();
         $this->select = new Select();
         $this->delete = new Delete();
         $this->update = new Update();
     }
 
+
+    public function viewOnlineUsers(): array|bool
+    {
+        $select = $this->select->columns(['username'])
+            ->from('sessions')
+            ->where(['active' => 1]);
+
+        $query = $this->gateway->getAdapter()->query(
+            $this->sql->buildSqlString($select),
+            Adapter::QUERY_MODE_EXECUTE
+        );
+
+        if ($query->count() > 0) {
+            $rows = [];
+
+            foreach ($query as $key => $value) {
+                $rows[$key] = $value;
+            }
+
+            return $rows;
+        } else {
+            return false;
+        }
+    }
 
     public function sendChatRequest(string $with, array $params): SocialInterface|bool
     {

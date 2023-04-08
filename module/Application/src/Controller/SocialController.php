@@ -26,4 +26,16 @@ class SocialController extends AbstractActionController
     {
 
     }
+
+
+    public function viewonlineusersAction() : ViewModel
+    {
+
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        echo json_encode($this->social_model->viewOnlineUsers());
+
+        return $this->view_model;
+    }
 }

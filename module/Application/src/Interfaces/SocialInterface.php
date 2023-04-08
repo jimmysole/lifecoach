@@ -6,6 +6,8 @@ namespace Application\Interfaces;
 
 interface SocialInterface
 {
+    public function viewOnlineUsers() : array|bool;
+
     public function sendChatRequest(string $with, array $params) : SocialInterface|bool;
 
     public function viewOutgoingChatRequests() : array|bool;

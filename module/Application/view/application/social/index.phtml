@@ -1,3 +1,81 @@
 <div class="w3-container">
-    Social links and stuff will go here
+    <p class="w3-center">Here you can chat with other users, browse profiles and customize your very own social profile. Just simply choose one of the below options to get started.</p>
+    <br>
+
+    <div class="w3-row">
+        <div class="w3-col col-lg-2">
+            <button id="browse-social-users" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('browse-online-users-modal').style.display = 'block';">Browse Online Users</button>
+            &nbsp;
+            <button id="pending-chat-requests" class="w3-btn w3-round w3-theme-gradient">Pending Chat Requests</button>
+            &nbsp;
+            <button id="current-chat-sessions" class="w3-btn w3-round w3-theme-gradient">Current Chats</button>
+            &nbsp;
+            <button id="view-user-profiles" class="w3-btn w3-round w3-theme-gradient">View User's Profiles</button>
+            &nbsp;
+            <button id="view-forums" class="w3-btn w3-round w3-theme-gradient">View Forums</button>
+            &nbsp;
+            <button id="pending-chat-requests" class="w3-btn w3-round w3-theme-gradient">Pending Chat Requests</button>
+            &nbsp;
+            <button id="create-profile" class="w3-btn w3-round w3-theme-gradient">Create Profile</button>
+            &nbsp;
+            <button id="edit-profile" class="w3-btn w3-round w3-theme-gradient">Edit Profile</button>
+            &nbsp;
+            <button id="delete-profile" class="w3-btn w3-round w3-theme-gradient">Delete Profile</button>
+        </div>
+    </div>
 </div>
+
+
+<!-- modals -->
+<div id="browse-online-users-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('browse-online-users-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Current Users Online</h2>
+        </header>
+
+        <div class="w3-container">
+            <p></p>
+            <table class="w3-table-all" style="display: none; overflow: auto;" id="online-users-table">
+                <tr>
+                    <th>User</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/social', [ 'action' => 'view-online-users' ]); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#online-users-table').attr('style', 'display: block;');
+
+                        $.each(data, function(key, value) {
+                            $('#online-users-table').append("<tr><td>" + value.username + "</td></tr>");
+                        });
+                    } else {
+                        $('#users-online-footer').html("No users online");
+                    }
+                }).fail(function() {
+                    $('#users-online-footer').html("Error fetching user list, please try again.");
+                })
+            </script>
+        </div>
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="users-online-footer">&nbsp;</footer>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    const modal1 = document.getElementById('browse-online-users-modal');
+
+    window.onclick = function(event) {
+        if (event.target === modal1) {
+            modal1.style.display = 'none';
+        }
+    }
+</script>

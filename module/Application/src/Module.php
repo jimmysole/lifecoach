@@ -5,6 +5,7 @@ namespace Application;
 
 use Application\Controller\CategoriesController;
 use Application\Controller\LoginController;
+use Application\Controller\SocialController;
 use Application\Controller\UserController;
 use Application\Model\ArticleModel;
 use Application\Model\ContactModel;
@@ -103,6 +104,8 @@ class Module implements ConfigProviderInterface
             } else if (get_class($controller) == LoginController::class) {
                 $controller->layout('layout/login');
             } else if (get_class($controller) == UserController::class) {
+                $controller->layout('layout/user');
+            } else if (get_class($controller) == SocialController::class) {
                 $controller->layout('layout/user');
             }
         }, 100);
