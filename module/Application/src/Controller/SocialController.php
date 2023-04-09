@@ -38,4 +38,27 @@ class SocialController extends AbstractActionController
 
         return $this->view_model;
     }
+
+
+    public function sendchatrequestAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        if ($this->request->isPost()) {
+            $values = [];
+
+            foreach (explode(", ", $this->params()->fromPost('info')) as $value) {
+                $values[] = $value;
+            }
+
+            //var_dump($values);
+
+            if (false !== $this->social_model->sendChatRequest($values[0], [ 'message' => $values[1]])) {
+                echo "Chat request sent";
+            }
+        }
+
+        return $this->view_model;
+    }
 }

@@ -96,12 +96,14 @@ class Social implements SocialInterface
                 $row[$key] = $value;
             }
 
-            if ($row['active'] == 1) {
+
+
+            if ($row[0]['active'] == 1) {
                 // user is active
                 // send an invitation to chat
                 $insert = $this->insert->into('pending_chat_requests')
                     ->columns(['recipient', 'sent_by', 'message', 'date_sent'])
-                    ->values(['recipient' => $row['username'], 'sent_by' => $this->user,
+                    ->values(['recipient' => $row[0]['username'], 'sent_by' => $this->user,
                         'message' => $this->chat_settings['message'], 'date_sent' => date('Y-m-d H:i:s')]);
 
                 $query = $this->gateway->getAdapter()->query(

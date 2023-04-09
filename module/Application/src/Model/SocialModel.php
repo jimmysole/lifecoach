@@ -4,6 +4,7 @@ namespace Application\Model;
 
 
 use Application\Classes\Social;
+use Application\Interfaces\SocialInterface;
 use Laminas\Db\TableGateway\TableGateway;
 
 
@@ -26,5 +27,11 @@ class SocialModel
     public function viewOnlineUsers() : array|bool
     {
         return $this->social->viewOnlineUsers();
+    }
+
+
+    public function sendChatRequest(string $with, array $params) : SocialInterface|bool
+    {
+        return $this->social->sendChatRequest($with, $params);
     }
 }
