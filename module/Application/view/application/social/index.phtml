@@ -39,6 +39,7 @@
             <table class="w3-table-all" style="display: none; overflow: auto;" id="online-users-table">
                 <tr>
                     <th>User</th>
+                    <th>Request Chat Session</th>
                 </tr>
             </table>
 
@@ -52,7 +53,29 @@
                         $('#online-users-table').attr('style', 'display: block;');
 
                         $.each(data, function(key, value) {
-                            $('#online-users-table').append("<tr><td>" + value.username + "</td></tr>");
+                            $('#online-users-table').append("<tr><td class=\"chat-user\">" + value.username + "</td><td class=\"r-chat\"><input type=\"checkbox\" class=\"w3-check\" id=\"" + key + "\"></td></tr>");
+                        });
+
+                        let checked = [];
+
+                        $('#online-users-table input:checked').each(function() {
+                            let user;
+
+                            user = (this).closest('tr').find('.chat-user').html();
+
+                            checked.push(user);
+
+                            $.ajax({
+                               type: "POST",
+                               url: "<?php echo $this->url('home/social', [ 'action' => 'request-chat' ]); ?>",
+                               data: {
+                                   info: checked.join(", ")
+                               }
+                            }).done(function(msg) {
+
+                            }).fail(function(msg) {
+
+                            });
                         });
                     } else {
                         $('#users-online-footer').html("No users online");

@@ -185,6 +185,7 @@ return [
 			Controller\ContactController::class => ReflectionBasedAbstractFactory::class,
             Controller\VerifyController::class => ReflectionBasedAbstractFactory::class,
             Controller\SocialController::class => ReflectionBasedAbstractFactory::class,
+            Controller\RegisterController::class => ReflectionBasedAbstractFactory::class,
 		],
 	],
 	
