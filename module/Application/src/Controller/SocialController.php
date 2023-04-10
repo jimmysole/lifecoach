@@ -61,4 +61,15 @@ class SocialController extends AbstractActionController
 
         return $this->view_model;
     }
+
+
+    public function pendingchatrequestsAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        echo json_encode($this->social_model->viewOutgoingChatRequests());
+
+        return $this->view_model;
+    }
 }

@@ -6,7 +6,7 @@
         <div class="w3-col col-lg-2">
             <button id="browse-social-users" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('browse-online-users-modal').style.display = 'block';">Browse Online Users</button>
             &nbsp;
-            <button id="pending-chat-requests" class="w3-btn w3-round w3-theme-gradient">Pending Chat Requests</button>
+            <button id="pending-chat-requests" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('pending-chat-requests-modal').style.display = 'block';">Pending Chat Requests</button>
             &nbsp;
             <button id="current-chat-sessions" class="w3-btn w3-round w3-theme-gradient">Current Chats</button>
             &nbsp;
@@ -101,14 +101,64 @@
 </div>
 
 
+<div id="pending-chat-requests-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('pending-chat-requests-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Pending Chat Requests</h2>
+        </header>
+
+        <div class="w3-container">
+            <p></p>
+            <table class="w3-table-all" style="display: none; overflow: auto;" id="pending-chat-requests-table">
+               <tr>
+                   <th>Recipient</th>
+                   <th>Message</th>
+                   <th>Date Sent</th>
+                   <th>Chat Accepted (0 indicates the request is still pending)</th>
+               </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                   type: "POST",
+                   url: "<?php echo $this->url('home/social', [ 'action' => 'pending-chat-requests']); ?>",
+                   dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#pending-chat-requests-table').attr('style', 'display: block;');
+
+                        $.each(data, function(key, value) {
+                            $('#pending-chat-requests-table').append("<tr><td>" + value.recipient + "</td><td>" + value.message + "</td><td>" + value.date_sent + "</td><td>" + value.chat_accepted + "</td></tr>");
+                        });
+                    } else {
+                        $('#pending-chat-requests-footer').html("<p class=\"w3-center\">No pending chat requests were found.</p>");
+                    }
+                }).fail(function() {
+                    $('#pending-chat-requests-footer').html("<p class=\"w3-center\">Error retrieving your pending chat requests, please try again.</p>");
+                });
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="pending-chat-requests-footer">&nbsp;</footer>
+    </div>
+</div>
+
 
 
 <script type="text/javascript">
     const modal1 = document.getElementById('browse-online-users-modal');
+    const modal2 = document.getElementById('pending-chat-requests-modal');
+
 
     window.onclick = function(event) {
         if (event.target === modal1) {
             modal1.style.display = 'none';
+        }
+
+        if (event.target === modal2) {
+            modal2.style.display = 'none';
         }
     }
 </script>
