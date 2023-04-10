@@ -2,26 +2,61 @@
     <p class="w3-center">Here you can chat with other users, browse profiles and customize your very own social profile. Just simply choose one of the below options to get started.</p>
     <br>
 
-    <div class="w3-row">
-        <div class="w3-col col-lg-2">
-            <button id="browse-social-users" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('browse-online-users-modal').style.display = 'block';">Browse Online Users</button>
-            &nbsp;
-            <button id="pending-chat-requests" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('pending-chat-requests-modal').style.display = 'block';">Pending Chat Requests</button>
-            &nbsp;
-            <button id="current-chat-sessions" class="w3-btn w3-round w3-theme-gradient">Current Chats</button>
-            &nbsp;
-            <button id="view-user-profiles" class="w3-btn w3-round w3-theme-gradient">View User's Profiles</button>
-            &nbsp;
-            <button id="view-forums" class="w3-btn w3-round w3-theme-gradient">View Forums</button>
-            &nbsp;
-            <button id="pending-chat-requests" class="w3-btn w3-round w3-theme-gradient">Pending Chat Requests</button>
-            &nbsp;
-            <button id="create-profile" class="w3-btn w3-round w3-theme-gradient">Create Profile</button>
-            &nbsp;
-            <button id="edit-profile" class="w3-btn w3-round w3-theme-gradient">Edit Profile</button>
-            &nbsp;
-            <button id="delete-profile" class="w3-btn w3-round w3-theme-gradient">Delete Profile</button>
-        </div>
+    <div class="w3-bar w3-theme-gradient">
+        <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('browse-social-users-tab');">Browse Social Users</button>
+        <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('pending-chat-requests-tab');">Pending Chat Requests</button>
+        <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('incoming-chat-requests-tab');">Incoming Chat Requests</button>
+        <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('current-chats-tab');">Current Chats</button>
+        <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('view-users-profile-tab');">View Profiles</button>
+        <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('view-forums-tab');">Forums</button>
+        <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('create-profile-tab');">Create Profile</button>
+        <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('edit-profile-tab');">Edit Profile</button>
+        <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('delete-profile-tab');">Delete Profile</button>
+    </div>
+
+    <div id="browse-social-users-tab" class="w3-container social-options">
+        <h2>Browse Social Users</h2>
+        <button id="browse-social-users" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('browse-online-users-modal').style.display = 'block';">Browse Online Users</button>
+    </div>
+
+    <div id="pending-chat-requests-tab" class="w3-container social-options" style="display: none;">
+        <h2>Pending Chat Requests</h2>
+        <button id="pending-chat-requests" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('pending-chat-requests-modal').style.display = 'block';">Outgoing Chat Requests</button>
+    </div>
+
+    <div id="incoming-chat-requests-tab" class="w3-container social-options" style="display: none;">
+        <h2>Incoming Chat Requests</h2>
+        <button id="incoming-chat-requests" class="w3-btn w3-round w3-theme-gradient">Incoming Chat Requests</button>
+    </div>
+
+    <div id="current-chats-tab" class="w3-container social-options" style="display: none;">
+        <h2>Current Chats</h2>
+        <button id="current-chat-sessions" class="w3-btn w3-round w3-theme-gradient">Current Chats</button>
+    </div>
+
+    <div id="view-users-profile-tab" class="w3-container social-options" style="display: none;">
+        <h2>User Profiles</h2>
+        <button id="view-user-profiles" class="w3-btn w3-round w3-theme-gradient">View User's Profiles</button>
+    </div>
+
+    <div id="view-forums-tab" class="w3-container social-options" style="display: none;">
+        <h2>Forums</h2>
+        <button id="view-forums" class="w3-btn w3-round w3-theme-gradient">View Forums</button>
+    </div>
+
+    <div id="create-profile-tab" class="w3-container social-options" style="display: none;">
+        <h2>Create Profile</h2>
+        <button id="create-profile" class="w3-btn w3-round w3-theme-gradient">Create Profile</button>
+    </div>
+
+    <div id="edit-profile-tab" class="w3-container social-options" style="display: none;">
+        <h2>Edit Profile</h2>
+        <button id="edit-profile" class="w3-btn w3-round w3-theme-gradient">Edit Profile</button>
+    </div>
+
+    <div id="delete-profile-tab" class="w3-container social-options" style="display: none;">
+        <h2>Delete Profile</h2>
+        <button id="delete-profile" class="w3-btn w3-round w3-theme-gradient">Delete Profile</button>
     </div>
 </div>
 
@@ -148,6 +183,18 @@
 
 
 <script type="text/javascript">
+    function openSocialOption(socialOption) {
+        let i;
+        let x = document.getElementsByClassName("social-options");
+
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = 'none';
+        }
+
+        document.getElementById(socialOption).style.display = 'block';
+    }
+
+
     const modal1 = document.getElementById('browse-online-users-modal');
     const modal2 = document.getElementById('pending-chat-requests-modal');
 
