@@ -26,7 +26,7 @@
 
     <div id="incoming-chat-requests-tab" class="w3-container social-options" style="display: none;">
         <h2>Incoming Chat Requests</h2>
-        <button id="incoming-chat-requests" class="w3-btn w3-round w3-theme-gradient">Incoming Chat Requests</button>
+        <button id="incoming-chat-requests" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('incoming-chat-requests-modal').style.display = 'block';">Incoming Chat Requests</button>
     </div>
 
     <div id="current-chats-tab" class="w3-container social-options" style="display: none;">
@@ -180,7 +180,49 @@
     </div>
 </div>
 
+<div id="incoming-chat-requests-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('incoming-chat-requests-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Incoming Chat Requests</h2>
+        </header>
 
+        <div class="w3-container">
+            <p></p>
+            <table class="w3-table-all" style="display: none; overflow: auto;" id="incoming-chat-requests-table">
+                <tr>
+                    <th>Sent By</th>
+                    <th>Message</th>
+                    <th>Date Sent</th>
+                    <th>Chat Accepted (0 indicates you have not accepted the request)</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/social', [ 'action' => 'incoming-chat-requests']); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#incoming-chat-requests-table').attr('style', 'display: block;');
+
+                        $.each(data, function(key, value) {
+                            $('#incoming-chat-requests-table').append("<tr><td>" + value.sent_by + "</td><td>" + value.message + "</td><td>" + value.date_sent + "</td><td>" + value.chat_accepted + "</td></tr>");
+                        });
+                    } else {
+                        $('#incoming-chat-requests-footer').html("<p class=\"w3-center\">No incoming chat requests were found.</p>");
+                    }
+                }).fail(function() {
+                    $('#incoming-chat-requests-footer').html("<p class=\"w3-center\">Error retrieving your incoming chat requests, please try again.</p>");
+                });
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="incoming-chat-requests-footer">&nbsp;</footer>
+    </div>
+</div>
 
 <script type="text/javascript">
     function openSocialOption(socialOption) {
@@ -197,7 +239,7 @@
 
     const modal1 = document.getElementById('browse-online-users-modal');
     const modal2 = document.getElementById('pending-chat-requests-modal');
-
+    const modal3 = document.getElementById('incoming-chat-requests-modal');
 
     window.onclick = function(event) {
         if (event.target === modal1) {
@@ -206,6 +248,10 @@
 
         if (event.target === modal2) {
             modal2.style.display = 'none';
+        }
+
+        if (event.target === modal3) {
+            modal3.style.display = 'none';
         }
     }
 </script>
