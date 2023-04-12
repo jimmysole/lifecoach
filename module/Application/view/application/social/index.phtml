@@ -180,6 +180,7 @@
     </div>
 </div>
 
+
 <div id="incoming-chat-requests-modal" class="w3-modal">
     <div class="w3-modal-content">
         <header class="w3-container w3-theme-gradient">
@@ -194,7 +195,8 @@
                     <th>Sent By</th>
                     <th>Message</th>
                     <th>Date Sent</th>
-                    <th>Chat Accepted (0 indicates you have not accepted the request)</th>
+                    <th>Chat Accepted (0 indicates not accepted)</th>
+                    <th>Accept</th>
                 </tr>
             </table>
 
@@ -208,7 +210,8 @@
                         $('#incoming-chat-requests-table').attr('style', 'display: block;');
 
                         $.each(data, function(key, value) {
-                            $('#incoming-chat-requests-table').append("<tr><td>" + value.sent_by + "</td><td>" + value.message + "</td><td>" + value.date_sent + "</td><td>" + value.chat_accepted + "</td></tr>");
+                            $('#incoming-chat-requests-table').append("<tr><td>" + value.sent_by + "</td><td>" + value.message + "</td><td>" + value.date_sent + "</td><td>" + value.chat_accepted + "</td>"
+                                + "<td><input type=\"checkbox\" id=\"" + key + "\" class=\"w3-check\"></td></tr>");
                         });
                     } else {
                         $('#incoming-chat-requests-footer').html("<p class=\"w3-center\">No incoming chat requests were found.</p>");
@@ -223,6 +226,7 @@
         <footer class="w3-container w3-theme-gradient" id="incoming-chat-requests-footer">&nbsp;</footer>
     </div>
 </div>
+
 
 <script type="text/javascript">
     function openSocialOption(socialOption) {
