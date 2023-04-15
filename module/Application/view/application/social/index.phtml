@@ -31,7 +31,7 @@
 
     <div id="current-chats-tab" class="w3-container social-options" style="display: none;">
         <h2>Current Chats</h2>
-        <button id="current-chat-sessions" class="w3-btn w3-round w3-theme-gradient">Current Chats</button>
+        <button id="current-chat-sessions" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('current-chats-modal').style.display = 'block';">Current Chats</button>
     </div>
 
     <div id="view-users-profile-tab" class="w3-container social-options" style="display: none;">
@@ -228,6 +228,52 @@
 </div>
 
 
+<div class="w3-modal" id="current-chats-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('current-chats-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Current Chats</h2>
+        </header>
+
+        <div class="w3-container">
+            <p></p>
+
+            <table class="w3-table-all" style="display: none; overflow: auto;" id="current-chats-table">
+                <tr>
+                    <th>Room Title</th>
+                    <th>Room Members</th>
+                    <th>Room Moderators</th>
+                    <th>Room Transcript</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/social', [ 'action' => 'current-chats']); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#current-chats-table').attr('style', 'display: block;');
+
+                        $.each(data, function(key, value) {
+                           $('#current-chats-table').append("<tr><td>" + value.room_title + "</td><td>" + value.room_members + "</td><td>" + value.room_moderators + "</td><td>" + value.room_transcript + "</td></tr>");
+                        });
+                    } else {
+                        $('#current-chats-footer').html("<p class=\"w3-center\">You aren't any members of chat room</p>");
+                    }
+                }).fail(function() {
+                    $('#current-chats-footer').html("<p class=\"w3-center\">Error retrieving chat rooms, please try again.</p>");
+                })
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="current-chats-footer">&nbsp;</footer>
+    </div>
+</div>
+
+
 <script type="text/javascript">
     function openSocialOption(socialOption) {
         let i;
@@ -244,6 +290,7 @@
     const modal1 = document.getElementById('browse-online-users-modal');
     const modal2 = document.getElementById('pending-chat-requests-modal');
     const modal3 = document.getElementById('incoming-chat-requests-modal');
+    const modal4 = document.getElementById('current-chats-modal');
 
     window.onclick = function(event) {
         if (event.target === modal1) {
@@ -256,6 +303,10 @@
 
         if (event.target === modal3) {
             modal3.style.display = 'none';
+        }
+
+        if (event.target === modal4) {
+            modal4.style.display = 'none';
         }
     }
 </script>

@@ -17,4 +17,6 @@ interface SocialInterface
     public function acceptChatRequest(array $params) : bool;
 
     public function denyChatRequest(array $params) : bool;
+
+    public function currentChats() : array|bool;
 }

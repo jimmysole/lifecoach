@@ -13,6 +13,7 @@ use Laminas\Db\Sql\Select;
 use Laminas\Db\Sql\Sql;
 use Laminas\Db\Sql\Update;
 use Laminas\Db\TableGateway\TableGateway;
+use Laminas\Db\Sql\Where;
 
 
 class Social implements SocialInterface
@@ -273,6 +274,33 @@ class Social implements SocialInterface
             } else {
                 return false;
             }
+        } else {
+            return false;
+        }
+    }
+
+
+    public function currentChats(): array|bool
+    {
+        $select = $this->select->columns(['room_title', 'room_members', 'room_moderators', 'room_transcript'])
+            ->from('chats')
+            ->where(function (Where $where) {
+                $where->like('room_members', $this->user . '%');
+            });
+
+        $query = $this->gateway->getAdapter()->query(
+            $this->sql->buildSqlString($select),
+            Adapter::QUERY_MODE_EXECUTE
+        );
+
+        if ($query->count() > 0) {
+            $rows = [];
+
+            foreach ($query as $key => $value) {
+                $rows[$key] = $value;
+            }
+
+            return $rows;
         } else {
             return false;
         }

@@ -46,4 +46,10 @@ class SocialModel
     {
         return $this->social->viewIncomingChatRequests();
     }
+
+
+    public function currentChats() : array|bool
+    {
+        return $this->social->currentChats();
+    }
 }

@@ -83,4 +83,15 @@ class SocialController extends AbstractActionController
 
         return $this->view_model;
     }
+
+
+    public function currentchatsAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        echo json_encode($this->social_model->currentChats());
+
+        return $this->view_model;
+    }
 }
