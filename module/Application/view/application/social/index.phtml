@@ -192,6 +192,7 @@
             <p></p>
             <table class="w3-table-all" style="display: none; overflow: auto;" id="incoming-chat-requests-table">
                 <tr>
+                    <th>Id</th>
                     <th>Sent By</th>
                     <th>Message</th>
                     <th>Date Sent</th>
@@ -210,14 +211,44 @@
                         $('#incoming-chat-requests-table').attr('style', 'display: block;');
 
                         $.each(data, function(key, value) {
-                            $('#incoming-chat-requests-table').append("<tr><td>" + value.sent_by + "</td><td>" + value.message + "</td><td>" + value.date_sent + "</td><td>" + value.chat_accepted + "</td>"
-                                + "<td><input type=\"checkbox\" id=\"" + key + "\" class=\"w3-check\"></td></tr>");
+                            $('#incoming-chat-requests-table').append("<tr><td class=\"cr-id\">" + value.id + "</td><td>" + value.sent_by + "</td><td>" + value.message + "</td><td>" + value.date_sent + "</td><td>" + value.chat_accepted + "</td>"
+                                + "<td><input type=\"checkbox\" id=\"" + value.id + "\" class=\"w3-check\"></td></tr>");
                         });
                     } else {
                         $('#incoming-chat-requests-footer').html("<p class=\"w3-center\">No incoming chat requests were found.</p>");
                     }
                 }).fail(function() {
                     $('#incoming-chat-requests-footer').html("<p class=\"w3-center\">Error retrieving your incoming chat requests, please try again.</p>");
+                });
+            </script>
+            <br><br>
+            <button class="w3-button w3-round w3-hover-blue w3-right" id="confirm-all-cr">Confirm</button>
+
+            <script type="text/javascript">
+                $('#confirm-all-cr').on('click', function() {
+                   let checked = [];
+
+                    $('#incoming-chat-requests-table input:checked').each(function() {
+                        let chatAccepted, crId;
+
+                        crId = $(this).closest('tr').find('.cr-id').html();
+                        chatAccepted = 1;
+
+                        checked.push(crId, chatAccepted);
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo $this->url('home/social', [ 'action' => 'accept-chat-request' ]); ?>",
+                            data: {
+                                info: checked.join(', ')
+                            }
+                        }).done(function(msg) {
+                            $('#incoming-chat-requests-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                            $('#incoming-chat-requests-table input:checked').prop('checked', false);
+                        }).fail(function(msg) {
+                            $('#incoming-chat-requests-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                        })
+                    });
                 });
             </script>
         </div>

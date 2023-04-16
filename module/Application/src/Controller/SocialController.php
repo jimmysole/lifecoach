@@ -94,4 +94,29 @@ class SocialController extends AbstractActionController
 
         return $this->view_model;
     }
+
+
+    public function acceptchatrequestAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        if ($this->request->isPost()) {
+            $keys = [ 'id', 'chat_accepted' ];
+
+            $values = [];
+
+            foreach (explode(", ", $this->params()->fromPost('info')) as $value) {
+                $values[] = $value;
+            }
+
+            if (false !== $this->social_model->acceptChatRequest(array_combine($keys, $values))) {
+                echo "Chat request accepted.";
+            } else {
+                echo "Error accept chat request.";
+            }
+        }
+
+        return $this->view_model;
+    }
 }

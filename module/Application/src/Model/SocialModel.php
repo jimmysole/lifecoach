@@ -52,4 +52,10 @@ class SocialModel
     {
         return $this->social->currentChats();
     }
+
+
+    public function acceptChatRequest(array $params) : bool
+    {
+        return $this->social->acceptChatRequest($params);
+    }
 }

@@ -131,7 +131,7 @@ class Social implements SocialInterface
 
     public function viewOutgoingChatRequests(): array|bool
     {
-        $select = $this->select->columns(['recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
+        $select = $this->select->columns(['id', 'recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
             ->from('pending_chat_requests')
             ->where(['sent_by' => $this->user]);
 
@@ -156,7 +156,7 @@ class Social implements SocialInterface
 
     public function viewIncomingChatRequests(): array|bool
     {
-        $select = $this->select->columns(['recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
+        $select = $this->select->columns(['id', 'recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
             ->from('pending_chat_requests')
             ->where(['recipient' => $this->user]);
 
@@ -183,7 +183,7 @@ class Social implements SocialInterface
     {
         $select = $this->select->columns(['id', 'recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
             ->from('pending_chat_requests')
-            ->where(['recipient' => $this->user]);
+            ->where(['recipient' => $this->user, 'id' => $params['id']]);
 
         $query = $this->gateway->getAdapter()->query(
             $this->sql->buildSqlString($select),
@@ -197,13 +197,14 @@ class Social implements SocialInterface
                 $chats[$key] = $value;
             }
 
+
             if ($params['chat_accepted'] == 1) {
                 // set the chat to accepted
                 // and move it to the chat table
                 // and delete it from pending chats
                 $insert = $this->insert->into('chats')->columns(['room_title', 'room_members', 'room_moderators', 'room_transcript'])
-                    ->values(['room_title' => 'Chat between ' . $chats['recipient'] . ' and ' . $chats['sent_by'], 'room_members' => implode(", ", [$chats['recipient'], $chats['sent_by']]),
-                        'room_moderators' => implode(", ", [$chats['recipient'], $chats['sent_by']]), 'room_transcript' => $chats['message']]);
+                    ->values(['room_title' => 'Chat Room ', 'room_members' => implode(", ", [$chats[0]['recipient'], $chats[0]['sent_by']]),
+                        'room_moderators' => implode(", ", [$chats[0]['recipient'], $chats[0]['sent_by']]), 'room_transcript' => $chats[0]['message']]);
 
                 $query = $this->gateway->getAdapter()->query(
                     $this->sql->buildSqlString($insert),
@@ -213,7 +214,7 @@ class Social implements SocialInterface
                 if ($query->count() > 0) {
                     // delete from pending chat requests
                     $delete = $this->delete->from('pending_chat_requests')
-                        ->where('id IN (' . implode(", ", array_values($chats['id'])) . ')');
+                        ->where(['id' => $chats[0]['id']]);
 
                     $query = $this->gateway->getAdapter()->query(
                         $this->sql->buildSqlString($delete),
