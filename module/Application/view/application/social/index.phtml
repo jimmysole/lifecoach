@@ -157,7 +157,7 @@
             <script type="text/javascript">
                 $.ajax({
                    type: "POST",
-                   url: "<?php echo $this->url('home/social', [ 'action' => 'pending-chat-requests']); ?>",
+                   url: "<?php echo $this->url('home/social', [ 'action' => 'pending-chat-requests' ]); ?>",
                    dataType: "json"
                 }).done(function(data) {
                     if (undefined !== data) {
