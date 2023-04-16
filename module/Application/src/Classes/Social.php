@@ -242,7 +242,7 @@ class Social implements SocialInterface
     {
         $select = $this->select->columns(['id', 'recipient', 'sent_by', 'message', 'date_sent', 'chat_accepted'])
             ->from('pending_chat_requests')
-            ->where(['recipient' => $this->user]);
+            ->where(['recipient' => $this->user, 'id' => $params['id']]);
 
         $query = $this->gateway->getAdapter()->query(
             $this->sql->buildSqlString($select),
@@ -256,11 +256,11 @@ class Social implements SocialInterface
                 $chats[$key] = $value;
             }
 
-            if ($params['chat_accepted'] == 2) {
+            if ($params['chat_accepted'] == 1) {
                 // set the chat to declined
                 $update = $this->update->table('pending_chat_requests')
                     ->set(['chat_accepted' => 2])
-                    ->where('id IN (' . implode(", ", array_values($chats['id'])) . ')');
+                    ->where(['id' => $chats[0]['id']]);
 
                 $query = $this->gateway->getAdapter()->query(
                     $this->sql->buildSqlString($update),
