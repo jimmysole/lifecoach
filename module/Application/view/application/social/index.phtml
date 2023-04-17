@@ -196,8 +196,9 @@
                     <th>Sent By</th>
                     <th>Message</th>
                     <th>Date Sent</th>
-                    <th>Chat Accepted (0 indicates not accepted)</th>
+                    <th>Chat Accepted (0 indicates not accepted, 1 approved, 2 denied)</th>
                     <th>Accept</th>
+                    <th>Deny</th>
                 </tr>
             </table>
 
@@ -212,7 +213,7 @@
 
                         $.each(data, function(key, value) {
                             $('#incoming-chat-requests-table').append("<tr><td class=\"cr-id\">" + value.id + "</td><td>" + value.sent_by + "</td><td>" + value.message + "</td><td>" + value.date_sent + "</td><td>" + value.chat_accepted + "</td>"
-                                + "<td><input type=\"checkbox\" id=\"" + value.id + "\" class=\"w3-check\"></td></tr>");
+                                + "<td><input type=\"checkbox\" id=\"" + value.id + "\" class=\"w3-check\"></td><td><input type=\"checkbox\" id=\"" + value.id + "\" class=\"w3-check\"></td></tr>");
                         });
                     } else {
                         $('#incoming-chat-requests-footer').html("<p class=\"w3-center\">No incoming chat requests were found.</p>");
@@ -222,7 +223,10 @@
                 });
             </script>
             <br><br>
+
+            <button class="w3-button w3-round w3-hover-blue w3-right" id="deny-all-cr">Deny</button>
             <button class="w3-button w3-round w3-hover-blue w3-right" id="confirm-all-cr">Confirm</button>
+
 
             <script type="text/javascript">
                 $('#confirm-all-cr').on('click', function() {
@@ -250,6 +254,32 @@
                         })
                     });
                 });
+
+                $('#deny-all-cr').on('click', function() {
+                   let checked = [];
+
+                   $('#incoming-chat-requests-table input:checked').each(function() {
+                       let chatDenied, crId;
+
+                       crId = $(this).closest('tr').find('.cr-id').html();
+                       chatDenied = 1;
+
+                       checked.push(crId, chatDenied);
+
+                       $.ajax({
+                           type: "POST",
+                           url: "<?php echo $this->url('home/social', [ 'action' => 'deny-chat-request' ]); ?>",
+                           data: {
+                               info: checked.join(', ')
+                           }
+                       }).done(function(msg) {
+                           $('#incoming-chat-requests-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                           $('#incoming-chat-requests-table input:checked').prop('checked', false);
+                       }).fail(function(msg) {
+                           $('#incoming-chat-requests-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                       })
+                   })
+                });
             </script>
         </div>
 
@@ -259,7 +289,7 @@
 </div>
 
 
-<div class="w3-modal" id="current-chats-modal">
+<div id="current-chats-modal" class="w3-modal" >
     <div class="w3-modal-content">
         <header class="w3-container w3-theme-gradient">
             <span onclick="document.getElementById('current-chats-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>

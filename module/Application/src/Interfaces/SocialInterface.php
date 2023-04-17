@@ -19,4 +19,6 @@ interface SocialInterface
     public function denyChatRequest(array $params) : bool;
 
     public function currentChats() : array|bool;
+
+    public function viewProfiles(array $criteria = []) : array|bool;
 }

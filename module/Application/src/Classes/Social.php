@@ -256,7 +256,7 @@ class Social implements SocialInterface
                 $chats[$key] = $value;
             }
 
-            if ($params['chat_accepted'] == 1) {
+            if ($params['chat_denied'] == 1) {
                 // set the chat to declined
                 $update = $this->update->table('pending_chat_requests')
                     ->set(['chat_accepted' => 2])
@@ -304,6 +304,16 @@ class Social implements SocialInterface
             return $rows;
         } else {
             return false;
+        }
+    }
+
+
+    public function viewProfiles(array $criteria = []): array|bool
+    {
+        if (count($criteria, 1) > 0) {
+
+        } else {
+
         }
     }
 }

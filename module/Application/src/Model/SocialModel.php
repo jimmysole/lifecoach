@@ -58,4 +58,10 @@ class SocialModel
     {
         return $this->social->acceptChatRequest($params);
     }
+
+
+    public function denyChatRequest(array $params) : bool
+    {
+        return $this->social->denyChatRequest($params);
+    }
 }
