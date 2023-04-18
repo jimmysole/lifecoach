@@ -4,6 +4,7 @@
 namespace Application\Classes;
 
 
+use Application\Interfaces\Forum;
 use Application\Interfaces\SocialInterface;
 
 use Laminas\Db\Adapter\Adapter;
@@ -70,6 +71,7 @@ class Social implements SocialInterface
             return false;
         }
     }
+
 
     public function sendChatRequest(string $with, array $params): SocialInterface|bool
     {
@@ -311,9 +313,113 @@ class Social implements SocialInterface
     public function viewProfiles(array $criteria = []): array|bool
     {
         if (count($criteria, 1) > 0) {
+            if ($criteria['by_location']) {
+                if (!empty($criteria['location'])) {
+                    $select = $this->select->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
+                        ->from('profile')
+                        ->where(function (Where $where) use ($criteria) {
+                           $where->like('location', $criteria['location'] . '%');
+                        });
 
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($select),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        $rows = [];
+
+                        foreach ($query as $key => $value) {
+                            $rows = array_merge_recursive($rows, array($key => $value));
+                        }
+
+                        return $rows;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if ($criteria['username']) {
+                $select = $this->select->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
+                    ->from('profile')
+                    ->where(function (Where $where) use ($criteria) {
+                       $where->like('username', $criteria['username'] . '%');
+                    });
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($select),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    $rows = [];
+
+                    foreach ($query as $key => $value) {
+                        $rows = array_merge_recursive($rows, array($key => $value));
+                    }
+
+                    return $rows;
+                } else {
+                    return false;
+                }
+            } else if ($criteria['real_name']) {
+                $select = $this->select->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
+                    ->from('profile')
+                    ->where(function (Where $where) use ($criteria) {
+                       $where->like('real_name', $criteria['real_name'] . '%');
+                    });
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($select),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    $rows = [];
+
+                    foreach ($query as $key => $value) {
+                        $rows = array_merge_recursive($rows, array($key => $value));
+                    }
+
+                    return $rows;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         } else {
-
+            // nothing was passed, abort
+            return false;
         }
+    }
+
+
+    public function forums(Forums $forums): Forum
+    {
+        // TODO: Implement forums() method.
+        return $forums;
+    }
+
+
+    public function createProfile(array $profile_details): bool
+    {
+        // TODO: Implement createProfile() method.
+        return true;
+    }
+
+
+    public function editProfile(array $edits): bool
+    {
+        // TODO: Implement editProfile() method.
+        return true;
+    }
+
+
+    public function deleteProfile(string $reason): bool
+    {
+        // TODO: Implement deleteProfile() method.
+        return true;
     }
 }

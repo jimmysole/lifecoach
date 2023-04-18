@@ -36,7 +36,7 @@
 
     <div id="view-users-profile-tab" class="w3-container social-options" style="display: none;">
         <h2>User Profiles</h2>
-        <button id="view-user-profiles" class="w3-btn w3-round w3-theme-gradient">View User's Profiles</button>
+        <button id="view-user-profiles" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('view-profiles-modal').style.display = 'block';">View User's Profiles</button>
     </div>
 
     <div id="view-forums-tab" class="w3-container social-options" style="display: none;">
@@ -335,6 +335,95 @@
 </div>
 
 
+<div id="view-profiles-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('view-profiles-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>View User Profiles</h2>
+        </header>
+
+        <div class="w3-container">
+            <p>Criteria</p>
+            <div class="w3-row">
+                <div class="w3-col l2">
+                    <label for="location">By Location:</label>
+                    <input type="text" class="w3-input w3-border-black w3-round" id="location">
+                </div>
+            </div>
+
+            <p></p>
+
+            <div class="w3-row">
+                <div class="w3-col l2">
+                    <label for="username">By Username:</label>
+                    <input type="text" class="w3-input w3-border-black w3-round" id="username">
+                </div>
+            </div>
+
+            <p></p>
+
+            <div class="w3-row">
+                <div class="w3-col l2">
+                    <label for="real_name">By Name:</label>
+                    <input type="text" class="w3-input w3-border-black w3-round" id="real_name">
+                </div>
+            </div>
+
+            <button id="search" class="w3-btn w3-theme-gradient w3-right">Search Profiles</button>
+
+            <br><br><br><br>
+            <p class="w3-left" id="profile-table-header" style="display: none;">Profiles Found:</p>
+            <br><br>&nbsp;
+            <table id="user-profiles-table" style="display: none; overflow: auto;" class="w3-table-all">
+                <tr>
+                    <th>Username</th>
+                    <th>Real Name</th>
+                    <th>Location</th>
+                    <th>Avatar</th>
+                    <th>Bio</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $('#search').on('click', function() {
+                    if ($('#location').val() != "") {
+                        let location = $('#location').val();
+
+                        $.ajax({
+                           type: "POST",
+                           url: "<?php echo $this->url('home/social', [ 'action' => 'view-user-profiles' ]); ?>",
+                           dataType: "json",
+                           data: {
+                               loc: location
+                           }
+                        }).done(function(data) {
+                            if (undefined !== data) {
+                                $('#profile-table-header').attr('style', 'display: block;');
+                                $('#user-profiles-table').attr('style', 'display: block;');
+
+                                $.each(data, function(key, value) {
+                                   $('#user-profiles-table').append("<tr><td>"  + value.username  + "</td><td>" + value.real_name + "</td><td>" + value.location + "</td><td>" + value.avatar + "</td><td>" + value.bio + "</td></tr>");
+                                });
+                            }
+                        });
+                    } else if ($('#username').val() != "") {
+
+                    } else if ($('#real_name').val() != "") {
+
+                    } else {
+                        $('#view-profiles-footer').html("<p class=\"w3-center\">Invalid criteria provided.</p>");
+                        return;
+                    }
+                });
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="view-profiles-footer">&nbsp;</footer>
+    </div>
+</div>
+
+
 <script type="text/javascript">
     function openSocialOption(socialOption) {
         let i;
@@ -352,6 +441,7 @@
     const modal2 = document.getElementById('pending-chat-requests-modal');
     const modal3 = document.getElementById('incoming-chat-requests-modal');
     const modal4 = document.getElementById('current-chats-modal');
+    const modal5 = document.getElementById('view-profiles-modal');
 
     window.onclick = function(event) {
         if (event.target === modal1) {
@@ -368,6 +458,10 @@
 
         if (event.target === modal4) {
             modal4.style.display = 'none';
+        }
+
+        if (event.target === modal5) {
+            modal5.style.display = 'none';
         }
     }
 </script>

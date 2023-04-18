@@ -144,4 +144,21 @@ class SocialController extends AbstractActionController
 
         return $this->view_model;
     }
+
+
+    public function viewuserprofilesAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+        if ($this->request->isPost()) {
+            if (!empty($this->params()->fromPost('loc'))) {
+                if (false !== $this->social_model->viewProfiles(['by_location' => true, 'location' => $this->params()->fromPost('loc')])) {
+                    echo json_encode($this->social_model->viewProfiles(['by_location' => true, 'location' => $this->params()->fromPost('loc')]));
+                }
+            }
+        }
+
+        return $this->view_model;
+    }
 }

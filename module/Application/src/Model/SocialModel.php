@@ -64,4 +64,10 @@ class SocialModel
     {
         return $this->social->denyChatRequest($params);
     }
+
+
+    public function viewProfiles(array $criteria) : array|bool
+    {
+        return $this->social->viewProfiles($criteria);
+    }
 }
