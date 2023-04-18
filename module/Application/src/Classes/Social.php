@@ -340,49 +340,57 @@ class Social implements SocialInterface
                 } else {
                     return false;
                 }
-            } else if ($criteria['username']) {
-                $select = $this->select->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
-                    ->from('profile')
-                    ->where(function (Where $where) use ($criteria) {
-                       $where->like('username', $criteria['username'] . '%');
-                    });
+            } else if ($criteria['by_username']) {
+                if (!empty($criteria['username'])) {
+                    $select = $this->select->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
+                        ->from('profile')
+                        ->where(function (Where $where) use ($criteria) {
+                            $where->like('username', $criteria['username'] . '%');
+                        });
 
-                $query = $this->gateway->getAdapter()->query(
-                    $this->sql->buildSqlString($select),
-                    Adapter::QUERY_MODE_EXECUTE
-                );
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($select),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
 
-                if ($query->count() > 0) {
-                    $rows = [];
+                    if ($query->count() > 0) {
+                        $rows = [];
 
-                    foreach ($query as $key => $value) {
-                        $rows = array_merge_recursive($rows, array($key => $value));
+                        foreach ($query as $key => $value) {
+                            $rows = array_merge_recursive($rows, array($key => $value));
+                        }
+
+                        return $rows;
+                    } else {
+                        return false;
                     }
-
-                    return $rows;
                 } else {
                     return false;
                 }
-            } else if ($criteria['real_name']) {
-                $select = $this->select->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
-                    ->from('profile')
-                    ->where(function (Where $where) use ($criteria) {
-                       $where->like('real_name', $criteria['real_name'] . '%');
-                    });
+            } else if ($criteria['by_real_name']) {
+                if (!empty($criteria['real_name'])) {
+                    $select = $this->select->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
+                        ->from('profile')
+                        ->where(function (Where $where) use ($criteria) {
+                            $where->like('real_name', $criteria['real_name'] . '%');
+                        });
 
-                $query = $this->gateway->getAdapter()->query(
-                    $this->sql->buildSqlString($select),
-                    Adapter::QUERY_MODE_EXECUTE
-                );
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($select),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
 
-                if ($query->count() > 0) {
-                    $rows = [];
+                    if ($query->count() > 0) {
+                        $rows = [];
 
-                    foreach ($query as $key => $value) {
-                        $rows = array_merge_recursive($rows, array($key => $value));
+                        foreach ($query as $key => $value) {
+                            $rows = array_merge_recursive($rows, array($key => $value));
+                        }
+
+                        return $rows;
+                    } else {
+                        return false;
                     }
-
-                    return $rows;
                 } else {
                     return false;
                 }
