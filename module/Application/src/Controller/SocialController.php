@@ -153,8 +153,16 @@ class SocialController extends AbstractActionController
 
         if ($this->request->isPost()) {
             if (!empty($this->params()->fromPost('loc'))) {
-                if (false !== $this->social_model->viewProfiles(['by_location' => true, 'location' => $this->params()->fromPost('loc')])) {
-                    echo json_encode($this->social_model->viewProfiles(['by_location' => true, 'location' => $this->params()->fromPost('loc')]));
+                if (false !== $this->social_model->viewProfiles(['by_location' => true, 'by_username' => false, 'by_real_name' => false, 'location' => $this->params()->fromPost('loc')])) {
+                    echo json_encode($this->social_model->viewProfiles(['by_location' => true, 'by_username' => false, 'by_real_name' => false, 'location' => $this->params()->fromPost('loc')]));
+                }
+            } else if (!empty($this->params()->fromPost('user'))) {
+                if (false !== $this->social_model->viewProfiles(['by_location' => false, 'by_real_name' => false, 'by_username' => true, 'username' => $this->params()->fromPost('user')])) {
+                    echo json_encode($this->social_model->viewProfiles(['by_location' => false, 'by_real_name' => false, 'by_username' => true, 'username' => $this->params()->fromPost('user')]));
+                }
+            } else if (!empty($this->params()->fromPost('name'))) {
+                if (false !== $this->social_model->viewProfiles(['by_location' => false, 'by_username' => false, 'by_real_name' => true, 'real_name' => $this->params()->fromPost('name')])) {
+                    echo json_encode($this->social_model->viewProfiles(['by_location' => false, 'by_username' => false, 'by_real_name' => true, 'real_name' => $this->params()->fromPost('name')]));
                 }
             }
         }

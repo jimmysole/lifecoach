@@ -407,9 +407,45 @@
                             }
                         });
                     } else if ($('#username').val() != "") {
+                        let username = $('#username').val();
 
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo $this->url('home/social', [ 'action' => 'view-user-profiles' ]); ?>",
+                            dataType: "json",
+                            data: {
+                                user: username
+                            }
+                        }).done(function(data) {
+                            if (undefined !== data) {
+                                $('#profile-table-header').attr('style', 'display: block;');
+                                $('#user-profiles-table').attr('style', 'display: block;');
+
+                                $.each(data, function(key, value) {
+                                    $('#user-profiles-table').append("<tr><td>"  + value.username  + "</td><td>" + value.real_name + "</td><td>" + value.location + "</td><td>" + value.avatar + "</td><td>" + value.bio + "</td></tr>");
+                                });
+                            }
+                        });
                     } else if ($('#real_name').val() != "") {
+                        let realName = $('#real_name').val();
 
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo $this->url('home/social', [ 'action' => 'view-user-profiles' ]); ?>",
+                            dataType: "json",
+                            data: {
+                                name: realName
+                            }
+                        }).done(function(data) {
+                            if (undefined !== data) {
+                                $('#profile-table-header').attr('style', 'display: block;');
+                                $('#user-profiles-table').attr('style', 'display: block;');
+
+                                $.each(data, function(key, value) {
+                                    $('#user-profiles-table').append("<tr><td>"  + value.username  + "</td><td>" + value.real_name + "</td><td>" + value.location + "</td><td>" + value.avatar + "</td><td>" + value.bio + "</td></tr>");
+                                });
+                            }
+                        });
                     } else {
                         $('#view-profiles-footer').html("<p class=\"w3-center\">Invalid criteria provided.</p>");
                         return;
