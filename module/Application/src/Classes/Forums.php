@@ -72,6 +72,52 @@ class Forums implements ForumInterface
 
     public function displayHotTopics(): array
     {
-        return [];
+        $select = $this->select->from(['b' => 'boards'])
+            ->join(['t' => 'hot_topics'],
+                'b.id = t.board_id');
+
+        $query = $this->gateway->getAdapter()->query(
+            $this->sql->buildSqlString($select),
+            Adapter::QUERY_MODE_EXECUTE
+        );
+
+        if ($query->count() > 0) {
+            $rows = [];
+
+            foreach ($query as $key => $value) {
+                $rows = array_merge_recursive($rows, array($key => $value));
+            }
+
+            return $rows;
+        } else {
+            // return empty array, no hot topics exist
+            return [];
+        }
+    }
+
+
+    public function displayBoardModerators(): array
+    {
+        $select = $this->select->columns(['board_moderators'])
+            ->from('boards')
+            ->where('id is not null');
+
+        $query = $this->gateway->getAdapter()->query(
+            $this->sql->buildSqlString($select),
+            Adapter::QUERY_MODE_EXECUTE
+        );
+
+        if ($query->count() > 0) {
+            $moderators = [];
+
+            foreach ($query as $key => $value) {
+                $moderators = array_merge_recursive($moderators, array($key => $value));
+            }
+
+            return $moderators;
+        } else {
+            // return empty array, no moderators exist
+            return [];
+        }
     }
 }

@@ -7,6 +7,7 @@
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Forums.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Forums.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Interfaces/ForumInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Interfaces/ForumInterface.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +177,7 @@
       <workItem from="1680745040077" duration="1225000" />
       <workItem from="1680808651113" duration="24335000" />
       <workItem from="1681238464536" duration="18454000" />
-      <workItem from="1681678858488" duration="17707000" />
+      <workItem from="1681678858488" duration="26277000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>
