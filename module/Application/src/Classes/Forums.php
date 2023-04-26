@@ -27,10 +27,14 @@ class Forums implements ForumInterface
 
     private Update $update;
 
+    private string $user;
 
-    public function __construct(TableGateway $gateway)
+
+    public function __construct(TableGateway $gateway, string $user)
     {
         $this->gateway = $gateway;
+
+        $this->user = $user;
 
         $this->sql = new Sql($this->gateway->getAdapter());
 
@@ -118,6 +122,56 @@ class Forums implements ForumInterface
         } else {
             // return empty array, no moderators exist
             return [];
+        }
+    }
+
+
+    public function subscribeToBoard(string $board, array $options): bool
+    {
+        if (!empty($board) && count($options, 1) > 0) {
+            $sub_options = [];
+
+            foreach ($options as $k => $v) {
+                $sub_options = array_merge_recursive($sub_options, array($k => $v));
+            }
+
+            // find the board
+            $select = $this->select->columns(['id'])
+                ->from('boards')
+                ->where(['board_name' => $board]);
+
+            $query = $this->gateway->getAdapter()->query(
+                $this->sql->buildSqlString($select),
+                Adapter::QUERY_MODE_EXECUTE
+            );
+
+            if ($query->count() > 0) {
+                $row = [];
+
+                foreach ($query as $key => $value) {
+                    $row = array_merge_recursive($row, array($key => $value));
+                }
+
+                // subscribe to board now
+                $insert = $this->insert->into('board_subscriptions')
+                    ->columns(['board_id', 'board_subscribers', 'board_notifications'])
+                    ->values(['board_id' => $row['id'], 'board_subscribers' => $this->user, 'board_notifications' => $sub_options['notify'] == 1 ? 1 : 2]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($insert),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 }
