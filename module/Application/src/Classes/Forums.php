@@ -173,5 +173,5 @@ class Forums implements ForumInterface
         } else {
             return false;
         }
-    }
+    } 
 }
