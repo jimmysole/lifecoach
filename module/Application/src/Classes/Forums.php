@@ -173,5 +173,77 @@ class Forums implements ForumInterface
         } else {
             return false;
         }
-    } 
+    }
+
+
+    public function postMessage(string $board, string $topic, string $message, array $message_options = []): bool
+    {
+        if (!empty($board) && !empty($topic) && !empty($message)) {
+            $select = $this->select->columns(['id', 'board_name'])
+                ->from('boards')
+                ->where(['board_name' => $board]);
+
+            $query = $this->gateway->getAdapter()->query(
+                $this->sql->buildSqlString($select),
+                Adapter::QUERY_MODE_EXECUTE
+            );
+
+            if ($query->count() > 0) {
+                // board exists
+                // post the message now
+                $values = [];
+
+                foreach ($query as $key => $value) {
+                    $values = array_merge_recursive($values, array($key => $value));
+                }
+
+                $insert = $this->insert->into('boards')
+                    ->columns(['board_name', 'board_topic', 'board_posts'])
+                    ->values(['board_name' => $board, 'board_topic' => $topic, 'board_posts' => $message]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($insert),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    // check if any options were passed
+                    if (count($message_options, 1) > 0) {
+                        $msg_opts = [];
+
+                        foreach ($message_options as $msg_key => $msg_value) {
+                            $msg_opts[] = array_merge_recursive($msg_opts, array($msg_key => $msg_value));
+                        }
+
+                        if ($msg_opts['subscribe_to_post']) {
+                            $insert = $this->insert->into('board_subscriptions')
+                                ->columns(['board_id', 'board_subscribers', 'board_notifications'])
+                                ->values(['board_id' => $values['id'], 'board_subscribers' => $this->user, 'board_notifications' => 1]);
+
+                            $query = $this->gateway->getAdapter()->query(
+                                $this->sql->buildSqlString($insert),
+                                Adapter::QUERY_MODE_EXECUTE
+                            );
+
+                            if ($query->count() > 0) {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
