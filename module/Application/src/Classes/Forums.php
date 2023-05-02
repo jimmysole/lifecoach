@@ -198,8 +198,8 @@ class Forums implements ForumInterface
                 }
 
                 $insert = $this->insert->into('boards')
-                    ->columns(['board_name', 'board_topic', 'board_posts'])
-                    ->values(['board_name' => $board, 'board_topic' => $topic, 'board_posts' => $message]);
+                    ->columns(['board_name', 'board_topic', 'board_posts', 'board_msg_id'])
+                    ->values(['board_name' => $board, 'board_topic' => $topic, 'board_posts' => $message, 'board_msg_id' => rand(0, 10000)]);
 
                 $query = $this->gateway->getAdapter()->query(
                     $this->sql->buildSqlString($insert),
@@ -212,7 +212,7 @@ class Forums implements ForumInterface
                         $msg_opts = [];
 
                         foreach ($message_options as $msg_key => $msg_value) {
-                            $msg_opts[] = array_merge_recursive($msg_opts, array($msg_key => $msg_value));
+                            $msg_opts = array_merge_recursive($msg_opts, array($msg_key => $msg_value));
                         }
 
                         if ($msg_opts['subscribe_to_post']) {
@@ -236,6 +236,52 @@ class Forums implements ForumInterface
                     } else {
                         return true;
                     }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+
+    public function editMessage(string $board, int $message_id, array $edits): bool
+    {
+        if (!empty($board) && preg_match("/[0-9+]/", $message_id) && count($edits, 1) > 0) {
+            // find the board the message is tied to
+            // and update
+            $select = $this->select->columns(['id', 'board_msg_id', 'board_posts'])
+                ->from('boards')
+                ->where(['board_name' => $board, 'board_msg_id' => $message_id]);
+
+            $query = $this->gateway->getAdapter()->query(
+                $this->sql->buildSqlString($select),
+                Adapter::QUERY_MODE_EXECUTE
+            );
+
+            if ($query->count() > 0) {
+                $board_info = [];
+
+                foreach ($query as $key => $value) {
+                    $board_info = array_merge_recursive($board_info, array($key => $value));
+                }
+
+                // board and message found
+                // update
+                $update = $this->update->table('boards')
+                    ->set(['board_posts' => $edits['edited_message']])
+                    ->where(['id' => $board_info['id'], 'board_msg_id' => $board_info['board_msg_id']]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($update),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    return true;
                 } else {
                     return false;
                 }
