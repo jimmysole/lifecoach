@@ -414,4 +414,53 @@ class Forums implements ForumInterface
             return false;
         }
     }
+
+
+    public function searchForPosts(string $criteria, array $options): array|bool
+    {
+        if (!empty($criteria)) {
+            if ($criteria == 'by_keywords') {
+                if (count($options, 1) > 0) {
+                    $provided_options = [];
+
+                    foreach ($options as $k => $v) {
+                        $provided_options = array_merge_recursive($provided_options, array($k => $v));
+                    }
+
+                    // $provided_options['keywords'] should be an array
+                    // for example $provided_options['keywords'] => [ 'keyword1', 'keyword2' ];
+                    $keywords = count($provided_options['keywords'], 1 > 0) ? implode(", ", $provided_options['keywords']) : '';
+
+                    $select = $this->select->columns(['board_name', 'board_topic', 'board_posts'])
+                        ->from('boards')
+                        ->where(function (Where $where) use ($keywords) {
+                           $where->like('board_posts_keywords', $keywords . '%');
+                        });
+
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($select),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        $rows = [];
+
+                        foreach ($query as $key => $value) {
+                            $rows = array_merge_recursive($rows, array($key => $value));
+                        }
+
+                        return $rows;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
