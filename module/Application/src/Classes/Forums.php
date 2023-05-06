@@ -324,4 +324,94 @@ class Forums implements ForumInterface
             return false;
         }
     }
+
+
+    public function searchForUsers(string $criteria, array $options = array()): array|bool
+    {
+        if (!empty($criteria)) {
+            if (count($options, 1) > 0) {
+                $provided_options = [];
+
+                foreach ($options as $k => $v) {
+                    $provided_options = array_merge_recursive($provided_options, array($k => $v));
+                }
+
+                if ($criteria == 'by_username') {
+                    if (!empty($provided_options['username'])) {
+                        $select = $this->select->columns(['username', 'bio', 'active'])
+                            ->from('forum_users')
+                            ->where(function (Where $where) use ($provided_options) {
+                                $where->like('username', $provided_options['username'] . '%');
+                        });
+
+                        $query = $this->gateway->getAdapter()->query(
+                            $this->sql->buildSqlString($select),
+                            Adapter::QUERY_MODE_EXECUTE
+                        );
+
+                        if ($query->count() > 0) {
+                            $rows = [];
+
+                            foreach ($query as $key => $value) {
+                                $rows = array_merge_recursive($rows, array($key => $value));
+                            }
+
+                            return $rows;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else if ($criteria == 'by_active_status') {
+                    $select = $this->select->columns(['username', 'bio', 'active'])
+                        ->from('forum_users')
+                        ->where(['active' => 1]);
+
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($select),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        $rows = [];
+
+                        foreach ($query as $key => $value) {
+                            $rows = array_merge_recursive($rows, array($key => $value));
+                        }
+
+                        return $rows;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                // just search by active status (default)
+                $select = $this->select->columns(['username', 'bio', 'active'])
+                    ->from('forum_users')
+                    ->where(['active' => 1]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($select),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    $rows = [];
+
+                    foreach ($query as $key => $value) {
+                        $rows = array_merge_recursive($rows, array($key => $value));
+                    }
+
+                    return $rows;
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
 }

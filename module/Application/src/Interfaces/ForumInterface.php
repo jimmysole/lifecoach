@@ -18,4 +18,6 @@ interface ForumInterface
     public function editMessage(string $board, int $message_id, array $edits) : bool;
 
     public function searchForTopics(string $criteria) : array|bool;
+
+    public function searchForUsers(string $criteria, array $options = array()) : array|bool;
 }
