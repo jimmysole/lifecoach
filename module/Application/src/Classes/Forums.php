@@ -10,6 +10,7 @@ use Laminas\Db\Sql\Insert;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\Sql\Sql;
 use Laminas\Db\Sql\Update;
+use Laminas\Db\Sql\Where;
 use Laminas\Db\TableGateway\TableGateway;
 
 
@@ -285,6 +286,37 @@ class Forums implements ForumInterface
                 } else {
                     return false;
                 }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+
+    public function searchForTopics(string $criteria): array|bool
+    {
+        if (!empty($criteria)) {
+            $select = $this->select->columns(['board_name', 'board_posts'])
+                ->from('boards')
+                ->where(function (Where $where) use ($criteria) {
+                    $where->like('board_topic', $criteria . '%');
+                });
+
+            $query = $this->gateway->getAdapter()->query(
+                $this->sql->buildSqlString($select),
+                Adapter::QUERY_MODE_EXECUTE
+            );
+
+            if ($query->count() > 0) {
+                $rows = [];
+
+                foreach ($query as $key => $value) {
+                    $rows = array_merge_recursive($rows, array($key => $value));
+                }
+
+                return $rows;
             } else {
                 return false;
             }

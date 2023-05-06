@@ -16,4 +16,6 @@ interface ForumInterface
     public function postMessage(string $board, string $topic, string $message, array $message_options = []) : bool;
 
     public function editMessage(string $board, int $message_id, array $edits) : bool;
+
+    public function searchForTopics(string $criteria) : array|bool;
 }
