@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
+      <change afterPath="$PROJECT_DIR$/module/Application/src/Classes/ForumAdmin.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/module/Application/src/Interfaces/ForumAdminInterface.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Forums.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Forums.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Interfaces/ForumInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Interfaces/ForumInterface.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,9 +38,6 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="PhpTemplates">
-    <option name="NEW_PHP_FILE_LAST_EXTENSION" value="phtml" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="F:\xampp\php\php.exe">
     <include_path>
@@ -180,7 +177,7 @@
       <workItem from="1681678858488" duration="29226000" />
       <workItem from="1682534626952" duration="21474000" />
       <workItem from="1683065608283" duration="3312000" />
-      <workItem from="1683190870168" duration="9634000" />
+      <workItem from="1683190870168" duration="15322000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>
