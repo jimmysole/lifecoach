@@ -56,7 +56,7 @@ class ForumAdmin implements ForumAdminInterface
                 $reason_why = [];
 
                 foreach ($reason as $k => $v) {
-                    $reason_why = array_merge_recursive($reason_why, array($k => $v));
+                    $reason_why[$k] = $v;
                 }
 
                 $select = $this->select->columns(['id', 'board_name'])
@@ -163,7 +163,117 @@ class ForumAdmin implements ForumAdminInterface
 
     public function removePost(int $post_id, array $reason = array()): bool
     {
-        // TODO: Implement removePost() method.
+        if (preg_match("/[0-9+]/", $post_id)) {
+            if (count($reason, 1) > 0) {
+                $reason_why = [];
+
+                foreach ($reason as $k => $v) {
+                    $reason_why[$k] = $v;
+                }
+
+                // find the post id under the boards table
+                // referenced by board_msg_id column in the table
+                $select = $this->select->columns(['id', 'board_name', 'board_posts', 'board_msg_id'])
+                    ->from('boards')
+                    ->where(['board_msg_id' => $post_id]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($select),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    $row = [];
+
+                    foreach ($query as $key => $value) {
+                        $row = array_merge_recursive($row, array($key => $value));
+                    }
+
+                    // insert into deleted_board_posts
+                    // and remove from boards
+                    $insert = $this->insert->into('deleted_board_posts')
+                        ->columns(['board_id', 'board_name', 'board_post', 'board_post_id', 'reason'])
+                        ->values(['board_id' => $row['id'], 'board_name' => $row['board_name'], 'board_post' => $row['board_post'], 'board_post_id' => $row['board_msg_id'], 'reason' => $reason_why['reason']]);
+
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($insert),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        $delete = $this->delete->from('boards')
+                            ->where(['board_msg_id' => $row['board_msg_id']]);
+
+                        $query = $this->gateway->getAdapter()->query(
+                            $this->sql->buildSqlString($delete),
+                            Adapter::QUERY_MODE_EXECUTE
+                        );
+
+                        if ($query->count() > 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                // find the post id under the boards table
+                // referenced by board_msg_id column in the table
+                $select = $this->select->columns(['id', 'board_name', 'board_posts', 'board_msg_id'])
+                    ->from('boards')
+                    ->where(['board_msg_id' => $post_id]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($select),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    $row = [];
+
+                    foreach ($query as $key => $value) {
+                        $row = array_merge_recursive($row, array($key => $value));
+                    }
+
+                    // insert into deleted_board_posts
+                    // and remove from boards
+                    $insert = $this->insert->into('deleted_board_posts')
+                        ->columns(['board_id', 'board_name', 'board_post', 'board_post_id', 'reason'])
+                        ->values(['board_id' => $row['id'], 'board_name' => $row['board_name'], 'board_post' => $row['board_post'], 'board_post_id' => $row['board_msg_id']]);
+
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($insert),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        $delete = $this->delete->from('boards')
+                            ->where(['board_msg_id' => $row['board_msg_id']]);
+
+                        $query = $this->gateway->getAdapter()->query(
+                            $this->sql->buildSqlString($delete),
+                            Adapter::QUERY_MODE_EXECUTE
+                        );
+
+                        if ($query->count() > 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
     }
 
 
