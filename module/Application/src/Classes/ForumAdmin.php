@@ -51,7 +51,113 @@ class ForumAdmin implements ForumAdminInterface
 
     public function removeBoard(int $board_id, array $reason = array()): bool
     {
-        // TODO: Implement removeBoard() method.
+        if (preg_match("/[0-9+]/", $board_id)) {
+            if (count($reason, 1) > 0) {
+                $reason_why = [];
+
+                foreach ($reason as $k => $v) {
+                    $reason_why = array_merge_recursive($reason_why, array($k => $v));
+                }
+
+                $select = $this->select->columns(['id', 'board_name'])
+                    ->from('boards')
+                    ->where(['id' => $board_id]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($select),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    $row = [];
+
+                    foreach ($query as $key => $value) {
+                        $row = array_merge_recursive($row, array($key => $value));
+                    }
+
+                    // insert into the deleted boards table
+                    // then remove from boards
+                    $insert = $this->insert->into('deleted_boards')
+                        ->columns(['board_id', 'board_name'])
+                        ->values(['board_id' => $row['id'], 'board_name' => $row['board_name'], 'reason'  => $reason_why['reason']]);
+
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($insert),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        $delete = $this->delete->from('boards')
+                            ->where(['id' => $row['id']]);
+
+                        $query = $this->gateway->getAdapter()->query(
+                            $this->sql->buildSqlString($delete),
+                            Adapter::QUERY_MODE_EXECUTE
+                        );
+
+                        if ($query->count() > 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                $select = $this->select->columns(['id', 'board_name'])
+                    ->from('boards')
+                    ->where(['id' => $board_id]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($select),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    $row = [];
+
+                    foreach ($query as $key => $value) {
+                        $row = array_merge_recursive($row, array($key => $value));
+                    }
+
+                    // insert into the deleted boards table
+                    // then remove from boards
+                    $insert = $this->insert->into('deleted_boards')
+                        ->columns(['board_id', 'board_name'])
+                        ->values(['board_id' => $row['id'], 'board_name' => $row['board_name']]);
+
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($insert),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        $delete = $this->delete->from('boards')
+                            ->where(['id' => $row['id']]);
+
+                        $query = $this->gateway->getAdapter()->query(
+                            $this->sql->buildSqlString($delete),
+                            Adapter::QUERY_MODE_EXECUTE
+                        );
+
+                        if ($query->count() > 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
     }
 
 
