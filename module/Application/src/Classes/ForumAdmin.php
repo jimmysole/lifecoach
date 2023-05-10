@@ -279,6 +279,112 @@ class ForumAdmin implements ForumAdminInterface
 
     public function removeHotTopic(int $board_id, array $reason = array()): bool
     {
-        // TODO: Implement removeHotTopic() method.
+        if (preg_match("/[0-9+]/", $board_id)) {
+            if (count($reason, 1) > 0) {
+                $reason_why = [];
+
+                foreach ($reason as $k => $v) {
+                    $reason_why = array_merge_recursive($reason_why, array($k => $v));
+                }
+
+                // find the board id the hot topic is tied to
+                $select = $this->select->columns(['id', 'board_id', 'topic'])
+                    ->from('hot_topics')
+                    ->where(['board_id' => $board_id]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($select),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    $row = [];
+
+                    foreach ($query as $key => $value) {
+                        $row = array_merge_recursive($row, array($key => $value));
+                    }
+
+                    // remove the topic now
+                    $delete = $this->delete->from('hot_topics')
+                        ->where(['id' => $row['id']]);
+
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($delete),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        $insert = $this->insert->into('deleted_hot_topics')
+                            ->columns(['board_id', 'topic', 'reason'])
+                            ->values(['board_id' => $row['board_id'], 'topic' => $row['topic'], 'reason' => $reason_why['reason']]);
+
+                        $query = $this->gateway->getAdapter()->query(
+                            $this->sql->buildSqlString($insert),
+                            Adapter::QUERY_MODE_EXECUTE
+                        );
+
+                        if ($query->count() > 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                // find the board id the hot topic is tied to
+                $select = $this->select->columns(['id', 'board_id', 'topic'])
+                    ->from('hot_topics')
+                    ->where(['board_id' => $board_id]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($select),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    $row = [];
+
+                    foreach ($query as $key => $value) {
+                        $row = array_merge_recursive($row, array($key => $value));
+                    }
+
+                    // remove the topic now
+                    $delete = $this->delete->from('hot_topics')
+                        ->where(['id' => $row['id']]);
+
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($delete),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        $insert = $this->insert->into('deleted_hot_topics')
+                            ->columns(['board_id', 'topic', 'reason'])
+                            ->values(['board_id' => $row['board_id'], 'topic' => $row['topic']]);
+
+                        $query = $this->gateway->getAdapter()->query(
+                            $this->sql->buildSqlString($insert),
+                            Adapter::QUERY_MODE_EXECUTE
+                        );
+
+                        if ($query->count() > 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
     }
 }
