@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
+      <change afterPath="$PROJECT_DIR$/module/Application/src/Controller/ForumController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/module/Application/src/Model/ForumModel.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/module/Application/view/application/forum/index.phtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/config/module.config.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/config/module.config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/ForumAdmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/ForumAdmin.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -179,7 +183,7 @@
       <workItem from="1681678858488" duration="29226000" />
       <workItem from="1682534626952" duration="21474000" />
       <workItem from="1683065608283" duration="3312000" />
-      <workItem from="1683190870168" duration="24279000" />
+      <workItem from="1683190870168" duration="25063000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>

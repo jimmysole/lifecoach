@@ -11,7 +11,6 @@ use Laminas\Db\Sql\Insert;
 use Laminas\Db\Sql\Select;
 use Laminas\Db\Sql\Sql;
 use Laminas\Db\Sql\Update;
-use Laminas\Db\Sql\Where;
 use Laminas\Db\TableGateway\TableGateway;
 
 class ForumAdmin implements ForumAdminInterface

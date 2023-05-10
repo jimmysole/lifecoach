@@ -9,6 +9,7 @@ namespace Application;
 use Application\Controller\ArticlesController;
 use Application\Controller\CategoriesController;
 use Application\Controller\ContactController;
+use Application\Controller\ForumController;
 use Application\Controller\IndexController;
 use Application\Controller\LoginController;
 use Application\Controller\LogoutController;
@@ -158,6 +159,17 @@ return [
                             ],
                         ],
                     ],
+
+                    'forum' => [
+                        'type' => 'Segment',
+                        'options' => [
+                            'route' => 'forum[/:action][/:id]',
+                            'defaults' => [
+                                'controller' => ForumController::class,
+                                'action'     => 'index',
+                            ]
+                        ]
+                    ]
                 ],
             ],
 	           
@@ -186,6 +198,7 @@ return [
             Controller\VerifyController::class => ReflectionBasedAbstractFactory::class,
             Controller\SocialController::class => ReflectionBasedAbstractFactory::class,
             Controller\RegisterController::class => ReflectionBasedAbstractFactory::class,
+            Controller\ForumController::class => ReflectionBasedAbstractFactory::class,
 		],
 	],
 	
