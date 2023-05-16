@@ -41,7 +41,7 @@
 
     <div id="view-forums-tab" class="w3-container social-options" style="display: none;">
         <h2>Forums</h2>
-        <button id="view-forums" class="w3-btn w3-round w3-theme-gradient">View Forums</button>
+        <button id="view-forums" class="w3-btn w3-round w3-theme-gradient" onclick="window.open('<?php echo $this->url('home/forum', [ 'action' => 'index' ]); ?>');">View Forums</button>
     </div>
 
     <div id="create-profile-tab" class="w3-container social-options" style="display: none;">

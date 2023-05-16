@@ -11,6 +11,7 @@ use Application\Model\ArticleModel;
 use Application\Model\ContactModel;
 use Application\Model\Filters\Login;
 use Application\Model\Filters\Register;
+use Application\Model\ForumModel;
 use Application\Model\IndexModel;
 use Application\Model\LoginModel;
 use Application\Model\LogoutModel;
@@ -262,6 +263,16 @@ class Module implements ConfigProviderInterface
                 SocialService::class => function ($container) {
                     $db_adapter = $container->get(AdapterInterface::class);
                     return new TableGateway('chats', $db_adapter);
+                },
+
+                ForumModel::class => function ($container) {
+                    $table_gateway = $container->get(ForumService::class);
+                    return new ForumModel($table_gateway, $container->get(AuthenticationService::class)->getIdentity());
+                },
+
+                ForumService::class => function ($container) {
+                    $db_adapter = $container->get(AdapterInterface::class);
+                    return new TableGateway('boards', $db_adapter);
                 }
             )
         );

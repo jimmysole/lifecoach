@@ -15,7 +15,7 @@ class ForumController extends AbstractActionController
     public ViewModel $viewModel;
 
 
-    public function __construct(ForumModel $model)
+    public function __construct(ForumModel $model)   
     {
         $this->model = $model;
         $this->viewModel = new ViewModel();
@@ -24,6 +24,8 @@ class ForumController extends AbstractActionController
 
     public function indexAction()
     {
+        $this->viewModel->setVariable('boards', $this->model->displayBoards());
 
+        return $this->viewModel;
     }
 }

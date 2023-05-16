@@ -52,8 +52,7 @@ class Forums implements ForumInterface
     public function displayBoards(): array
     {
         $select = $this->select->columns(['id', 'board_name', 'board_topic', 'board_moderators', 'board_posts'])
-            ->from('boards')
-            ->where('id is not null');
+            ->from('boards');
 
         $query = $this->gateway->getAdapter()->query(
             $this->sql->buildSqlString($select),

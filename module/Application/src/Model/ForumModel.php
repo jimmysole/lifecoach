@@ -21,4 +21,10 @@ class ForumModel
         $this->user = $user;
         $this->forum = new Forums($this->gateway, $this->user);
     }
+
+
+    public function displayBoards() : array
+    {
+        return $this->forum->displayBoards();
+    }
 }

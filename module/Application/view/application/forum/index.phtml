@@ -1,0 +1,19 @@
+<div class="w3-container">
+    <table class="w3-table-all">
+        <tr>
+            <th>Board Name</th>
+            <th>Board Topic</th>
+            <th>Board Moderators</th>
+            <th>Board Posts</th>
+        </tr>
+
+        <?php foreach ($this->boards as $key => $value): ?>
+        <tr>
+            <td><?php echo $value['board_name']; ?></td>
+            <td><?php echo $value['board_topic']; ?></td>
+            <td><?php echo $value['board_moderators']; ?></td>
+            <td><?php echo $value['board_posts']; ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </div>
+</div>
