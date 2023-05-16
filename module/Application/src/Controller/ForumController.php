@@ -22,7 +22,7 @@ class ForumController extends AbstractActionController
     }
 
 
-    public function indexAction()
+    public function indexAction(): ViewModel
     {
         $this->viewModel->setVariable('boards', $this->model->displayBoards());
 

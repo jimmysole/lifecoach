@@ -4,6 +4,7 @@ namespace Application;
 
 
 use Application\Controller\CategoriesController;
+use Application\Controller\ForumController;
 use Application\Controller\LoginController;
 use Application\Controller\SocialController;
 use Application\Controller\UserController;
@@ -108,6 +109,8 @@ class Module implements ConfigProviderInterface
                 $controller->layout('layout/user');
             } else if (get_class($controller) == SocialController::class) {
                 $controller->layout('layout/user');
+            } else if (get_class($controller) == ForumController::class) {
+                $controller->layout('layout/forum');
             }
         }, 100);
     }

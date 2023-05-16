@@ -30,7 +30,7 @@
                 let warningTimer = null;
                 let timeoutWarning = 840000;
 
-                $('*').bind('mousemove click mouseup keydown keypress keup submit change mouseenter scroll resize dblclick', function() {
+                $('*').bind('mousemove click mouseup keydown keypress keyup submit change mouseenter scroll resize dblclick', function() {
                     clearTimeout(warningTimer);
                     clearTimeout(idleTimer);
                     
