@@ -1,6 +1,7 @@
 <div class="w3-container">
     <table class="w3-table-all">
         <tr>
+            <th>Board ID</th>
             <th>Board Name</th>
             <th>Board Topic</th>
             <th>Board Moderators</th>
@@ -9,6 +10,7 @@
 
         <?php foreach ($this->boards as $key => $value): ?>
         <tr>
+            <td class="board-id"><?php echo $value['id']; ?></td>
             <td><?php echo $value['board_name']; ?></td>
             <td><?php echo $value['board_topic']; ?></td>
             <td><?php echo $value['board_moderators']; ?></td>
@@ -17,3 +19,21 @@
         <?php endforeach; ?>
     </table>
 </div>
+
+<script type="text/javascript">
+    $('.w3-table-all').on('click', function(e) {
+       let boardId = $(e.target).closest('tr').find('.board-id').html();
+
+       $.ajax({
+           type: "POST",
+           url: "<?php echo $this->url('home/forum', ['action' => 'get-board']); ?>",
+           data: {
+               id: boardId
+           }
+       }).done(function(data) {
+            window.open(data);
+       }).fail(function() {
+           alert("Error navigating to board.");
+       });
+    });
+</script>

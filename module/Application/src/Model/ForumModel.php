@@ -27,4 +27,10 @@ class ForumModel
     {
         return $this->forum->displayBoards();
     }
+
+
+    public function displayBoard(int $id) : array|bool
+    {
+        return $this->forum->displayBoard($id);
+    }
 }

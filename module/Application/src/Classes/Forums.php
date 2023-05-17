@@ -74,6 +74,34 @@ class Forums implements ForumInterface
     }
 
 
+    public function displayBoard(int $id): array|bool
+    {
+        if (preg_match("/[1-9]+/", $id)) {
+            $select = $this->select->columns(['*'])->from('boards')
+                ->where(['id' => $id]);
+
+            $query = $this->gateway->getAdapter()->query(
+                $this->sql->buildSqlString($select),
+                Adapter::QUERY_MODE_EXECUTE
+            );
+
+            if ($query->count() > 0) {
+                $board_info = [];
+
+                foreach ($query as $key => $value) {
+                    $board_info = array_merge_recursive($board_info, array($key => $value));
+                }
+
+                return $board_info;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+
     public function displayHotTopics(): array
     {
         $select = $this->select->from(['b' => 'boards'])

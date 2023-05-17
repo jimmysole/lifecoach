@@ -1,0 +1,28 @@
+<div class="w3-container">
+<table class="w3-table-all">
+    <tr>
+        <th>Board ID</th>
+        <th>Board Name</th>
+        <th>Board Topic</th>
+        <th>Board Moderators</th>
+        <th>Board Posts</th>
+    </tr>
+
+    <?php foreach ($this->board as $key => $value): ?>
+        <tr>
+            <td class="board-id"><?php echo $value['id']; ?></td>
+            <td><?php echo $value['board_name']; ?></td>
+            <td><?php echo $value['board_topic']; ?></td>
+            <td><?php echo $value['board_moderators']; ?></td>
+            <td><?php echo $value['board_posts']; ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+    <br>
+    <div class="w3-row w3-left">
+        <div class="w3-col-2">
+            <button class="w3-btn w3-theme-gradient">Post A New Topic</button>
+            <button class="w3-btn w3-theme-gradient">Reply To A Topic</button>
+        </div>
+    </div>
+</div>

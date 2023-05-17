@@ -7,6 +7,8 @@ interface ForumInterface
 {
     public function displayBoards() : array;
 
+    public function displayBoard(int $id) : array|bool;
+
     public function displayHotTopics() : array;
 
     public function displayBoardModerators() : array;

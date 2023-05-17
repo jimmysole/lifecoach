@@ -28,4 +28,27 @@ class ForumController extends AbstractActionController
 
         return $this->viewModel;
     }
+
+
+    public function getboardAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->viewModel->setTerminal(true);
+
+        $id = intval($this->params()->fromPost('id'));
+
+        echo "forum/view-board/$id";
+
+        return $this->viewModel;
+    }
+
+
+    public function viewboardAction() : ViewModel
+    {
+        $id = intval($this->params()->fromRoute('id'));
+
+        $this->viewModel->setVariable('board', $this->model->displayBoard($id));
+
+        return $this->viewModel;
+    }
 }
