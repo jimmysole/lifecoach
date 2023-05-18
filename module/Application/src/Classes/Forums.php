@@ -51,7 +51,7 @@ class Forums implements ForumInterface
 
     public function displayBoards(): array
     {
-        $select = $this->select->columns(['id', 'board_name', 'board_topic', 'board_moderators', 'board_posts'])
+        $select = $this->select->columns(['id', 'board_name', 'board_moderators'])
             ->from('boards');
 
         $query = $this->gateway->getAdapter()->query(
@@ -225,9 +225,9 @@ class Forums implements ForumInterface
                     $values = array_merge_recursive($values, array($key => $value));
                 }
 
-                $insert = $this->insert->into('boards')
-                    ->columns(['board_name', 'board_topic', 'board_posts', 'board_msg_id'])
-                    ->values(['board_name' => $board, 'board_topic' => $topic, 'board_posts' => $message, 'board_msg_id' => rand(0, 10000)]);
+                $insert = $this->insert->into('board_posts')
+                    ->columns(['board_id', 'topic', 'posts'])
+                    ->values(['board_id' => $values['id'], 'topic' => $topic, 'posts' => $message]);
 
                 $query = $this->gateway->getAdapter()->query(
                     $this->sql->buildSqlString($insert),

@@ -3,18 +3,14 @@
     <tr>
         <th>Board ID</th>
         <th>Board Name</th>
-        <th>Board Topic</th>
         <th>Board Moderators</th>
-        <th>Board Posts</th>
     </tr>
 
     <?php foreach ($this->board as $key => $value): ?>
         <tr>
             <td class="board-id"><?php echo $value['id']; ?></td>
             <td><?php echo $value['board_name']; ?></td>
-            <td><?php echo $value['board_topic']; ?></td>
             <td><?php echo $value['board_moderators']; ?></td>
-            <td><?php echo $value['board_posts']; ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
