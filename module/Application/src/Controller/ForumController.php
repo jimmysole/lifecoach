@@ -71,7 +71,7 @@ class ForumController extends AbstractActionController
         $board_id    = intval($this->params()->fromPost('boardId'));
         $board_topic = $this->params()->fromPost('boardTopic');
         $board_msg   = $this->params()->fromPost('boardMessage');
-        $subscribe   = $this->params()->fromPost('boardSubscribe') === "true" ? 1 : false; 
+        $subscribe   = $this->params()->fromPost('boardSubscribe') === "true" ? 1 : false;
 
         if ($this->model->postTopic($board_id, $board_topic, $board_msg, [ 'subscribe_to_post' => $subscribe ])) {
             echo "Topic was posted to the board";

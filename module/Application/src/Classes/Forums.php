@@ -78,6 +78,8 @@ class Forums implements ForumInterface
     {
         if (preg_match("/[1-9]+/", $id)) {
             $select = $this->select->columns(['*'])->from('boards')
+                ->join(['bt' => 'board_posts'],
+                'bt.board_id = boards.id')
                 ->where(['id' => $id]);
 
             $query = $this->gateway->getAdapter()->query(
