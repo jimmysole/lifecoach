@@ -45,9 +45,39 @@ class ForumController extends AbstractActionController
 
     public function viewboardAction() : ViewModel
     {
+        $user = $_SESSION['kb'];
+
+        $status = [];
+
+        foreach ($user as $value) {
+            $status[] = $value;
+        }
+
+
         $id = intval($this->params()->fromRoute('id'));
 
         $this->viewModel->setVariable('board', $this->model->displayBoard($id));
+        $this->viewModel->setVariable('user', $status[0]);
+
+        return $this->viewModel;
+    }
+
+
+    public function posttopicAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->viewModel->setTerminal(true);
+
+        $board_id    = intval($this->params()->fromPost('boardId'));
+        $board_topic = $this->params()->fromPost('boardTopic');
+        $board_msg   = $this->params()->fromPost('boardMessage');
+        $subscribe   = $this->params()->fromPost('boardSubscribe') === "true" ? 1 : false; 
+
+        if ($this->model->postTopic($board_id, $board_topic, $board_msg, [ 'subscribe_to_post' => $subscribe ])) {
+            echo "Topic was posted to the board";
+        } else {
+           echo "Error posting the topic to the board";
+        }
 
         return $this->viewModel;
     }

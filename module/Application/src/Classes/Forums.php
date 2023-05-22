@@ -204,12 +204,12 @@ class Forums implements ForumInterface
     }
 
 
-    public function postMessage(string $board, string $topic, string $message, array $message_options = []): bool
+    public function postMessage(int $board, string $topic, string $message, array $message_options = []): bool
     {
-        if (!empty($board) && !empty($topic) && !empty($message)) {
-            $select = $this->select->columns(['id', 'board_name'])
+        if (preg_match("/[1-9+]/", $board) && !empty($topic) && !empty($message)) {
+            $select = $this->select->columns(['id'])
                 ->from('boards')
-                ->where(['board_name' => $board]);
+                ->where(['id' => $board]);
 
             $query = $this->gateway->getAdapter()->query(
                 $this->sql->buildSqlString($select),
@@ -227,7 +227,7 @@ class Forums implements ForumInterface
 
                 $insert = $this->insert->into('board_posts')
                     ->columns(['board_id', 'topic', 'posts'])
-                    ->values(['board_id' => $values['id'], 'topic' => $topic, 'posts' => $message]);
+                    ->values(['board_id' => $values[0]['id'], 'topic' => $topic, 'posts' => $message]);
 
                 $query = $this->gateway->getAdapter()->query(
                     $this->sql->buildSqlString($insert),
@@ -240,13 +240,14 @@ class Forums implements ForumInterface
                         $msg_opts = [];
 
                         foreach ($message_options as $msg_key => $msg_value) {
-                            $msg_opts = array_merge_recursive($msg_opts, array($msg_key => $msg_value));
+                            $msg_opts[$msg_key] = $msg_value;
                         }
 
-                        if ($msg_opts['subscribe_to_post']) {
+
+                        if ($msg_opts['subscribe_to_post'] == 1) {
                             $insert = $this->insert->into('board_subscriptions')
                                 ->columns(['board_id', 'board_subscribers', 'board_notifications'])
-                                ->values(['board_id' => $values['id'], 'board_subscribers' => $this->user, 'board_notifications' => 1]);
+                                ->values(['board_id' => $values[0]['id'], 'board_subscribers' => $this->user, 'board_notifications' => 1]);
 
                             $query = $this->gateway->getAdapter()->query(
                                 $this->sql->buildSqlString($insert),

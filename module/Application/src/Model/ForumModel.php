@@ -33,4 +33,10 @@ class ForumModel
     {
         return $this->forum->displayBoard($id);
     }
+
+
+    public function postTopic(int $board, string $topic, string $message, array $message_options = []) : bool
+    {
+        return $this->forum->postMessage($board, $topic, $message, $message_options);
+    }
 }
