@@ -228,8 +228,8 @@ class Forums implements ForumInterface
                 }
 
                 $insert = $this->insert->into('board_posts')
-                    ->columns(['board_id', 'topic', 'posts'])
-                    ->values(['board_id' => $values[0]['id'], 'topic' => $topic, 'posts' => $message]);
+                    ->columns(['board_id', 'author', 'topic', 'posts'])
+                    ->values(['board_id' => $values[0]['id'], 'author' => $this->user, 'topic' => $topic, 'posts' => $message]);
 
                 $query = $this->gateway->getAdapter()->query(
                     $this->sql->buildSqlString($insert),

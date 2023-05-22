@@ -1,18 +1,21 @@
 <div class="w3-container">
+    <?php foreach ($this->board as $k => $v): ?>
+         <h2 class="w3-left"><?php echo ucwords($v['board_name']); ?></h2>
+    <?php endforeach; ?>
 <table class="w3-table-all">
     <tr>
-        <th>Board ID</th>
-        <th>Board Name</th>
         <th>Board Moderators</th>
-        <th>Board Topics</th>
+        <th>Author</th>
+        <th>Topic</th>
+        <th>Posts</th>
     </tr>
 
     <?php foreach ($this->board as $key => $value): ?>
         <tr>
-            <td class="board-id"><?php echo $value['id']; ?></td>
-            <td><?php echo $value['board_name']; ?></td>
             <td><?php echo $value['board_moderators']; ?></td>
+            <td><?php echo $value['author']; ?></td>
             <td><?php echo $value['topic']; ?></td>
+            <td><?php echo $value['posts']; ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
