@@ -39,4 +39,10 @@ class ForumModel
     {
         return $this->forum->postMessage($board, $topic, $message, $message_options);
     }
+
+
+    public function subscribeToBoard(int $board_id, array $options) : bool
+    {
+        return $this->forum->subscribeToBoard($board_id, $options);
+    }
 }

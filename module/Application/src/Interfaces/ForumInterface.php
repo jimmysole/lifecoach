@@ -13,7 +13,7 @@ interface ForumInterface
 
     public function displayBoardModerators() : array;
 
-    public function subscribeToBoard(string $board, array $options) : bool;
+    public function subscribeToBoard(int $board_id, array $options) : bool;
 
     public function postMessage(int $board_id, string $topic, string $message, array $message_options = []) : bool;
 

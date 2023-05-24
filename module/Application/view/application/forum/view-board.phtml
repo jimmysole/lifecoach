@@ -1,6 +1,34 @@
 <div class="w3-container">
 
     <h2 class="w3-left"><?php echo $this->board[0]['board_name']; ?></h2>
+    <div class="w3-row">
+        <div class="w3-col-2">
+            <button id="subscribe-to-board" class="w3-btn w3-theme-gradient">Subscribe To Board</button>
+            <br>
+            <p class="w3-center" id="subscribe-message"></p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('#subscribe-to-board').on('click', function() {
+            let id = path => path.substring(path.lastIndexOf('/') + 1);
+            let subOptions = 1
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo $this->url('home/forum', [ 'action' => 'subscribe-to-board']); ?>",
+                data: {
+                    boardID: id('<?php echo $_SERVER['REQUEST_URI']; ?>'),
+                    boardOptions: subOptions
+                }
+            }).done(function(response) {
+                $('#subscribe-message').html(response);
+            }).fail(function(failure) {
+                $('#subscribe-message').html(failure);
+            });
+        });
+    </script>
+    <br>
 
 <table class="w3-table-all">
     <tr>

@@ -156,19 +156,19 @@ class Forums implements ForumInterface
     }
 
 
-    public function subscribeToBoard(string $board, array $options): bool
+    public function subscribeToBoard(int $board_id, array $options): bool
     {
-        if (!empty($board) && count($options, 1) > 0) {
+        if (preg_match("/[1-9+]/", $board_id) && count($options, 1) > 0) {
             $sub_options = [];
 
             foreach ($options as $k => $v) {
-                $sub_options = array_merge_recursive($sub_options, array($k => $v));
+                $sub_options[$k] = $v;
             }
 
             // find the board
             $select = $this->select->columns(['id'])
                 ->from('boards')
-                ->where(['board_name' => $board]);
+                ->where(['id' => $board_id]);
 
             $query = $this->gateway->getAdapter()->query(
                 $this->sql->buildSqlString($select),
@@ -185,7 +185,7 @@ class Forums implements ForumInterface
                 // subscribe to board now
                 $insert = $this->insert->into('board_subscriptions')
                     ->columns(['board_id', 'board_subscribers', 'board_notifications'])
-                    ->values(['board_id' => $row['id'], 'board_subscribers' => $this->user, 'board_notifications' => $sub_options['notify'] == 1 ? 1 : 2]);
+                    ->values(['board_id' => $row[0]['id'], 'board_subscribers' => $this->user, 'board_notifications' => $sub_options['notify'] == 1 ? 1 : 2]);
 
                 $query = $this->gateway->getAdapter()->query(
                     $this->sql->buildSqlString($insert),

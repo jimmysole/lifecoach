@@ -81,4 +81,23 @@ class ForumController extends AbstractActionController
 
         return $this->viewModel;
     }
+
+
+    public function subscribetoboardAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->viewModel->setTerminal(true);
+
+        $board_id = intval($this->params()->fromPost('boardID'));
+        $board_options = intval($this->params()->fromPost('boardOptions'));
+
+
+        if ($this->model->subscribeToBoard($board_id, [ 'notify' => $board_options ])) {
+            echo "Subscription to this board successful";
+        } else {
+            echo "Error subscribing to the board.";
+        }
+
+        return $this->viewModel;
+    }
 }
