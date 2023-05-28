@@ -493,4 +493,14 @@ class Forums implements ForumInterface
             return false;
         }
     }
+
+
+    public function replyToTopic(int $board_id, string $topic, array $response): bool
+    {
+        if (preg_match("/[1-9+]/", $board_id) && !empty($topic) && count($response, 1) > 0) {
+
+        } else {
+            return false;
+        }
+    }
 }

@@ -83,6 +83,20 @@ class ForumController extends AbstractActionController
     }
 
 
+    public function gettopicsAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->viewModel->setTerminal(true);
+
+        if ($this->request->isPost()) {
+            echo json_encode($this->model->displayBoard($this->params()->fromPost('boardID')));
+        }
+
+
+        return $this->viewModel;
+    }
+
+
     public function subscribetoboardAction() : ViewModel
     {
         $this->layout()->setTerminal(true);

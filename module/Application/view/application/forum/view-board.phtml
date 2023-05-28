@@ -58,9 +58,14 @@
             $('#post-new-topic').on('click', function() {
                 document.getElementById('post-new-topic-modal').style.display = 'block';
             });
+
+            $('#reply-to-topic').on('click', function() {
+                document.getElementById('reply-to-topic-modal').style.display = 'block';
+            })
         </script>
     </div>
 
+    <!-- modals -->
     <div class="w3-modal" id="post-new-topic-modal">
         <div class="w3-modal-content">
             <header class="w3-container w3-theme-gradient">
@@ -132,14 +137,63 @@
         </div>
     </div>
 
+
+    <div class="w3-modal" id="reply-to-topic-modal">
+        <div class="w3-modal-content">
+            <header class="w3-container w3-theme-gradient">
+                <span onclick="document.getElementById('reply-to-topic-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+                <h2>Reply To A Topic</h2>
+            </header>
+
+            <div class="w3-container">
+                <br><br>
+                <table class="w3-table-all" id="reply-topics-table">
+                    <tr>
+                        <th>Author</th>
+                        <th>Topic</th>
+                        <th>Posts</th>
+                        <th>Respond</th>
+                    </tr>
+                </table>
+
+                <script type="text/javascript">
+                    let id = path => path.substring(path.lastIndexOf('/') + 1);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo $this->url('home/forum', [ 'action' => 'get-topics' ]); ?>",
+                        dataType: "json",
+                        data: {
+                            boardID: id("<?php echo $_SERVER['REQUEST_URI']; ?>")
+                        }
+                    }).done(function(response) {
+                         $.each(response, function(key, value) {
+                             $('#reply-topics-table').append("<tr><td>" + value.author + "</td><td>" + value.topic + "</td><td>" + value.posts + "</td><td><input type=\"checkbox\" class=\"w3-input respond\"></td></tr>");
+                         });
+                    }).fail(function(msg) {
+                        $("#reply-to-topic-footer").html("<p class=\"w3-center\">Error retrieving topics</p>");
+                    })
+                </script>
+            </div>
+
+            <br><br><br>
+            <footer class="w3-container w3-theme-gradient" id="reply-to-topic-footer">&nbsp;</footer>
+        </div>
+    </div>
+
 </div>
 
 <script type="text/javascript">
     const modal1 = document.getElementById('post-new-topic-modal');
+    const modal2 = document.getElementById('reply-to-topic-modal');
 
     window.onclick = function(event) {
         if (event.target === modal1) {
             modal1.style.display = 'none';
+        }
+
+        if (event.target === modal2) {
+            modal2.style.display = 'none';
         }
     }
 </script>
