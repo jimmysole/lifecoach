@@ -45,4 +45,6 @@ class ForumModel
     {
         return $this->forum->subscribeToBoard($board_id, $options);
     }
+
+
 }

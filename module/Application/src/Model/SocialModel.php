@@ -70,4 +70,10 @@ class SocialModel
     {
         return $this->social->viewProfiles($criteria);
     }
+
+
+    public function viewBoardSubscriptions() : array|bool
+    {
+        return $this->social->viewBoardSubscriptions();
+    }
 }

@@ -169,4 +169,19 @@ class SocialController extends AbstractActionController
 
         return $this->view_model;
     }
+
+
+    public function viewboardsubscriptionsAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->view_model->setTerminal(true);
+
+
+        if ($this->request->isPost()) {
+            echo json_encode($this->social_model->viewBoardSubscriptions());
+        }
+
+
+        return $this->view_model;
+    }
 }

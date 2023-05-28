@@ -404,6 +404,29 @@ class Social implements SocialInterface
     }
 
 
+    public function viewBoardSubscriptions(): array|bool
+    {
+
+
+        $query = $this->gateway->getAdapter()->getDriver()->getConnection()->execute(
+            "SELECT DISTINCT b.topic, b.posts, board_name from ((boards 
+                INNER JOIN board_posts b ON id = b.board_id)
+                INNER JOIN board_subscriptions s ON id = s.board_id) where s.board_subscribers = '" . $this->user . "'"
+        );
+
+        if ($query->count() > 0) {
+            $rows = [];
+
+            foreach ($query as $key => $value) {
+                $rows = array_merge_recursive($rows, [$key => $value]);
+            }
+
+            return $rows;
+        } else {
+            return false;
+        }
+    }
+
     public function forums(Forums $forums): Forum
     {
         // TODO: Implement forums() method.

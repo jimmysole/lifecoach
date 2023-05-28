@@ -9,6 +9,7 @@
         <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('current-chats-tab');">Current Chats</button>
         <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('view-users-profile-tab');">View Profiles</button>
         <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('view-forums-tab');">Forums</button>
+        <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('view-board-subscriptions-tab');">Board Subscriptions</button>
         <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('create-profile-tab');">Create Profile</button>
         <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('edit-profile-tab');">Edit Profile</button>
         <button class="w3-bar-item w3-button w3-theme-gradient" onclick="openSocialOption('delete-profile-tab');">Delete Profile</button>
@@ -44,6 +45,11 @@
         <button id="view-forums" class="w3-btn w3-round w3-theme-gradient" onclick="window.open('<?php echo $this->url('home/forum', [ 'action' => 'index' ]); ?>');">View Forums</button>
     </div>
 
+    <div id="view-board-subscriptions-tab" class="w3-container social-options" style="display: none;">
+        <h2>View Board Subscriptions</h2>
+        <button id="view-board-subscriptions-btn" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('view-board-subscriptions-modal').style.display = 'block';">View Board Subscriptions</button>
+    </div>
+
     <div id="create-profile-tab" class="w3-container social-options" style="display: none;">
         <h2>Create Profile</h2>
         <button id="create-profile" class="w3-btn w3-round w3-theme-gradient">Create Profile</button>
@@ -58,6 +64,8 @@
         <h2>Delete Profile</h2>
         <button id="delete-profile" class="w3-btn w3-round w3-theme-gradient">Delete Profile</button>
     </div>
+
+
 </div>
 
 
@@ -460,6 +468,47 @@
 </div>
 
 
+<div id="view-board-subscriptions-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('view-board-subscriptions-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Board Subscriptions</h2>
+        </header>
+
+        <div class="w3-container">
+            <p></p>
+            <table class="w3-table-all" style="display: none; white-space: nowrap; overflow: auto;" id="board-subscriptions-table">
+                <tr>
+                    <th>Board</th>
+                    <th>Topic</th>
+                    <th>Posts</th>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/social', ['action' => 'view-board-subscriptions']); ?>",
+                    dataType: "json"
+                }).done(function(response) {
+                    if (undefined !== response) {
+                        $('#board-subscriptions-table').attr('style', 'display: block;');
+
+                        $.each(response, function(key, value) {
+                           $('#board-subscriptions-table').append("<tr><td>" + value.board_name + "</td><td>" + value.topic + "</td><td>" + value.posts + "</td></tr>");
+                        });
+                    }
+                }).fail(function() {
+                    $('#view-board-subscriptions-footer').html("<p class=\"w3-center\">Error retrieving your board subscriptions.</p>");
+                });
+            </script>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="view-board-subscriptions-footer">&nbsp;</footer>
+    </div>
+</div>
+
 <script type="text/javascript">
     function openSocialOption(socialOption) {
         let i;
@@ -478,6 +527,7 @@
     const modal3 = document.getElementById('incoming-chat-requests-modal');
     const modal4 = document.getElementById('current-chats-modal');
     const modal5 = document.getElementById('view-profiles-modal');
+    const modal6 = document.getElementById('view-board-subscriptions-modal');
 
     window.onclick = function(event) {
         if (event.target === modal1) {
@@ -498,6 +548,10 @@
 
         if (event.target === modal5) {
             modal5.style.display = 'none';
+        }
+
+        if (event.target === modal6) {
+            modal6.style.display = 'none';
         }
     }
 </script>

@@ -30,4 +30,6 @@ interface SocialInterface
     public function editProfile(array $edits) : bool;
 
     public function deleteProfile(string $reason) : bool;
+
+    public function viewBoardSubscriptions() : array|bool;
 }
