@@ -121,12 +121,33 @@ class ForumController extends AbstractActionController
         $this->layout()->setTerminal(true);
         $this->viewModel->setTerminal(true);
 
+        $author = $this->params()->fromPost('getAuthor');
         $topic = $this->params()->fromPost('getTopic');
         $post = $this->params()->fromPost('getPost');
 
 
-        echo json_encode(['topic' => $topic, 'post' => $post]);
+        echo json_encode(['author' => $author, 'topic' => $topic, 'post' => $post]);
 
+
+        return $this->viewModel;
+    }
+
+
+    public function replytotopicAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->viewModel->setTerminal(true);
+
+        if ($this->request->isPost()) {
+            $board_id = intval($this->params()->fromPost('boardID'));
+            $response = [ 'user_response' => $this->params()->fromPost('getResponse') ];
+
+            if (false !== $this->model->replyToTopic($board_id, $response)) {
+                echo "Reply was successful";
+            } else {
+                echo "Error processing your reply, please try again.";
+            }
+        }
 
         return $this->viewModel;
     }

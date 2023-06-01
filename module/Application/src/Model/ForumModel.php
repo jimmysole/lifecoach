@@ -47,4 +47,8 @@ class ForumModel
     }
 
 
+    public function replyToTopic(int $board_id, array $response) : bool
+    {
+        return $this->forum->replyToTopic($board_id, $response);
+    }
 }

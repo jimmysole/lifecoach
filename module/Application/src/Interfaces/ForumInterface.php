@@ -25,5 +25,5 @@ interface ForumInterface
 
     public function searchForPosts(string $criteria, array $options) : array|bool;
 
-    public function replyToTopic(int $board_id, string $topic, array $response) : bool;
+    public function replyToTopic(int $board_id, array $response) : bool;
 }

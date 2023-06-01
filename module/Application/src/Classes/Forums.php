@@ -80,6 +80,8 @@ class Forums implements ForumInterface
             $select = $this->select->columns(['*'])->from('boards')
                 ->join(['bt' => 'board_posts'],
                 'bt.board_id = boards.id')
+                ->join(['br' => 'board_posts_responses'],
+                    'br.board_id = boards.id')
                 ->where(['id' => $id]);
 
             $query = $this->gateway->getAdapter()->query(
@@ -495,10 +497,23 @@ class Forums implements ForumInterface
     }
 
 
-    public function replyToTopic(int $board_id, string $topic, array $response): bool
+    public function replyToTopic(int $board_id, array $response): bool
     {
-        if (preg_match("/[1-9+]/", $board_id) && !empty($topic) && count($response, 1) > 0) {
+        if (preg_match("/[1-9+]/", $board_id) && count($response, 1) > 0) {
+            $insert = $this->insert->into('board_posts_responses')
+                ->columns(['board_id', 'response'])
+                ->values(['board_id' => $board_id, 'response' => $response['user_response']]);
 
+            $query = $this->gateway->getAdapter()->query(
+                $this->sql->buildSqlString($insert),
+                Adapter::QUERY_MODE_EXECUTE
+            );
+
+            if ($query->count() > 0) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

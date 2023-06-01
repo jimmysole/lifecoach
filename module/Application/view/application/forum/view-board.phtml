@@ -36,6 +36,7 @@
         <th>Author</th>
         <th>Topic</th>
         <th>Posts</th>
+        <th>Responses</th>
     </tr>
 
     <?php foreach ($this->board as $key => $value): ?>
@@ -44,6 +45,7 @@
             <td><?php echo $value['author']; ?></td>
             <td><?php echo $value['topic']; ?></td>
             <td><?php echo $value['posts']; ?></td>
+            <td><?php echo $value['response']; ?></td>
         </tr>
     <?php endforeach; ?>
 </table>
@@ -171,28 +173,30 @@
                         }
                     }).done(function(response) {
                          $.each(response, function(key, value) {
-                             $('#reply-topics-table').append("<tr><td>" + value.author + "</td><td class=\"board-topic\">" + value.topic + "</td><td class=\"board-post\">" + value.posts + "</td><td><input type=\"checkbox\" class=\"w3-input respond\"></td></tr>");
+                             $('#reply-topics-table').append("<tr><td class=\"board-author\">" + value.author + "</td><td class=\"board-topic\">" + value.topic + "</td><td class=\"board-post\">" + value.posts + "</td><td><input type=\"checkbox\" class=\"w3-input respond\"></td></tr>");
                          });
 
                          $(document).on('change', '.respond', function() {
                             $('#div-response').attr('style', 'display: block;');
-                            let topic, post;
+                            let author, topic, post;
 
-                            topic = $(this).closest('tr').find('.board-topic').html();
-                            post  = $(this).closest('tr').find('.board-post').html();
+                            author = $(this).closest('tr').find('.board-author').html();
+                            topic  = $(this).closest('tr').find('.board-topic').html();
+                            post   = $(this).closest('tr').find('.board-post').html();
 
-                            checked.push(topic, post);
+                            checked.push(author, topic, post);
 
                             $.ajax({
                                 type: "POST",
                                 url: "<?php echo $this->url('home/forum', [ 'action' => 'enable-reply']); ?>",
                                 dataType: "json",
                                 data: {
-                                    getTopic: checked.at(0),
-                                    getPost: checked.at(1)
+                                    getAuthor: checked.at(0),
+                                    getTopic: checked.at(1),
+                                    getPost: checked.at(2)
                                 }
                             }).done(function(response) {
-                                $('#responding-to-header').html("Responding to " + response.post);
+                                $('#responding-to-header').html("Responding to " + response.post + " By " + response.author);
                             });
                          });
                     }).fail(function(msg) {
@@ -206,6 +210,23 @@
                     <textarea id="response" class="w3-input w3-border-black w3-border" style="width: 100%; height: 150px; resize: none;"></textarea>
                     <br>
                     <button class="w3-btn w3-theme-gradient" id="respond-to-post-btn">Respond</button>
+
+                    <script type="text/javascript">
+                        $('#respond-to-post-btn').on('click', function() {
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo $this->url('home/forum', [ 'action' => 'reply-to-topic']); ?>",
+                                data: {
+                                    boardID: id("<?php echo $_SERVER['REQUEST_URI']; ?>"),
+                                    getResponse: $('#response').val()
+                                }
+                            }).done(function(msg) {
+                                $('#reply-to-topic-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                            }).fail(function(msg) {
+                                $('#reply-to-topic-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                            });
+                        });
+                    </script>
                 </div>
             </div>
 
