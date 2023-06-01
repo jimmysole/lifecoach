@@ -146,6 +146,8 @@
             </header>
 
             <div class="w3-container">
+
+
                 <br><br>
                 <table class="w3-table-all" id="reply-topics-table">
                     <tr>
@@ -158,6 +160,7 @@
 
                 <script type="text/javascript">
                     let id = path => path.substring(path.lastIndexOf('/') + 1);
+                    const checked = [];
 
                     $.ajax({
                         type: "POST",
@@ -168,12 +171,42 @@
                         }
                     }).done(function(response) {
                          $.each(response, function(key, value) {
-                             $('#reply-topics-table').append("<tr><td>" + value.author + "</td><td>" + value.topic + "</td><td>" + value.posts + "</td><td><input type=\"checkbox\" class=\"w3-input respond\"></td></tr>");
+                             $('#reply-topics-table').append("<tr><td>" + value.author + "</td><td class=\"board-topic\">" + value.topic + "</td><td class=\"board-post\">" + value.posts + "</td><td><input type=\"checkbox\" class=\"w3-input respond\"></td></tr>");
+                         });
+
+                         $(document).on('change', '.respond', function() {
+                            $('#div-response').attr('style', 'display: block;');
+                            let topic, post;
+
+                            topic = $(this).closest('tr').find('.board-topic').html();
+                            post  = $(this).closest('tr').find('.board-post').html();
+
+                            checked.push(topic, post);
+
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo $this->url('home/forum', [ 'action' => 'enable-reply']); ?>",
+                                dataType: "json",
+                                data: {
+                                    getTopic: checked.at(0),
+                                    getPost: checked.at(1)
+                                }
+                            }).done(function(response) {
+                                $('#responding-to-header').html("Responding to " + response.post);
+                            });
                          });
                     }).fail(function(msg) {
                         $("#reply-to-topic-footer").html("<p class=\"w3-center\">Error retrieving topics</p>");
                     })
                 </script>
+
+                <br><br>
+                <div class="w3-col l7" id="div-response" style="display: none;">
+                    <p class="w3-left w3-border-all w3-theme-gradient" id="responding-to-header" style="text-shadow: 2px 2px 5px silver;"></p>
+                    <textarea id="response" class="w3-input w3-border-black w3-border" style="width: 100%; height: 150px; resize: none;"></textarea>
+                    <br>
+                    <button class="w3-btn w3-theme-gradient" id="respond-to-post-btn">Respond</button>
+                </div>
             </div>
 
             <br><br><br>

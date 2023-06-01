@@ -114,4 +114,20 @@ class ForumController extends AbstractActionController
 
         return $this->viewModel;
     }
+
+
+    public function enablereplyAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->viewModel->setTerminal(true);
+
+        $topic = $this->params()->fromPost('getTopic');
+        $post = $this->params()->fromPost('getPost');
+
+
+        echo json_encode(['topic' => $topic, 'post' => $post]);
+
+
+        return $this->viewModel;
+    }
 }
