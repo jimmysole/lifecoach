@@ -63,7 +63,7 @@ class Forums implements ForumInterface
             $boards = [];
 
             foreach ($query as $key => $value) {
-                $boards = array_merge_recursive($boards, array($key => $value));
+                $boards = array_merge_recursive($boards, [$key => $value]);
             }
 
             return $boards;
@@ -93,7 +93,7 @@ class Forums implements ForumInterface
                 $board_info = [];
 
                 foreach ($query as $key => $value) {
-                    $board_info = array_merge_recursive($board_info, array($key => $value));
+                    $board_info = array_merge_recursive($board_info, [array$key => $value]);
                 }
 
                 return $board_info;
@@ -121,7 +121,7 @@ class Forums implements ForumInterface
             $rows = [];
 
             foreach ($query as $key => $value) {
-                $rows = array_merge_recursive($rows, array($key => $value));
+                $rows = array_merge_recursive($rows, [$key => $value]);
             }
 
             return $rows;
@@ -147,7 +147,7 @@ class Forums implements ForumInterface
             $moderators = [];
 
             foreach ($query as $key => $value) {
-                $moderators = array_merge_recursive($moderators, array($key => $value));
+                $moderators = array_merge_recursive($moderators, [$key => $value]);
             }
 
             return $moderators;
@@ -181,7 +181,7 @@ class Forums implements ForumInterface
                 $row = [];
 
                 foreach ($query as $key => $value) {
-                    $row = array_merge_recursive($row, array($key => $value));
+                    $row = array_merge_recursive($row, [$key => $value]);
                 }
 
                 // subscribe to board now
@@ -226,7 +226,7 @@ class Forums implements ForumInterface
                 $values = [];
 
                 foreach ($query as $key => $value) {
-                    $values = array_merge_recursive($values, array($key => $value));
+                    $values = array_merge_recursive($values, [$key => $value]);
                 }
 
                 $insert = $this->insert->into('board_posts')
@@ -299,7 +299,7 @@ class Forums implements ForumInterface
                 $board_info = [];
 
                 foreach ($query as $key => $value) {
-                    $board_info = array_merge_recursive($board_info, array($key => $value));
+                    $board_info = array_merge_recursive($board_info, [$key => $value]);
                 }
 
                 // board and message found
@@ -345,7 +345,7 @@ class Forums implements ForumInterface
                 $rows = [];
 
                 foreach ($query as $key => $value) {
-                    $rows = array_merge_recursive($rows, array($key => $value));
+                    $rows = array_merge_recursive($rows, [$key => $value]);
                 }
 
                 return $rows;
@@ -385,7 +385,7 @@ class Forums implements ForumInterface
                             $rows = [];
 
                             foreach ($query as $key => $value) {
-                                $rows = array_merge_recursive($rows, array($key => $value));
+                                $rows = array_merge_recursive($rows, [$key => $value]);
                             }
 
                             return $rows;
@@ -409,7 +409,7 @@ class Forums implements ForumInterface
                         $rows = [];
 
                         foreach ($query as $key => $value) {
-                            $rows = array_merge_recursive($rows, array($key => $value));
+                            $rows = array_merge_recursive($rows, [$key => $value]);
                         }
 
                         return $rows;
@@ -434,7 +434,7 @@ class Forums implements ForumInterface
                     $rows = [];
 
                     foreach ($query as $key => $value) {
-                        $rows = array_merge_recursive($rows, array($key => $value));
+                        $rows = array_merge_recursive($rows, [$key => $value]);
                     }
 
                     return $rows;
@@ -456,7 +456,7 @@ class Forums implements ForumInterface
                     $provided_options = [];
 
                     foreach ($options as $k => $v) {
-                        $provided_options = array_merge_recursive($provided_options, array($k => $v));
+                        $provided_options = array_merge_recursive($provided_options, [$k => $v]);
                     }
 
                     // $provided_options['keywords'] should be an array
@@ -478,7 +478,7 @@ class Forums implements ForumInterface
                         $rows = [];
 
                         foreach ($query as $key => $value) {
-                            $rows = array_merge_recursive($rows, array($key => $value));
+                            $rows = array_merge_recursive($rows, [$key => $value]);
                         }
 
                         return $rows;
