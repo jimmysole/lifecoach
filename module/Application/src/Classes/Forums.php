@@ -93,7 +93,7 @@ class Forums implements ForumInterface
                 $board_info = [];
 
                 foreach ($query as $key => $value) {
-                    $board_info = array_merge_recursive($board_info, [array$key => $value]);
+                    $board_info = array_merge_recursive($board_info, [$key => $value]);
                 }
 
                 return $board_info;
