@@ -81,7 +81,7 @@ class Forums implements ForumInterface
                 ->join(['bt' => 'board_posts'],
                 'bt.board_id = boards.id')
                 ->join(['br' => 'board_posts_responses'],
-                    'br.board_id = boards.id')
+                    'br.topic_id = bt.topic_id')
                 ->where(['id' => $id]);
 
             $query = $this->gateway->getAdapter()->query(
@@ -208,7 +208,7 @@ class Forums implements ForumInterface
     }
 
 
-    public function postMessage(int $board, string $topic, string $message, array $message_options = []): bool
+    public function postMessage(int $board, int $topic_id, string $topic, string $message, array $message_options = []): bool
     {
         if (preg_match("/[1-9+]/", $board) && !empty($topic) && !empty($message)) {
             $select = $this->select->columns(['id'])
@@ -230,8 +230,8 @@ class Forums implements ForumInterface
                 }
 
                 $insert = $this->insert->into('board_posts')
-                    ->columns(['board_id', 'author', 'topic', 'posts'])
-                    ->values(['board_id' => $values[0]['id'], 'author' => $this->user, 'topic' => $topic, 'posts' => $message]);
+                    ->columns(['board_id', 'topic_id', 'author', 'topic', 'posts'])
+                    ->values(['board_id' => $values[0]['id'], 'topic_id' => $topic_id, 'author' => $this->user, 'topic' => $topic, 'posts' => $message]);
 
                 $query = $this->gateway->getAdapter()->query(
                     $this->sql->buildSqlString($insert),
@@ -330,10 +330,10 @@ class Forums implements ForumInterface
     public function searchForTopics(string $criteria): array|bool
     {
         if (!empty($criteria)) {
-            $select = $this->select->columns(['board_name', 'board_posts'])
-                ->from('boards')
+            $select = $this->select->columns(['board_id', 'posts'])
+                ->from('board_posts')
                 ->where(function (Where $where) use ($criteria) {
-                    $where->like('board_topic', $criteria . '%');
+                    $where->like('topic', $criteria . '%');
                 });
 
             $query = $this->gateway->getAdapter()->query(

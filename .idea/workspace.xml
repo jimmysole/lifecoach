@@ -7,6 +7,9 @@
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Forums.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Forums.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/ForumController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/ForumController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Interfaces/ForumInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Interfaces/ForumInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/ForumModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/ForumModel.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +188,7 @@
       <workItem from="1683190870168" duration="27124000" />
       <workItem from="1683761074027" duration="7677000" />
       <workItem from="1684032510232" duration="14457000" />
-      <workItem from="1684452091044" duration="46949000" />
+      <workItem from="1684452091044" duration="52935000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>

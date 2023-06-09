@@ -35,9 +35,9 @@ class ForumModel
     }
 
 
-    public function postTopic(int $board, string $topic, string $message, array $message_options = []) : bool
+    public function postTopic(int $board, int $topic_id, string $topic, string $message, array $message_options = []) : bool
     {
-        return $this->forum->postMessage($board, $topic, $message, $message_options);
+        return $this->forum->postMessage($board, $topic_id, $topic, $message, $message_options);
     }
 
 

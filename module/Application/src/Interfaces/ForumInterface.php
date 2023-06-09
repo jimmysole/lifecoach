@@ -15,7 +15,7 @@ interface ForumInterface
 
     public function subscribeToBoard(int $board_id, array $options) : bool;
 
-    public function postMessage(int $board_id, string $topic, string $message, array $message_options = []) : bool;
+    public function postMessage(int $board_id, int $topic_id, string $topic, string $message, array $message_options = []) : bool;
 
     public function editMessage(string $board, int $message_id, array $edits) : bool;
 
