@@ -4,14 +4,61 @@
 	
 	
 	use Application\Interfaces\ProfileInterface;
-	
-	
-	class Profile implements ProfileInterface
+
+    use Laminas\Db\Adapter\Adapter;
+    use Laminas\Db\Sql\Delete;
+    use Laminas\Db\Sql\Insert;
+    use Laminas\Db\Sql\Select;
+    use Laminas\Db\Sql\Sql;
+    use Laminas\Db\Sql\Update;
+    use Laminas\Db\TableGateway\TableGateway;
+
+
+    class Profile implements ProfileInterface
 	{
-		
+        public string $user;
+
+
+        protected TableGateway $gateway;
+
+        protected Sql $sql;
+
+        protected Insert $insert;
+
+        protected Select $select;
+
+        protected Update $update;
+
+        protected Delete $delete;
+
+
+		private string $username;
+        private string $reaL_name;
+        private string $location;
+        private array $avatar;
+        private string $bio;
+
 		private array $profile_details = [];
-		
-		public function createProfile(array $profile_details): bool
+
+
+        public function __construct(TableGateway $gateway, string $user)
+        {
+            $this->gateway = $gateway;
+
+            $this->user    = $user;
+
+            $this->sql = new Sql($this->gateway->getAdapter());
+
+            $this->insert = new Insert();
+
+            $this->select = new Select();
+
+            $this->update = new Update();
+
+            $this->delete = new Delete();
+        }
+
+        public function createProfile(array $profile_details): bool
 		{
 			if (count($profile_details, 1) <= 0) {
 				throw new \Exception("User profile details must be filled out.");
@@ -21,8 +68,27 @@
  				$this->profile_details[$key] = $value;
 		    }
  			
- 			
-			
-			return true;
+ 			$this->username  = !empty($this->profile_details['username'])  ? $this->profile_details['username']  : $this->user;
+            $this->reaL_name = !empty($this->profile_details['real_name']) ? $this->profile_details['real_name'] : "";
+            $this->location  = !empty($this->profile_details['location'])  ? $this->profile_details['location']  : "";
+            $this->avatar    = count($this->profile_details['avatar'], 1) > 0 ? array_merge_recursive($this->avatar, $this->profile_details['avatar']) : [];
+            $this->bio       = !empty($this->profile_details['bio']) ? $this->profile_details['bio'] : "";
+
+            $insert = new Insert('profile');
+
+            $insert->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
+                ->values(['username' => $this->username, 'real_name' => $this->reaL_name, 'location' => $this->location,
+                    'avatar' => $this->avatar['path'], 'bio' => $this->bio]);
+
+            $query = $this->gateway->getAdapter()->query(
+                $this->sql->buildSqlString($insert),
+                Adapter::QUERY_MODE_EXECUTE
+            );
+
+            if ($query->count() > 0) {
+                return true;
+            } else {
+                return false;
+            }
 		}
 	}
