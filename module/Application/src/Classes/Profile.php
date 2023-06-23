@@ -74,21 +74,48 @@
             $this->avatar    = count($this->profile_details['avatar'], 1) > 0 ? array_merge_recursive($this->avatar, $this->profile_details['avatar']) : [];
             $this->bio       = !empty($this->profile_details['bio']) ? $this->profile_details['bio'] : "";
 
-            $insert = new Insert('profile');
+            if (is_file($this->avatar['file'])) {
+                if (!is_dir(getcwd() . '/profiles/' . $this->user . '/avatar')) {
+                    mkdir(getcwd() . '/profiles/' . $this->user . '/avatar', 0777);
 
-            $insert->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
-                ->values(['username' => $this->username, 'real_name' => $this->reaL_name, 'location' => $this->location,
-                    'avatar' => $this->avatar['path'], 'bio' => $this->bio]);
+                }
 
-            $query = $this->gateway->getAdapter()->query(
-                $this->sql->buildSqlString($insert),
-                Adapter::QUERY_MODE_EXECUTE
-            );
+                if (move_uploaded_file($this->avatar['tmp_file'], $this->avatar['file'])) {
+                    $insert = new Insert('profile');
 
-            if ($query->count() > 0) {
-                return true;
+                    $insert->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
+                        ->values(['username' => $this->username, 'real_name' => $this->reaL_name, 'location' => $this->location,
+                            'avatar' => $this->avatar['path'], 'bio' => $this->bio]);
+
+                    $query = $this->gateway->getAdapter()->query(
+                        $this->sql->buildSqlString($insert),
+                        Adapter::QUERY_MODE_EXECUTE
+                    );
+
+                    if ($query->count() > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
             } else {
-                return false;
+                $insert = new Insert('profile');
+
+                $insert->columns(['username', 'real_name', 'location', 'bio'])
+                    ->values(['username' => $this->username, 'real_name' => $this->reaL_name, 'location' => $this->location, 'bio' => $this->bio]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($insert),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
 		}
 	}
