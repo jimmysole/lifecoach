@@ -77,7 +77,6 @@
             if (is_file($this->avatar['file'])) {
                 if (!is_dir(getcwd() . '/profiles/' . $this->user . '/avatar')) {
                     mkdir(getcwd() . '/profiles/' . $this->user . '/avatar', 0777);
-
                 }
 
                 if (move_uploaded_file($this->avatar['tmp_file'], $this->avatar['file'])) {
