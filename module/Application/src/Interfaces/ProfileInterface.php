@@ -12,4 +12,7 @@
 		 * @throws \Exception
 		 */
 		public function createProfile(array $profile_details): bool;
+
+
+        public function uploadProfileAvatar(array $image) : ProfileInterface|bool;
 	}

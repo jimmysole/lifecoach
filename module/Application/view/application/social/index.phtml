@@ -52,7 +52,7 @@
 
     <div id="create-profile-tab" class="w3-container social-options" style="display: none;">
         <h2>Create Profile</h2>
-        <button id="create-profile" class="w3-btn w3-round w3-theme-gradient">Create Profile</button>
+        <button id="create-profile" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('create-profile-modal').style.display = 'block';">Create Profile</button>
     </div>
 
     <div id="edit-profile-tab" class="w3-container social-options" style="display: none;">
@@ -509,6 +509,109 @@
     </div>
 </div>
 
+
+<div id="create-profile-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('create-profile-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Create Your Profile</h2>
+        </header>
+
+        <div class="w3-container">
+            <p>Fill out the following to complete your profile:</p>
+
+            <br><br>
+
+            <form method="post" name="profile-form" id="profile-form" enctype="multipart/form-data">
+            <div class="w3-row">
+                <div class="w3-col l2">
+                    <label for="real-name">Real Name</label>
+                    <input type="text" id="real-name" class="w3-input">
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="w3-row">
+                <div class="w3-col l2">
+                    <label for="profile-location">Location</label>
+                    <input type="text" id="profile-location" class="w3-input">
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="w3-row">
+                <div class="w3-col l2">
+                    <label for="profile-avatar">Avatar</label>
+                        <input type="file" id="profile-avatar" class="w3-input" accept="image/png, image/jpeg">
+                    </div>
+                </div>
+
+            <br><br>
+
+            <div class="w3-row">
+                <div class="w3-col l4">
+                    <label for="profile-bio">Bio</label>
+                    <textarea id="profile-bio" class="w3-input"></textarea>
+                </div>
+            </div>
+            </form>
+
+            <br><br>
+            <div class="w3-row w3-right">
+                <div class="w3-col l2">
+                    <button id="submit-profile" class="w3-btn w3-theme-gradient">Make Profile</button>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $('#submit-profile').on('click', function() {
+                $('input[type="file"]').on('change', function() {
+                   let file = document.getElementById('profile-avatar').files[0];
+                   let formData = new FormData();
+                   formData.append("file", file);
+
+                   $.ajax({
+                       type: "POST",
+                       processData: false,
+                       contentType: false,
+                       url: "<?php echo $this->url('home/profile', [ 'action' => 'upload-profile-avatar' ]); ?>",
+                       data: formData
+                   });
+                });
+
+                $('#submit-profile').on('click', function() {
+                    let real_name, location, bio;
+
+                    real_name = $('#real-name').val();
+                    location  = $('#profile-location').val();
+                    bio       = $('#profile-bio').val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo $this->url('home/profile', ['action' => 'index']); ?>",
+                        data: {
+                            profileRealName: real_name,
+                            profileLocation: location,
+                            profileBio: bio,
+                            profileAvatar: $('#profile-avatar').val().replace(/C:\\fakepath\\/i, '');
+                        }
+                    }).done(function(msg) {
+                       $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                    }).fail(function(msg) {
+                        $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                    });
+                });
+            });
+        </script>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="create-profile-footer">&nbsp;</footer>
+    </div>
+</div>
+
 <script type="text/javascript">
     function openSocialOption(socialOption) {
         let i;
@@ -528,6 +631,7 @@
     const modal4 = document.getElementById('current-chats-modal');
     const modal5 = document.getElementById('view-profiles-modal');
     const modal6 = document.getElementById('view-board-subscriptions-modal');
+    const modal7  = document.getElementById('create-profile-modal');
 
     window.onclick = function(event) {
         if (event.target === modal1) {
@@ -552,6 +656,10 @@
 
         if (event.target === modal6) {
             modal6.style.display = 'none';
+        }
+
+        if (event.target === modal7) {
+            modal7.style.display = 'none';
         }
     }
 </script>

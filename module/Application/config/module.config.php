@@ -13,6 +13,7 @@ use Application\Controller\ForumController;
 use Application\Controller\IndexController;
 use Application\Controller\LoginController;
 use Application\Controller\LogoutController;
+use Application\Controller\ProfileController;
 use Application\Controller\RegisterController;
 use Application\Controller\SocialController;
 use Application\Controller\UserController;
@@ -169,6 +170,17 @@ return [
                                 'action'     => 'index',
                             ]
                         ]
+                    ],
+
+                    'profile' => [
+                        'type' => 'Segment',
+                        'options' => [
+                            'route' => 'profile[/:action][/:id]',
+                            'defaults' => [
+                                'controller' => ProfileController::class,
+                                'action'     => 'index',
+                            ]
+                        ]
                     ]
                 ],
             ],
@@ -199,6 +211,7 @@ return [
             Controller\SocialController::class => ReflectionBasedAbstractFactory::class,
             Controller\RegisterController::class => ReflectionBasedAbstractFactory::class,
             Controller\ForumController::class => ReflectionBasedAbstractFactory::class,
+            Controller\ProfileController::class => ReflectionBasedAbstractFactory::class,
 		],
 	],
 	

@@ -32,13 +32,7 @@
         protected Delete $delete;
 
 
-		private string $username;
-        private string $reaL_name;
-        private string $location;
-        private array $avatar;
-        private string $bio;
-
-		private array $profile_details = [];
+        private array $profile_details = [];
 
 
         public function __construct(TableGateway $gateway, string $user)
@@ -68,53 +62,49 @@
  				$this->profile_details[$key] = $value;
 		    }
  			
- 			$this->username  = !empty($this->profile_details['username'])  ? $this->profile_details['username']  : $this->user;
-            $this->reaL_name = !empty($this->profile_details['real_name']) ? $this->profile_details['real_name'] : "";
-            $this->location  = !empty($this->profile_details['location'])  ? $this->profile_details['location']  : "";
-            $this->avatar    = count($this->profile_details['avatar'], 1) > 0 ? array_merge_recursive($this->avatar, $this->profile_details['avatar']) : [];
-            $this->bio       = !empty($this->profile_details['bio']) ? $this->profile_details['bio'] : "";
+ 			$username = $this->user;
+            $reaL_name = !empty($this->profile_details['real_name']) ? $this->profile_details['real_name'] : "";
+            $location = !empty($this->profile_details['location'])  ? $this->profile_details['location']  : "";
+            $avatar = !empty($this->profile_details['avatar']) ? $this->profile_details['avatar'] : "";
+            $bio = !empty($this->profile_details['bio']) ? $this->profile_details['bio'] : "";
 
-            if (is_file($this->avatar['file'])) {
-                if (!is_dir(getcwd() . '/profiles/' . $this->user . '/avatar')) {
-                    mkdir(getcwd() . '/profiles/' . $this->user . '/avatar', 0777);
-                }
+            $insert = new Insert('profile');
 
-                if (move_uploaded_file($this->avatar['tmp_file'], $this->avatar['file'])) {
-                    $insert = new Insert('profile');
+            $insert->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
+                ->values(['username' => $username, 'real_name' => $reaL_name, 'location' => $location,
+                    'avatar' => $avatar['path'], 'bio' => $bio]);
 
-                    $insert->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
-                        ->values(['username' => $this->username, 'real_name' => $this->reaL_name, 'location' => $this->location,
-                            'avatar' => $this->avatar['path'], 'bio' => $this->bio]);
+            $query = $this->gateway->getAdapter()->query(
+                $this->sql->buildSqlString($insert),
+                Adapter::QUERY_MODE_EXECUTE
+            );
 
-                    $query = $this->gateway->getAdapter()->query(
-                        $this->sql->buildSqlString($insert),
-                        Adapter::QUERY_MODE_EXECUTE
-                    );
+            if ($query->count() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+		}
 
-                    if ($query->count() > 0) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+
+        public function uploadProfileAvatar(array $image): ProfileInterface|bool
+        {
+            $image1 = count($image, 1) > 0 ? $image : [];
+
+            $path = getcwd() . '/public/profiles/' . $this->user . '/avatar/';
+
+            if (!is_dir($path)) {
+                mkdir(getcwd() . '/public/profiles/' . $this->user . '/avatar/');
+            }
+
+            if (is_uploaded_file($image1['file']['tmp_name'])) {
+                if (move_uploaded_file($image1['file']['tmp_name'], $path . $image1['file']['name'])) {
+                    return $this;
                 } else {
                     return false;
                 }
             } else {
-                $insert = new Insert('profile');
-
-                $insert->columns(['username', 'real_name', 'location', 'bio'])
-                    ->values(['username' => $this->username, 'real_name' => $this->reaL_name, 'location' => $this->location, 'bio' => $this->bio]);
-
-                $query = $this->gateway->getAdapter()->query(
-                    $this->sql->buildSqlString($insert),
-                    Adapter::QUERY_MODE_EXECUTE
-                );
-
-                if ($query->count() > 0) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return false;
             }
-		}
-	}
+        }
+    }

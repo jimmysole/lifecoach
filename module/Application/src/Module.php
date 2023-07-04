@@ -16,6 +16,7 @@ use Application\Model\ForumModel;
 use Application\Model\IndexModel;
 use Application\Model\LoginModel;
 use Application\Model\LogoutModel;
+use Application\Model\ProfileModel;
 use Application\Model\RegisterModel;
 use Application\Model\SocialModel;
 use Application\Model\Storage\LoginAuthStorage;
@@ -276,6 +277,16 @@ class Module implements ConfigProviderInterface
                 ForumService::class => function ($container) {
                     $db_adapter = $container->get(AdapterInterface::class);
                     return new TableGateway('boards', $db_adapter);
+                },
+
+                ProfileModel::class => function ($container) {
+                    $table_gateway = $container->get(ProfileService::class);
+                    return new ProfileModel($table_gateway, $container->get(AuthenticationService::class)->getIdentity());
+                },
+
+                ProfileService::class => function ($container) {
+                    $db_adapter = $container->get(AdapterInterface::class);
+                    return new TableGateway('profile', $db_adapter);
                 }
             )
         );
