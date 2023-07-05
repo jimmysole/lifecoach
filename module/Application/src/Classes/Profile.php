@@ -72,7 +72,7 @@
 
             $insert->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
                 ->values(['username' => $username, 'real_name' => $reaL_name, 'location' => $location,
-                    'avatar' => $avatar['path'], 'bio' => $bio]);
+                    'avatar' => $avatar, 'bio' => $bio]);
 
             $query = $this->gateway->getAdapter()->query(
                 $this->sql->buildSqlString($insert),
@@ -89,12 +89,17 @@
 
         public function uploadProfileAvatar(array $image): ProfileInterface|bool
         {
-            $image1 = count($image, 1) > 0 ? $image : [];
+            $image1 = [];
+
+            if (count($image, 1) > 0) {
+                $image1 = array_merge($image1, $image);
+            }
 
             $path = getcwd() . '/public/profiles/' . $this->user . '/avatar/';
 
             if (!is_dir($path)) {
-                mkdir(getcwd() . '/public/profiles/' . $this->user . '/avatar/');
+                //var_dump(getcwd());
+                mkdir(getcwd() . '/public/profiles/' . $this->user . '/avatar', 0777, true);
             }
 
             if (is_uploaded_file($image1['file']['tmp_name'])) {

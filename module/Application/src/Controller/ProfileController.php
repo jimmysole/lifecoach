@@ -34,7 +34,7 @@ class ProfileController extends AbstractActionController
         if ($this->request->isPost()) {
             if (false !== $this->profile_model->createProfile(['real_name' => $this->params()->fromPost('profileRealName'),
                     'location' => $this->params()->fromPost('profileLocation'),
-                    'avatar' => $this->params()->fropmPost('profileAvatar'), 'bio' => $this->params()->fromPost('profileBio')])) {
+                    'avatar' => $this->params()->fromPost('profileAvatar'), 'bio' => $this->params()->fromPost('profileBio')])) {
                 echo "Profile created";
             } else {
                 echo "Error creating profile, please try again.";

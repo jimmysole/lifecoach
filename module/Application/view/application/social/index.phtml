@@ -544,7 +544,7 @@
             <div class="w3-row">
                 <div class="w3-col l2">
                     <label for="profile-avatar">Avatar</label>
-                        <input type="file" id="profile-avatar" class="w3-input" accept="image/png, image/jpeg">
+                        <input type="file" name="profile-avatar" id="profile-avatar" class="w3-input" accept="image/png, image/jpeg">
                     </div>
                 </div>
 
@@ -567,42 +567,44 @@
         </div>
 
         <script type="text/javascript">
-            $('#submit-profile').on('click', function() {
-                $('input[type="file"]').on('change', function() {
-                   let file = document.getElementById('profile-avatar').files[0];
-                   let formData = new FormData();
-                   formData.append("file", file);
+            $('input[type="file"]').on('change', function() {
+                let file = document.getElementById('profile-avatar').files[0];
+                let formData = new FormData();
+                formData.append("file", file);
 
-                   $.ajax({
-                       type: "POST",
-                       processData: false,
-                       contentType: false,
-                       url: "<?php echo $this->url('home/profile', [ 'action' => 'upload-profile-avatar' ]); ?>",
-                       data: formData
-                   });
+                $.ajax({
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    url: "<?php echo $this->url('home/profile', [ 'action' => 'upload-profile-avatar' ]); ?>",
+                    data: formData
+                }).done(function(msg) {
+                    $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                }).fail(function(msg) {
+                    $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
                 });
+            });
 
-                $('#submit-profile').on('click', function() {
-                    let real_name, location, bio;
+            $('#submit-profile').on('click', function() {
+                let real_name, location, bio;
 
-                    real_name = $('#real-name').val();
-                    location  = $('#profile-location').val();
-                    bio       = $('#profile-bio').val();
+                real_name = $('#real-name').val();
+                location  = $('#profile-location').val();
+                bio       = $('#profile-bio').val();
 
-                    $.ajax({
-                        type: "POST",
-                        url: "<?php echo $this->url('home/profile', ['action' => 'index']); ?>",
-                        data: {
-                            profileRealName: real_name,
-                            profileLocation: location,
-                            profileBio: bio,
-                            profileAvatar: $('#profile-avatar').val().replace(/C:\\fakepath\\/i, '');
-                        }
-                    }).done(function(msg) {
-                       $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
-                    }).fail(function(msg) {
-                        $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
-                    });
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo $this->url('home/profile', ['action' => 'make-profile']); ?>",
+                    data: {
+                        profileRealName: real_name,
+                        profileLocation: location,
+                        profileBio: bio,
+                        profileAvatar: $('#profile-avatar').val().replace(/C:\\fakepath\\/i, '')
+                    }
+                }).done(function(msg) {
+                    $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                }).fail(function(msg) {
+                    $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
                 });
             });
         </script>
