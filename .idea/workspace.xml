@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
-      <change afterPath="$PROJECT_DIR$/public/profiles/jimmysole/avatar/profile.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/ProfileController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/Application/view/application/social/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/social/index.phtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -192,7 +188,7 @@
       <workItem from="1686244049947" duration="26544000" />
       <workItem from="1687712977993" duration="2184000" />
       <workItem from="1687827285122" duration="10930000" />
-      <workItem from="1688343387617" duration="11626000" />
+      <workItem from="1688343387617" duration="12232000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>

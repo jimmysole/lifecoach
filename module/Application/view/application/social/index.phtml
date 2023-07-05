@@ -601,10 +601,6 @@
                         profileBio: bio,
                         profileAvatar: $('#profile-avatar').val().replace(/C:\\fakepath\\/i, '')
                     }
-                }).done(function(msg) {
-                    $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
-                }).fail(function(msg) {
-                    $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
                 });
             });
         </script>
