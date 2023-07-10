@@ -15,4 +15,10 @@
 
 
         public function uploadProfileAvatar(array $image) : ProfileInterface|bool;
+
+
+        public function editProfile(array $edits) : ProfileInterface|bool;
+
+
+        public function deleteProfile() : ProfileInterface|bool;
 	}

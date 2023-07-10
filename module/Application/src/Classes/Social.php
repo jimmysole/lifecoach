@@ -330,7 +330,7 @@ class Social implements SocialInterface
                         $rows = [];
 
                         foreach ($query as $key => $value) {
-                            $rows = array_merge_recursive($rows, array($key => $value));
+                            $rows = array_merge_recursive($rows, [$key => $value]);
                         }
 
                         return $rows;
@@ -357,7 +357,7 @@ class Social implements SocialInterface
                         $rows = [];
 
                         foreach ($query as $key => $value) {
-                            $rows = array_merge_recursive($rows, array($key => $value));
+                            $rows = array_merge_recursive($rows, [$key => $value]);
                         }
 
                         return $rows;
@@ -384,7 +384,7 @@ class Social implements SocialInterface
                         $rows = [];
 
                         foreach ($query as $key => $value) {
-                            $rows = array_merge_recursive($rows, array($key => $value));
+                            $rows = array_merge_recursive($rows, [$key => $value]);
                         }
 
                         return $rows;

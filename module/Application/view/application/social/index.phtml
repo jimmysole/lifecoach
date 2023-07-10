@@ -430,7 +430,7 @@
                                 $('#user-profiles-table').attr('style', 'display: block;');
 
                                 $.each(data, function(key, value) {
-                                    $('#user-profiles-table').append("<tr><td>"  + value.username  + "</td><td>" + value.real_name + "</td><td>" + value.location + "</td><td>" + value.avatar + "</td><td>" + value.bio + "</td></tr>");
+                                    $('#user-profiles-table').append("<tr><td>"  + value.username  + "</td><td>" + value.real_name + "</td><td>" + value.location + "</td><td><img src=<?php echo $this->basePath(); ?>/profiles/" + value.username + "/avatar/" + value.avatar + " class=\"w3-card-4\" style=\"width: 150px; height: 150px; \"></td><td>" + value.bio + "</td></tr>");
                                 });
                             }
                         });
