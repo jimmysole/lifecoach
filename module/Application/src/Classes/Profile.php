@@ -112,4 +112,16 @@
                 return false;
             }
         }
+
+
+        public function editProfile(array $edits): ProfileInterface|bool
+        {
+            // TODO: Implement editProfile() method.
+        }
+
+
+        public function deleteProfile(): ProfileInterface|bool
+        {
+            // TODO: Implement deleteProfile() method.
+        }
     }
