@@ -52,6 +52,31 @@
             $this->delete = new Delete();
         }
 
+
+        public function getProfile() : array|bool
+        {
+            $select = $this->select->columns(['username', 'real_name', 'location', 'avatar', 'bio'])
+                ->from('profile')
+                ->where(['username' => $this->user]);
+
+            $query = $this->gateway->getAdapter()->query(
+                $this->sql->buildSqlString($select),
+                Adapter::QUERY_MODE_EXECUTE
+            );
+
+            if ($query->count() > 0) {
+                $profile = [];
+
+                foreach ($query as $key => $value) {
+                    $profile = array_merge($profile, array($key => $value));
+                }
+
+                return $profile;
+            } else {
+                return false;
+            }
+        }
+
         public function createProfile(array $profile_details): bool
 		{
 			if (count($profile_details, 1) <= 0) {
@@ -98,7 +123,6 @@
             $path = getcwd() . '/public/profiles/' . $this->user . '/avatar/';
 
             if (!is_dir($path)) {
-                //var_dump(getcwd());
                 mkdir(getcwd() . '/public/profiles/' . $this->user . '/avatar', 0777, true);
             }
 
@@ -117,11 +141,14 @@
         public function editProfile(array $edits): ProfileInterface|bool
         {
             // TODO: Implement editProfile() method.
+
+            return $this;
         }
 
 
         public function deleteProfile(): ProfileInterface|bool
         {
             // TODO: Implement deleteProfile() method.
+            return $this;
         }
     }

@@ -59,4 +59,15 @@ class ProfileController extends AbstractActionController
 
         return $this->viewModel;
     }
+
+
+    public function getprofileAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->viewModel->setTerminal(true);
+
+        echo json_encode($this->profile_model->getProfile());
+
+        return $this->viewModel;
+    }
 }

@@ -57,7 +57,7 @@
 
     <div id="edit-profile-tab" class="w3-container social-options" style="display: none;">
         <h2>Edit Profile</h2>
-        <button id="edit-profile" class="w3-btn w3-round w3-theme-gradient">Edit Profile</button>
+        <button id="edit-profile" class="w3-btn w3-round w3-theme-gradient" onclick="document.getElementById('edit-profile-modal').style.display = 'block';">Edit Profile</button>
     </div>
 
     <div id="delete-profile-tab" class="w3-container social-options" style="display: none;">
@@ -610,6 +610,106 @@
     </div>
 </div>
 
+
+<div id="edit-profile-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('edit-profile-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Edit Your Profile</h2>
+        </header>
+
+        <div class="w3-container">
+            <p>Edit Your profile:</p>
+
+            <br><br>
+
+            <form method="post" name="edit-profile-form" id="edit-profile-form" enctype="multipart/form-data">
+                <div class="w3-row">
+                    <div class="w3-col l2">
+                        <label for="edit-profile-username">Username:</label>
+                        <input type="text" id="edit-profile-username" class="w3-input">
+                    </div>
+                </div>
+
+                <br><br>
+
+                <div class="w3-row">
+                    <div class="w3-col l2">
+                        <label for="edit-profile-real-name">Real Name:</label>
+                        <input type="text" id="edit-profile-real-name" class="w3-input">
+                    </div>
+                </div>
+
+                <br><br>
+
+                <div class="w3-row">
+                    <div class="w3-col l2">
+                        <label for="edit-profile-location">Location:</label>
+                        <input type="text" id="edit-profile-location" class="w3-input">
+                    </div>
+                </div>
+
+                <br><br>
+
+                <div class="w3-row">
+                    <div class="w3-col l2">
+                        <label for="edit-profile-avatar">Avatar</label>
+                        <input type="file" id="edit-profile-avatar" name="edit-profile-avatar" class="w3-input" accept="image/png, image/jpeg">
+                    </div>
+
+                    <div class="w3-col-l2 w3-card-4 w3-right">
+                        <img id="edit-profile-avatar-preview" src="" style="height: 350px;" alt="Current Avatar">
+                        <div class="w3-container w3-center">
+                            Current Avatar
+                        </div>
+                    </div>
+                </div>
+
+                <br><br>
+
+                <div class="w3-row">
+                    <div class="w3-col l4">
+                        <label for="edit-profile-bio">Bio</label>
+                        <textarea id="edit-profile-bio" class="w3-input"></textarea>
+                    </div>
+                </div>
+            </form>
+
+
+            <script type="text/javascript">
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo $this->url('home/profile', ['action' => 'get-profile']); ?>",
+                    dataType: "json"
+                }).done(function(data) {
+                    if (undefined !== data) {
+                        $.each(data, function(key, value) {
+                            $('#edit-profile-username').val(value.username);
+                            $('#edit-profile-real-name').val(value.real_name);
+                            $('#edit-profile-location').val(value.location);
+                            $('#edit-profile-avatar-preview').attr('src', '<?php echo $this->basePath(); ?>' + '/profiles/' + value.username + '/avatar/' + value.avatar);
+                            $('#edit-profile-bio').val(value.bio);
+                        });
+                    }
+                }).fail(function(msg) {
+                    $('#edit-profile-footer').html("<p class=\"w3-center\">" + msg  + "</p>");
+                })
+            </script>
+
+            <div class="w3-row">
+                <div class="w3-row w3-right">
+                    <div class="w3-col l2">
+                        <button id="edit-profile-btn" class="w3-btn w3-theme-gradient">Edit Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br><br><br>
+        <footer class="w3-container w3-theme-gradient" id="edit-profile-footer">&nbsp;</footer>
+    </div>
+</div>
+
 <script type="text/javascript">
     function openSocialOption(socialOption) {
         let i;
@@ -630,6 +730,7 @@
     const modal5 = document.getElementById('view-profiles-modal');
     const modal6 = document.getElementById('view-board-subscriptions-modal');
     const modal7  = document.getElementById('create-profile-modal');
+    const modal8  = document.getElementById('edit-profile-modal');
 
     window.onclick = function(event) {
         if (event.target === modal1) {
@@ -658,6 +759,10 @@
 
         if (event.target === modal7) {
             modal7.style.display = 'none';
+        }
+
+        if (event.target === modal8) {
+            modal8.style.display = 'none';
         }
     }
 </script>

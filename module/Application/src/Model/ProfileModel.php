@@ -35,4 +35,15 @@ class ProfileModel
     {
         return $this->profile->createProfile($details);
     }
+
+
+    public function getProfile() : array|bool
+    {
+        return $this->profile->getProfile();
+    }
+
+    public function editProfile(array $details) : ProfileInterface|bool
+    {
+        return $this->profile->editProfile($details);
+    }
 }
