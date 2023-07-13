@@ -70,4 +70,24 @@ class ProfileController extends AbstractActionController
 
         return $this->viewModel;
     }
+
+
+    public function editprofileAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->viewModel->setTerminal(true);
+
+        if ($this->request->isPost()) {
+            if (false !== $this->profile_model->editProfile(['real_name' => $this->params()->fromPost('realName'),
+                    'location' => $this->params()->fromPost('location'),
+                    'avatar'   => $this->params()->fromPost('avatar'),
+                    'bio'      => $this->params()->fromPost('bio')])) {
+                echo "Profile updated";
+            } else {
+                echo "Error updating profile, please try again.";
+            }
+        }
+
+        return $this->viewModel;
+    }
 }

@@ -138,11 +138,32 @@
         }
 
 
-        public function editProfile(array $edits): ProfileInterface|bool
+        public function editProfile(array $edits): bool
         {
-            // TODO: Implement editProfile() method.
+            if (count($edits, 1) > 0) {
+                $profile_edits = [];
 
-            return $this;
+                foreach ($edits as $key => $value) {
+                    $profile_edits[$key] = $value;
+                }
+
+                $update = $this->update->table('profile')->set(['real_name' => $profile_edits['real_name'],
+                    'location' => $profile_edits['location'], 'avatar' => $profile_edits['avatar'], 'bio' => $profile_edits['bio']])
+                    ->where(['username' => $this->user]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($update),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
 
 

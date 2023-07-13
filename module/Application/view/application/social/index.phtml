@@ -578,10 +578,6 @@
                     contentType: false,
                     url: "<?php echo $this->url('home/profile', [ 'action' => 'upload-profile-avatar' ]); ?>",
                     data: formData
-                }).done(function(msg) {
-                    $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
-                }).fail(function(msg) {
-                    $('#create-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
                 });
             });
 
@@ -627,7 +623,7 @@
                 <div class="w3-row">
                     <div class="w3-col l2">
                         <label for="edit-profile-username">Username:</label>
-                        <input type="text" id="edit-profile-username" class="w3-input">
+                        <input type="text" id="edit-profile-username" class="w3-input" disabled>
                     </div>
                 </div>
 
@@ -703,6 +699,46 @@
                     </div>
                 </div>
             </div>
+
+            <script type="text/javascript">
+                $('input[type="file"]').on('change', function() {
+                    let file = document.getElementById('edit-profile-avatar').files[0];
+                    let formData = new FormData();
+                    formData.append("file", file);
+
+                    $.ajax({
+                        type: "POST",
+                        processData: false,
+                        contentType: false,
+                        url: "<?php echo $this->url('home/profile', [ 'action' => 'upload-profile-avatar' ]); ?>",
+                        data: formData
+                    });
+                });
+
+                $('#edit-profile-btn').on('click', function() {
+                    let epRealName, epLocation, epAvatar, epBio;
+
+                    epRealName = $('#edit-profile-real-name').val();
+                    epLocation = $('#edit-profile-location').val();
+                    epAvatar   = $('#edit-profile-avatar').val().replace(/C:\\fakepath\\/i, '');
+                    epBio      = $('#edit-profile-bio').val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo $this->url('home/profile', ['action' => 'edit-profile']); ?>",
+                        data: {
+                            realName: epRealName,
+                            location: epLocation,
+                            avatar: epAvatar,
+                            bio: epBio
+                        }
+                    }).done(function(msg) {
+                        $('#edit-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                    }).fail(function(msg) {
+                        $('#edit-profile-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                    });
+                });
+            </script>
         </div>
 
         <br><br><br>
