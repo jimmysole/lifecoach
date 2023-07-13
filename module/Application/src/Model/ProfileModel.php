@@ -42,8 +42,14 @@ class ProfileModel
         return $this->profile->getProfile();
     }
 
-    public function editProfile(array $details) : ProfileInterface|bool
+    public function editProfile(array $details) : bool
     {
         return $this->profile->editProfile($details);
+    }
+
+
+    public function deleteProfile() : bool
+    {
+        return $this->profile->deleteProfile();
     }
 }

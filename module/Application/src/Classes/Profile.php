@@ -167,9 +167,30 @@
         }
 
 
-        public function deleteProfile(): ProfileInterface|bool
+        public function deleteProfile(): bool
         {
-            // TODO: Implement deleteProfile() method.
-            return $this;
+            $files = array_diff(scandir(getcwd() . '/public/profiles/' . $this->user . '/avatar'), ['.', '..']);
+
+            foreach ($files as $file) {
+                unlink(getcwd() . '/public/profiles/' . $this->user . '/avatar/' . $file);
+            }
+
+            if (rmdir(getcwd() . '/public/profiles/' . $this->user . '/avatar')) {
+                $delete = $this->delete->from('profile')
+                    ->where(['username' => $this->user]);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($delete),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
         }
     }

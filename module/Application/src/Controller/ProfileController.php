@@ -90,4 +90,21 @@ class ProfileController extends AbstractActionController
 
         return $this->viewModel;
     }
+
+
+    public function deleteprofileAction() : ViewModel
+    {
+        $this->layout()->setTerminal(true);
+        $this->viewModel->setTerminal(true);
+
+        if ($this->request->isPost()) {
+            if (false !== $this->profile_model->deleteProfile()) {
+                echo "Profile deleted.";
+            } else {
+                echo "Error deleting profile, please try again.";
+            }
+        }
+
+        return $this->viewModel;
+    }
 }
