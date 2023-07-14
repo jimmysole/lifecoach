@@ -22,6 +22,7 @@ class UserController extends AbstractActionController
         $this->view_model = new ViewModel();
     }
 
+    
     public function indexAction() : ViewModel
     {
 

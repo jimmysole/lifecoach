@@ -25,11 +25,6 @@
 		
 		private string $user;
 
-		private string $title;
-		private string $subject;
-		private string $body;
-        private array $image;
-
         private array $meeting_details = [];
 		
 		public function __construct(TableGateway $gateway, string $user = "")
@@ -324,14 +319,14 @@
         // article methods
         public function postArticle(string $subject, string $title, string $body, string $image): AdminInterface|bool
         {
-            $this->title     = !empty($title)             ? $title   : "Untitled";
-            $this->subject   = !empty($subject)           ? $subject : "No Subject";
-            $this->body      = !empty($body)              ? $body    : "Placeholder text for body";
+            $title1 = !empty($title)             ? $title   : "Untitled";
+            $subject1 = !empty($subject)           ? $subject : "No Subject";
+            $body1 = !empty($body)              ? $body    : "Placeholder text for body";
 
 
             // insert the article now
             $insert = $this->insert->into('articles')->columns(['article_id', 'author', 'title', 'subject', 'body', 'date_written', 'image'])
-                ->values(['article_id' => rand(0, 1000), 'author' => $this->user, 'title' => $this->title, 'subject' => $this->subject, 'body' => $this->body,
+                ->values(['article_id' => rand(0, 1000), 'author' => $this->user, 'title' => $title1, 'subject' => $subject1, 'body' => $body1,
                     'date_written' => date('Y-m-d h:i:s'), 'image' => $image]);
 
             $query = $this->gateway->getAdapter()->query(
@@ -348,13 +343,13 @@
 
         public function uploadArticleImage(array $image) : AdminInterface|bool
         {
-            $this->image = count($image, 1) > 0 ? $image : [];
+            $image1 = count($image, 1) > 0 ? $image : [];
 
             // upload the image
             $path = getcwd() . '/public/images/articles/';
 
-            if (is_uploaded_file($this->image['file']['tmp_name'])) {
-                if (move_uploaded_file($this->image['file']['tmp_name'], $path . $this->image['file']['name'])) {
+            if (is_uploaded_file($image1['file']['tmp_name'])) {
+                if (move_uploaded_file($image1['file']['tmp_name'], $path . $image1['file']['name'])) {
                     return $this;
                 } else {
                     return false;
