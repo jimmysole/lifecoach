@@ -42,7 +42,7 @@ use Laminas\View\Renderer\PhpRenderer;
 
 class Module implements ConfigProviderInterface
 {
-    public function onBootstrap(MvcEvent $e)
+    public function onBootstrap(MvcEvent $e): void
     {
     	try {
 		    $eventManager        = $e->getApplication()->getEventManager();
@@ -123,7 +123,7 @@ class Module implements ConfigProviderInterface
     }
 
    
-    public function getCategories(MvcEvent $e)
+    public function getCategories(MvcEvent $e): void
     {
         $controller = $e->getTarget();
         
@@ -135,7 +135,7 @@ class Module implements ConfigProviderInterface
     }
     
     
-    public function getIdentity(MvcEvent $e)
+    public function getIdentity(MvcEvent $e): void
     {
         $controller = $e->getViewModel();
 
@@ -146,7 +146,7 @@ class Module implements ConfigProviderInterface
     }
     
     
-    public function startSession(MvcEvent $em)
+    public function startSession(MvcEvent $em): void
     {
         $session = $em->getApplication()->getServiceManager()->get(SessionManager::class);
         
