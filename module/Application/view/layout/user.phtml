@@ -127,7 +127,7 @@
     
        <div class="w3-top">
        	   <div class="w3-bar w3-theme-gradient w3-wide w3-padding w3-card">
-       	   		<a href="<?php echo $this->url('home', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue">Home</a>
+       	   		<a href="<?php echo $this->url('home/user', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue">Home</a>
        	   		
        	   		<div class="w3-right w3-hide-small">
        	   			<div class="w3-dropdown-hover">
@@ -138,8 +138,6 @@
 				            <?php endforeach; ?>
        	   				</div>
        	   			</div>
-       	   			<a href="<?php echo $this->url('home/user', array('action' => 'messages')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Store">Your Messages</a>
-       	   			<a href="<?php echo $this->url('home/user', array('action' => 'appointments')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Items">Your Appointments</a>
                     <a href="<?php echo $this->url('home/social', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Social">Social</a>
        	   			<a href="<?php echo $this->url('home/logout', array('action' => 'index')); ?>" class="w3-bar-item w3-button w3-hover-blue" title="Logout">Logout</a>
        	   		</div>
