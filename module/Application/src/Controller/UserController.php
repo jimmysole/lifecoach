@@ -67,18 +67,6 @@ class UserController extends AbstractActionController
     }
 
 
-    public function messagesAction() : ViewModel
-    {
-        return $this->view_model;
-    }
-
-
-    public function appointmentsAction() : ViewModel
-    {
-        return $this->view_model;
-    }
-
-
     public function viewconfirmedmeetingsAction() : ViewModel
     {
         $this->layout()->setTerminal(true);
