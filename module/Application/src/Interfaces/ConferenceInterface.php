@@ -6,11 +6,10 @@
 	{
 		/**
 		 * Sets up a conference
-		 * @param array $details
 		 * @return ConferenceInterface
 		 * @throws \Exception
 		 */
-		public function startConference(array $details) : ConferenceInterface;
+		public function startConference() : ConferenceInterface;
 		
 		/**
 		 * Ends a conference

@@ -25,8 +25,6 @@ class UserController extends AbstractActionController
 
     public function indexAction() : ViewModel
     {
-
-
         $user = $_SESSION['kb'];
 
         $status = [];
