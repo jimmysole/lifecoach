@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
+      <change afterPath="$PROJECT_DIR$/module/Application/view/layout/chat_default.phtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/module/Application/view/layout/default_room.phtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/module/Application/view/layout/interactive_room.phtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Conference.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Conference.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Interfaces/ConferenceInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Interfaces/ConferenceInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/user.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/user.phtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +198,7 @@
       <workItem from="1688666989117" duration="29840000" />
       <workItem from="1689619552046" duration="20870000" />
       <workItem from="1690793331933" duration="6963000" />
-      <workItem from="1691096658277" duration="5843000" />
+      <workItem from="1691096658277" duration="11896000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>

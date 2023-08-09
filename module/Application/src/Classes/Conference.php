@@ -60,7 +60,7 @@
 
 							$mail = new Mail\Message();
 							$mail->setBody("Hello " . $this->user . ",\n\n You have an upcoming session with Kevin Benitez scheduled for " . $rowset['appt_time'] . ". To join this meeting,
-							click the following link: <a href=\"https://kevinbenitez.com/appt/join/$this->user\">Join Now</a>\n\nWe look forward to seeing you soon!")
+							click the following link: <a href=\"https://kevinbenitez.com/appointment/join/$this->user\">Join Now</a>\n\nWe look forward to seeing you soon!")
 							->setFrom('appointments@kevinbenitez.com', 'Kevin Benitez')
 							->addTo($user_email, $this->user)
 							->setSubject("Meeting with Kevin Benitez");
@@ -70,7 +70,7 @@
 
 							// what to do now.
 						    // prepare the chat room?
-							$layout = @file_get_contents('../../view/layout/chat_default.phtml');
+							$layout = @file_get_contents(getcwd() . '/Application/view/layout/chat_default.phtml');
 
 							$get_title = preg_match("/<title>(.*)<\/title>/siU", $layout, $matches) === false ? null : $matches[1];
 							$replace = preg_replace('/\s+/', $this->title, $get_title);
@@ -121,7 +121,7 @@
 
 							$mail = new Mail\Message();
 							$mail->setBody("Hello " . $this->user . ",\n\n You have an upcoming session with Kevin Benitez scheduled for " . $rowset['appt_time'] . ". To join this meeting,
-							click the following link: <a href=\"https://kevinbenitez.com/appt/join/$this->user\">Join Now</a>\n\nWe look forward to seeing you soon!")
+							click the following link: <a href=\"https://kevinbenitez.com/appointment/join/$this->user\">Join Now</a>\n\nWe look forward to seeing you soon!")
 								->setFrom('appointments@kevinbenitez.com', 'Kevin Benitez')
 								->addTo($user_email, $this->user)
 								->setSubject("Meeting with Kevin Benitez");
@@ -158,7 +158,7 @@
 
 					if ($this->room_details['style'] == 'default') {
 						// load the default layout
-						$layout = "../../view/layout/default_room.phtml";
+						$layout = getcwd() . "/Application/view/layout/default_room.phtml";
 
 						$get_file = @file_get_contents($layout);
 
@@ -187,10 +187,10 @@
 						}
 					} else if ($this->room_details['style'] == 'interactive') {
 						// load the interactive layout
-						$layout = "../../view/layout/interactive_room.phtml";
+						$layout = getcwd() . "/Application/view/layout/interactive_room.phtml";
 					} else {
 						// just load the default layout
-						$layout = "../../view/layout/defaullt_room.phtml";
+						$layout = getcwd() . "/Application/view/layout/default_room.phtml";
 					}
 				} else {
 					throw new Exception("No room details were set, please correct this and try again.");
