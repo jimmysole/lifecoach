@@ -157,7 +157,7 @@ class Module implements ConfigProviderInterface
     public function getServiceConfig(): array
     {
         return array(
-            'factories' => array(
+            'factories' => [
                 RegisterModel::class => function($container) {
                     $table_gateway = $container->get(RegisterTableGateway::class);
                     return new RegisterModel($table_gateway);
@@ -288,7 +288,7 @@ class Module implements ConfigProviderInterface
                     $db_adapter = $container->get(AdapterInterface::class);
                     return new TableGateway('profile', $db_adapter);
                 }
-            )
+            ]
         );
     } 
 }

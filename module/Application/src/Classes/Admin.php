@@ -105,7 +105,7 @@
             // insert the info into the table
             $insert = $this->insert->into('confirmed_sessions')->columns(['user', 'counselor', 'message', 'submitted_date', 'approved_date', 'duration'])
                 ->values(['user' => $this->meeting_details['client'], 'counselor' => $this->user, 'message' => $this->meeting_details['message'],
-                   'submitted_date' => $this->meeting_details['submitted_date'], 'approved_date' => $this->meeting_details['meeting_time'], 'duration' => $this->meeting_details['duration']]);
+                   'submitted_date' => $this->meeting_details['submitted_date'], 'approved_date' => $this->meeting_details['meeting_time'], 'duration' => $this->meeting_details['duration'], 'scheduled' => 1]);
 
             $query = $this->gateway->getAdapter()->query(
                 $this->sql->buildSqlString($insert), Adapter::QUERY_MODE_EXECUTE
