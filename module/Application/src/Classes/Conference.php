@@ -68,8 +68,7 @@
 							$send = new Mail\Transport\Sendmail();
 							$send->send($mail);
 
-							// what to do now.
-						    // prepare the chat room?
+						    // prepare the chat room
 							$layout = @file_get_contents(getcwd() . '/Application/view/layout/chat_default.phtml');
 
 							$get_title = preg_match("/<title>(.*)<\/title>/siU", $layout, $matches) === false ? null : $matches[1];
@@ -84,11 +83,6 @@
 							));
 
 							if ($insert > 0) {
-								// save the file
-                                // or just umm
-								// trigger session countdown? send out a notification 10 mins, 5 mins before?
-								// hmm, ask kevin what would he would like
-								// maybe an auto notifier
 								$notify = [
 										'config' => [
 											'chat_name  ' => $this->user . " chatting with Kevin Benitez ($replace). Session started at " . $rowset['appt_time'],
@@ -108,6 +102,8 @@
 											],
 										],
 								];
+
+
 							} else {
 								throw new Exception("Error setting up the room, please try again.");
 							}
@@ -145,7 +141,7 @@
 
 			public function endConference(): ConferenceInterface
 			{
-                
+
 				return $this;
 			}
 
@@ -159,7 +155,7 @@
 
 					if ($this->room_details['style'] == 'default') {
 						// load the default layout
-						$layout = getcwd() . "/Application/view/layout/default_room.phtml";
+						$layout = getcwd() . "/Application/view/layout/chat_default.phtml";
 
 						$get_file = @file_get_contents($layout);
 
@@ -180,8 +176,7 @@
 								]));
 
 								// further configure the room
-
-
+                                //
 							}
 						} else {
 							throw new Exception("Error loading the room, please try again.");
@@ -191,7 +186,7 @@
 						$layout = getcwd() . "/Application/view/layout/interactive_room.phtml";
 					} else {
 						// just load the default layout
-						$layout = getcwd() . "/Application/view/layout/default_room.phtml";
+						$layout = getcwd() . "/Application/view/layout/chat_default.phtml";
 					}
 				} else {
 					throw new Exception("No room details were set, please correct this and try again.");
