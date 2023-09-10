@@ -3,6 +3,8 @@
 	namespace Application\Classes;
 	
 	use Exception;
+    use Laminas\Db\Adapter\Adapter;
+    use Laminas\Db\Sql\Sql;
     use Laminas\Db\TableGateway\TableGateway;
 	use Laminas\Db\Sql\Select;
 	use Laminas\Db\Sql\Insert;
@@ -19,6 +21,8 @@
 
 			private TableGateway $gateway;
 
+            private Sql $sql;
+
 			private string $title = "Individual Chat Session with Kevin Benitez";
 
 			private array $room_details = [];
@@ -30,6 +34,7 @@
 				$this->gateway = $gateway;
 				$this->user = $user;
 				$this->insert =  new Insert('conferences');
+                $this->sql = new Sql();
 			}
 
 			public function startConference(): ConferenceInterface
@@ -176,7 +181,33 @@
 								]));
 
 								// further configure the room
-                                //
+                                // hmmm what to do
+                                if ($insert > 0) {
+                                    if (filter_var($this->room_details['zoom_url'], FILTER_VALIDATE_URL) !== false) {
+                                        // valid url
+                                        // add a table to hold all the zoom links for the user
+                                        $insert = new Insert('zoom_links');
+
+                                        // date format should be Y-m-d H:i:s
+                                        $stmt = $insert->columns(['link', 'user', 'meeting_time'])
+                                            ->values(['link' => $this->room_details['zoom_url'], 'user' => $this->user, 'meeting_time' => $this->room_details['meeting_time']]);
+
+                                        $query = $this->gateway->getAdapter()->query(
+                                            $this->sql->buildSqlString($stmt),
+                                            Adapter::QUERY_MODE_EXECUTE
+                                        );
+
+                                        if ($query->count() > 0) {
+                                            return $this;
+                                        } else {
+                                            throw new Exception("Error configuring the chat room settings, please try again.");
+                                        }
+                                    } else {
+                                        throw new Exception("Supplied zoom link is not valid.");
+                                    }
+                                } else {
+                                    throw new Exception("Error configuring the default settings, please try again.");
+                                }
 							}
 						} else {
 							throw new Exception("Error loading the room, please try again.");
