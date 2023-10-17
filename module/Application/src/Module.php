@@ -9,6 +9,7 @@ use Application\Controller\LoginController;
 use Application\Controller\SocialController;
 use Application\Controller\UserController;
 use Application\Model\ArticleModel;
+use Application\Model\ConferenceModel;
 use Application\Model\ContactModel;
 use Application\Model\Filters\Login;
 use Application\Model\Filters\Register;
@@ -287,6 +288,16 @@ class Module implements ConfigProviderInterface
                 ProfileService::class => function ($container) {
                     $db_adapter = $container->get(AdapterInterface::class);
                     return new TableGateway('profile', $db_adapter);
+                },
+
+                ConferenceModel::class => function ($container) {
+                    $table_gateway = $container->get(ConferenceService::class);
+                    return new ConferenceModel($table_gateway, $container->get(AuthenticationService::class)->getIdentity());
+                },
+
+                ConferenceService::class => function ($container) {
+                    $db_adapter = $container->get(AdapterInterface::class);
+                    return new TableGateway('conferences', $db_adapter);
                 }
             ]
         );

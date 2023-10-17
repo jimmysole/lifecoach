@@ -8,6 +8,7 @@ namespace Application;
 
 use Application\Controller\ArticlesController;
 use Application\Controller\CategoriesController;
+use Application\Controller\ConferenceController;
 use Application\Controller\ContactController;
 use Application\Controller\ForumController;
 use Application\Controller\IndexController;
@@ -181,6 +182,17 @@ return [
                                 'action'     => 'index',
                             ]
                         ]
+                    ],
+
+                    'conference' => [
+                        'type' => 'Segment',
+                        'options' => [
+                            'route' => 'conference[/:action][/:id]',
+                            'defaults' => [
+                                'controller' => ConferenceController::class,
+                                'action' => 'index',
+                            ]
+                        ]
                     ]
                 ],
             ],
@@ -212,6 +224,7 @@ return [
             Controller\RegisterController::class => ReflectionBasedAbstractFactory::class,
             Controller\ForumController::class => ReflectionBasedAbstractFactory::class,
             Controller\ProfileController::class => ReflectionBasedAbstractFactory::class,
+            Controller\ConferenceController::class => ReflectionBasedAbstractFactory::class,
 		],
 	],
 	

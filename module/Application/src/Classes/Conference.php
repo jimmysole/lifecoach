@@ -185,7 +185,6 @@
                                 if ($insert > 0) {
                                     if (filter_var($this->room_details['zoom_url'], FILTER_VALIDATE_URL) !== false) {
                                         // valid url
-                                        // add a table to hold all the zoom links for the user
                                         $insert = new Insert('zoom_links');
 
                                         // date format should be Y-m-d H:i:s
