@@ -34,7 +34,7 @@
 				$this->gateway = $gateway;
 				$this->user = $user;
 				$this->insert =  new Insert('conferences');
-                $this->sql = new Sql();
+                $this->sql = new Sql($this->gateway->getAdapter());
 			}
 
 			public function startConference(): ConferenceInterface

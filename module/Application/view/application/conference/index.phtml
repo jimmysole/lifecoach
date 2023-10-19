@@ -1,0 +1,70 @@
+<div class="w3-container w3-padding-32" id="conference-options">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16 w3-center">Conference Options</h3>
+</div>
+
+<div class="w3-row-padding">
+    <div class="w3-col l12 m12 w3-margin-bottom">
+        <div class="w3-display-container">
+            <button class="w3-button w3-round w3-hover-blue" id="start-conference" onclick="document.getElementById('start-conference-modal').style.display = 'block';">Start Conference</button>
+            <button class="w3-button w3-round w3-hover-blue" id="view-conferences" onclick="document.getElementById('view-conferences-modal').style.display = 'block';">View Conferences</button>
+            <button class="w3-button w3-round w3-hover-blue" id="cancel-conference" onclick="document.getElementById('cancel-conference-modal').style.display = 'block';">Cancel Conference</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- modals -->
+<div id="start-conference-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('start-conference-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Start A Conference</h2>
+        </header>
+
+        <div class="w3-container">
+            <p></p>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="view-conferences-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('view-conferences-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>View Conferences</h2>
+        </header>
+    </div>
+</div>
+
+
+<div id="cancel-conference-modal" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container w3-theme-gradient">
+            <span onclick="document.getElementById('cancel-conference-modal').style.display = 'none';" class="w3-button w3-display-topright w3-theme-gradient">&times;</span>
+            <h2>Cancel A Conference</h2>
+        </header>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    const modal1 = document.getElementById('start-conference-modal');
+    const modal2 = document.getElementById('view-conferences-modal');
+    const modal3 = document.getElementById('cancel-conference-modal');
+
+    window.onclick = function (event) {
+        if (event.target === modal1) {
+            modal1.style.display = 'none';
+        }
+
+        if (event.target === modal2) {
+            modal2.style.display = 'none';
+        }
+
+        if (event.target === modal3) {
+            modal3.style.display = 'none';
+        }
+    }
+</script>
