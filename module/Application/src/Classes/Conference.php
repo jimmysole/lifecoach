@@ -29,11 +29,14 @@
 
 			private Insert $insert;
 
+            private Insert $zoom_insert;
+
 			public function __construct(TableGateway $gateway, string $user)
 			{
 				$this->gateway = $gateway;
 				$this->user = $user;
 				$this->insert =  new Insert('conferences');
+                $this->zoom_insert = new Insert('zoom_links');
                 $this->sql = new Sql($this->gateway->getAdapter());
 			}
 
@@ -108,7 +111,8 @@
 										],
 								];
 
-
+                                // insert the zoom link
+                                $zoom_link = "";
 							} else {
 								throw new Exception("Error setting up the room, please try again.");
 							}
