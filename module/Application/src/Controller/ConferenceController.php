@@ -26,4 +26,22 @@ class ConferenceController extends AbstractActionController
 
         return $this->viewModel;
     }
+
+
+    public function startconferenceAction() : ViewModel
+    {
+        return $this->viewModel;
+    }
+
+
+    public function viewconferencesAction() : ViewModel
+    {
+        return $this->viewModel;
+    }
+
+
+    public function cancelconferenceAction() : ViewModel
+    {
+
+    }
 }

@@ -3,6 +3,7 @@
 namespace Application\Model;
 
 use Application\Interfaces\ConferenceInterface;
+use Exception;
 use Laminas\Db\TableGateway\TableGateway;
 
 use Application\Classes\Conference;
@@ -25,18 +26,27 @@ class ConferenceModel
     }
 
 
+    /**
+     * @throws Exception
+     */
     public function startConference(): ConferenceInterface
     {
         return $this->conference->startConference();
     }
 
 
+    /**
+     * @throws Exception
+     */
     public function endConference() : ConferenceInterface
     {
         return $this->conference->endConference();
     }
 
 
+    /**
+     * @throws Exception
+     */
     public function prepareRoom(array $details) : ConferenceInterface
     {
         return $this->conference->prepareRoom($details);

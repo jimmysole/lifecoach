@@ -16,6 +16,7 @@
                 <button class="w3-button w3-round w3-hover-blue" id="edit-article" onclick="document.getElementById('edit-article-modal').style.display = 'block';">Edit Article</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="view-users" onclick="document.getElementById('view-users-modal').style.display = 'block';">View Users</button>&nbsp;
                 <button class="w3-button w3-round w3-hover-blue" id="schedule" onclick="document.getElementById('view-schedule-modal').style.display = 'block';">View Schedule</button>
+                <button class="w3-button w3-round w3-hover-blue" id="conference" onclick="location.href = '<?php echo $this->url('home/conference', [ 'action' => 'index']); ?>';">Conferences</button>
             </div>
         <?php else: ?>
         <div class="w3-display-container">

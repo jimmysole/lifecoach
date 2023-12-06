@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/module/Application/view/application/conference/cancel-conference.phtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/module/Application/view/application/conference/start-conference.phtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/module/Application/view/application/conference/view-conferences.phtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/ConferenceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/ConferenceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/ConferenceModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/ConferenceModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/Application/view/application/conference/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/conference/index.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/application/user/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/user/index.phtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,7 +235,7 @@
       <workItem from="1698852845568" duration="1777000" />
       <workItem from="1699032614150" duration="17637000" />
       <workItem from="1700688773488" duration="633000" />
-      <workItem from="1700769839543" duration="5296000" />
+      <workItem from="1700769839543" duration="14656000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>
