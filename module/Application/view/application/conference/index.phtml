@@ -22,8 +22,18 @@
         </header>
 
         <div class="w3-container">
-            <p></p>
+            <p>Current Pending Conferences:</p>
+            <br>
 
+            <script type="text/javascript">
+                $.ajax({
+
+                }).done(function(data) {
+
+                }).fail(function(msg) {
+                    $('#sconf-footer').html("<p class=\"w3-center\">" + msg + "</p>");
+                })
+            </script>
         </div>
 
         <br><br><br>

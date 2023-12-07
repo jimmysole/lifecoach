@@ -22,9 +22,16 @@ class ConferenceModel
     {
         $this->tableGateway = $gateway;
         $this->user = $user;
-        $this->conference = new Conference($gateway, $user);
+        $this->conference = new Conference($this->tableGateway, $user);
     }
 
+    /**
+     * @throws Exception
+     */
+    public function getConference() : array|bool
+    {
+        return $this->conference->getConferences();
+    }
 
     /**
      * @throws Exception

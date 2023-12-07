@@ -31,6 +31,8 @@
 
             private Insert $zoom_insert;
 
+            private Select $select;
+
 			public function __construct(TableGateway $gateway, string $user)
 			{
 				$this->gateway = $gateway;
@@ -38,9 +40,35 @@
 				$this->insert =  new Insert('conferences');
                 $this->zoom_insert = new Insert('zoom_links');
                 $this->sql = new Sql($this->gateway->getAdapter());
+                $this->select = new Select();
 			}
 
-			public function startConference(): ConferenceInterface
+
+            public function getConferences(): array|bool
+            {
+                $select = $this->select->columns(['user', 'appt_time', 'title'])
+                    ->from('conferences')
+                    ->limit(50);
+
+                $query = $this->gateway->getAdapter()->query(
+                    $this->sql->buildSqlString($select),
+                    Adapter::QUERY_MODE_EXECUTE
+                );
+
+                if ($query->count() > 0) {
+                    $rows = [];
+
+                    foreach ($query as $key => $value) {
+                        $rows = array_merge($rows, [$key => $value]);
+                    }
+
+                    return $rows;
+                } else {
+                    return false;
+                }
+            }
+
+        public function startConference(): ConferenceInterface
 			{
 				// select to see if the user is scheduled
 				$select = $this->gateway->select(function (Select  $select) {

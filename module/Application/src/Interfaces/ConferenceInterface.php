@@ -4,6 +4,13 @@
 	
 	interface ConferenceInterface
 	{
+        /**
+         * Gets all the conferences
+         * @return array
+         * @throws \Exception
+         */
+        public function getConferences() : array|bool;
+
 		/**
 		 * Sets up a conference
 		 * @return ConferenceInterface

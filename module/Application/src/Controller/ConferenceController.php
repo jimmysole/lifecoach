@@ -36,12 +36,17 @@ class ConferenceController extends AbstractActionController
 
     public function viewconferencesAction() : ViewModel
     {
+        $this->layout()->setTerminal(true);
+        $this->viewModel->setTerminal(true);
+
+
+
         return $this->viewModel;
     }
 
 
     public function cancelconferenceAction() : ViewModel
     {
-
+        return $this->viewModel;
     }
 }
