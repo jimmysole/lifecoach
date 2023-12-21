@@ -39,7 +39,11 @@ class ConferenceController extends AbstractActionController
         $this->layout()->setTerminal(true);
         $this->viewModel->setTerminal(true);
 
-
+        try {
+            echo json_encode($this->model->getConference());
+        } catch (\Exception $e) {
+            echo json_encode($e->getMessage());
+        }
 
         return $this->viewModel;
     }

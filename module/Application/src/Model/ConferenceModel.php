@@ -3,10 +3,12 @@
 namespace Application\Model;
 
 use Application\Interfaces\ConferenceInterface;
+use Application\Classes\Conference;
+
 use Exception;
 use Laminas\Db\TableGateway\TableGateway;
 
-use Application\Classes\Conference;
+
 
 
 class ConferenceModel
