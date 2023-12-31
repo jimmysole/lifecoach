@@ -24,12 +24,30 @@
         <div class="w3-container">
             <p>Current Pending Conferences:</p>
             <br>
+            <table class="w3-table-all" style="display: none; overflow: auto;" id="view-conferences-table">
+                <tr>
+                    <th>User</th>
+                    <th>Appointment Time</th>
+                    <th>Title</th>
+                </tr>
+            </table>
 
             <script type="text/javascript">
                 $.ajax({
-
+                    type: "POST",
+                    url: "<?php echo $this->url('home/conference', ['action' => 'view-conferences']); ?>",
+                    dataType: "json"
                 }).done(function(data) {
+                    if (undefined !== data) {
+                        $('#view-conferences-table').attr('style', 'display: block;');
 
+                        $.each(data, function(key, value) {
+                            $('#view-conferences-table').append("<tr><input type=\"hidden\" name=\"vcid\" id=\"" + value.id + "\" class=\"vcid\" value=\"" + value.id + "\">" +
+                                "<td class=\"user\">" + value.user + "</td><td class=\"app-time\">" + value.appt_time + "</td><td class=\"title\">" + value.title + "</td></tr>");
+                        });
+                    } else {
+                        $('#sconf-footer').html("No conferences scheduled.");
+                    }
                 }).fail(function(msg) {
                     $('#sconf-footer').html("<p class=\"w3-center\">" + msg + "</p>");
                 })

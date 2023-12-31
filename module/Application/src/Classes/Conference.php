@@ -46,7 +46,7 @@
 
             public function getConferences(): array|bool
             {
-                $select = $this->select->columns(['user', 'appt_time', 'title'])
+                $select = $this->select->columns(['id', 'user', 'appt_time', 'title'])
                     ->from('conferences')
                     ->limit(50);
 
