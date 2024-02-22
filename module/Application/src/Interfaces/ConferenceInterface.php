@@ -14,9 +14,10 @@
 		/**
 		 * Sets up a conference
 		 * @return ConferenceInterface
+         * @param string $zoom_link
 		 * @throws \Exception
 		 */
-		public function startConference() : ConferenceInterface;
+		public function startConference(string $zoom_link) : ConferenceInterface;
 		
 		/**
 		 * Ends a conference

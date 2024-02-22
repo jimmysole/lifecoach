@@ -68,7 +68,7 @@
                 }
             }
 
-        public function startConference(): ConferenceInterface
+        public function startConference(string $zoom_link): ConferenceInterface
 			{
 				// select to see if the user is scheduled
 				$select = $this->gateway->select(function (Select  $select) {
@@ -140,7 +140,25 @@
 								];
 
                                 // insert the zoom link
-                                $zoom_link = "";
+                                $link_to_zoom_room = filter_var($zoom_link, FILTER_VALIDATE_URL) === true ? $zoom_link : false; // where to pass the zoom link
+
+                                if (false !== $link_to_zoom_room) {
+                                    $insert = $this->zoom_insert->columns(['link', 'user', 'meeting_time'])
+                                        ->values(['link' => $link_to_zoom_room, 'user' => $this->user, 'meeting_time' => $rowset['appt_time']]);
+
+                                    $query = $this->gateway->getAdapter()->query(
+                                        $this->sql->buildSqlString($insert),
+                                        Adapter::QUERY_MODE_EXECUTE
+                                    );
+
+                                    if ($query->count() > 0) {
+                                        return $this;
+                                    } else {
+                                        throw new Exception("Error creating the zoom link information, please try again.");
+                                    }
+                                } else {
+                                    throw new Exception("Invalid zoom link");
+                                }
 							} else {
 								throw new Exception("Error setting up the room, please try again.");
 							}

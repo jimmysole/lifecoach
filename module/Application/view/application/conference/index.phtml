@@ -29,6 +29,7 @@
                     <th>User</th>
                     <th>Appointment Time</th>
                     <th>Title</th>
+                    <th>Start</th>
                 </tr>
             </table>
 
@@ -43,7 +44,8 @@
 
                         $.each(data, function(key, value) {
                             $('#view-conferences-table').append("<tr><input type=\"hidden\" name=\"vcid\" id=\"" + value.id + "\" class=\"vcid\" value=\"" + value.id + "\">" +
-                                "<td class=\"user\">" + value.user + "</td><td class=\"app-time\">" + value.appt_time + "</td><td class=\"title\">" + value.title + "</td></tr>");
+                                "<td class=\"user\">" + value.user + "</td><td class=\"app-time\">" + value.appt_time + "</td><td class=\"title\">" + value.title + "</td>" +
+                                "<td class=\"start-input\"><input type=\"checkbox\" class=\"w3-check\"></td></tr>");
                         });
                     } else {
                         $('#sconf-footer').html("No conferences scheduled.");
