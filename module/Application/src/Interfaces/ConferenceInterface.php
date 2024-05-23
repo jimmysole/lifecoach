@@ -21,10 +21,10 @@
 		
 		/**
 		 * Ends a conference
-		 * @return ConferenceInterface
+		 * @return bool
 		 * @throws \Exception
 		 */
-		public function endConference() : ConferenceInterface;
+		public function endConference() : bool;
 		
 		
 		/**

@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
+      <change afterPath="$PROJECT_DIR$/public/images/articles/hahaha.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8953caa-9f64-49b8-bfb7-04daff70b387.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f8953caa-9f64-49b8-bfb7-04daff70b387.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Conference.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Conference.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/Application/src/Interfaces/ConferenceInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Interfaces/ConferenceInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/conference/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/conference/index.phtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +187,12 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-php-predefined-ba97393d7c68-6f8e3395a2b4-com.jetbrains.php.sharedIndexes-PS-233.14015.96" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PS-241.14494.237" />
+        <option value="bundled-php-predefined-ba97393d7c68-8f0632a2a215-com.jetbrains.php.sharedIndexes-PS-241.14494.237" />
+        <option value="php-nikic_php_parser-37cbfb0ca1b6-0c3f2cc7" />
+        <option value="php-symfony_console-37cbfb0ca1b6-41c774ef" />
+        <option value="php-symfony_event_dispatcher-37cbfb0ca1b6-22ca235b" />
+        <option value="php-symfony_string-37cbfb0ca1b6-6da9c235" />
       </set>
     </attachedChunks>
   </component>
@@ -245,7 +251,15 @@
       <workItem from="1703180039527" duration="725000" />
       <workItem from="1703191807266" duration="21527000" />
       <workItem from="1706282921064" duration="650000" />
-      <workItem from="1706299907986" duration="19735000" />
+      <workItem from="1706299907986" duration="21852000" />
+      <workItem from="1708811908326" duration="806000" />
+      <workItem from="1708866833272" duration="4229000" />
+      <workItem from="1711234062127" duration="615000" />
+      <workItem from="1711297797491" duration="13382000" />
+      <workItem from="1712437977270" duration="55898000" />
+      <workItem from="1713662832281" duration="712000" />
+      <workItem from="1713665365769" duration="45226000" />
+      <workItem from="1714909683548" duration="47963000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>

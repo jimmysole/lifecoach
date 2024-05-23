@@ -3,12 +3,13 @@
 	namespace Application\Classes;
 	
 	use Exception;
+
     use Laminas\Db\Adapter\Adapter;
+    use Laminas\Db\Sql\Delete;
     use Laminas\Db\Sql\Sql;
     use Laminas\Db\TableGateway\TableGateway;
 	use Laminas\Db\Sql\Select;
 	use Laminas\Db\Sql\Insert;
-	
 	use Laminas\Mail;
 	
 	use Application\Interfaces\ConferenceInterface;
@@ -32,6 +33,9 @@
             private Insert $zoom_insert;
 
             private Select $select;
+
+            private array $rowset;
+
 
 			public function __construct(TableGateway $gateway, string $user)
 			{
@@ -100,6 +104,7 @@
 							->setFrom('appointments@kevinbenitez.com', 'Kevin Benitez')
 							->addTo($user_email, $this->user)
 							->setSubject("Meeting with Kevin Benitez");
+
 
 							$send = new Mail\Transport\Sendmail();
 							$send->send($mail);
@@ -194,10 +199,46 @@
 			}
 
 
-			public function endConference(): ConferenceInterface
+			public function endConference(): bool
 			{
+                // find the user scheduled
+                $select = $this->gateway->select(function (Select  $select) {
+                    $select->where(['user' => $this->user, 'scheduled' => 1]);
+                });
 
-				return $this;
+                if ($select->count() > 0) {
+                    // user found
+                    // see if the conference is done
+                    $this->rowset = [];
+
+                    foreach ($select as $key => $value) {
+                        $this->rowset[$key] = $value;
+                    }
+
+                    $start_time = new \DateTimeImmutable($this->rowset['appt_time']);
+                    $end_time   = new \DateTimeImmutable($this->rowset['conf_end_time']);
+
+                    $total_session_time = $start_time->diff($end_time);
+
+                    $formatted_date = strtotime($total_session_time->format('%h hours'));
+
+                    if (time() >  $formatted_date) {
+                        // session has expired
+                        // clear up the conferences table
+                        $delete = $this->gateway->delete(['id' => $this->rowset['id']]);
+
+                        if ($delete > 0) {
+                            // session deleted
+                            return true;
+                        } else {
+                            throw new Exception("Error deleting the session");
+                        }
+                    }
+                } else {
+                    throw new Exception("Error retrieving the user.");
+                }
+
+                return false;
 			}
 
 
