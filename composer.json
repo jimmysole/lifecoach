@@ -27,7 +27,8 @@
         "laminas/laminas-di": "^3.2.2",
         "laminas/laminas-navigation": "^2.18",
         "laminas/laminas-mail": "^2.22",
-        "laminas/laminas-mvc-plugin-identity": "^1.5"
+        "laminas/laminas-mvc-plugin-identity": "^1.5",
+      "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {

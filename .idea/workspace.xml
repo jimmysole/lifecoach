@@ -5,12 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
-      <change afterPath="$PROJECT_DIR$/public/images/articles/hahaha.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8953caa-9f64-49b8-bfb7-04daff70b387.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f8953caa-9f64-49b8-bfb7-04daff70b387.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/htdocs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/htdocs.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Conference.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Conference.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Interfaces/ConferenceInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Interfaces/ConferenceInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/autoload/global.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/autoload/global.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/autoload/local.php.dist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/modules.config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/modules.config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/cache/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/config/module.config.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/config/module.config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/Storage/LoginAuthStorage.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/Storage/LoginAuthStorage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +36,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="PHP File" />
       </list>
     </option>
   </component>
@@ -38,14 +48,12 @@
     &quot;state&quot;: &quot;OPEN&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="b579679b-bbc7-4cd0-820d-becf7e5007ed" />
-        <option name="url" value="https://github.com/jimmysole/lifecoach.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/jimmysole/lifecoach.git&quot;,
+    &quot;accountId&quot;: &quot;b579679b-bbc7-4cd0-820d-becf7e5007ed&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/module/Application/src/Classes/Conference.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/module/Application/src/Classes/ForumAdmin.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
@@ -53,6 +61,11 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpTemplates">
     <option name="NEW_PHP_FILE_LAST_EXTENSION" value="phtml" />
   </component>
@@ -134,7 +147,7 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2LM2sKmmMoQOkRGW69caLs1YOfN" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -145,17 +158,22 @@
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;dumpAutoload F:/xampp/htdocs/composer.json&quot;: &quot;--no-interaction --ansi --verbose --optimize&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jimmy/Desktop/lainey&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jimmy/Desktop/megan&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -169,6 +187,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jimmy\Desktop\megan" />
       <recent name="C:\Users\jimmy\Desktop\lainey" />
       <recent name="F:\xampp\htdocs\module\Admin\view" />
     </key>
@@ -187,16 +206,15 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PS-241.14494.237" />
-        <option value="bundled-php-predefined-ba97393d7c68-8f0632a2a215-com.jetbrains.php.sharedIndexes-PS-241.14494.237" />
-        <option value="php-nikic_php_parser-37cbfb0ca1b6-0c3f2cc7" />
-        <option value="php-symfony_console-37cbfb0ca1b6-41c774ef" />
-        <option value="php-symfony_event_dispatcher-37cbfb0ca1b6-22ca235b" />
-        <option value="php-symfony_string-37cbfb0ca1b6-6da9c235" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PS-253.31033.138" />
+        <option value="bundled-php-predefined-a98d8de5180a-0e0d91225499-com.jetbrains.php.sharedIndexes-PS-253.31033.138" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="StructureViewState">
+    <option name="selectedTab" value="PHP" />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="" />
@@ -259,7 +277,133 @@
       <workItem from="1712437977270" duration="55898000" />
       <workItem from="1713662832281" duration="712000" />
       <workItem from="1713665365769" duration="45226000" />
-      <workItem from="1714909683548" duration="47963000" />
+      <workItem from="1714909683548" duration="70779000" />
+      <workItem from="1717335789203" duration="99000" />
+      <workItem from="1717335907600" duration="36000" />
+      <workItem from="1717335948851" duration="3777000" />
+      <workItem from="1717368732890" duration="1404000" />
+      <workItem from="1717457602558" duration="15658000" />
+      <workItem from="1718126739285" duration="27000" />
+      <workItem from="1718126772005" duration="6084000" />
+      <workItem from="1718483979919" duration="115000" />
+      <workItem from="1718484340500" duration="25120000" />
+      <workItem from="1719859805726" duration="4460000" />
+      <workItem from="1720052259890" duration="4214000" />
+      <workItem from="1720383698196" duration="48000" />
+      <workItem from="1720383785219" duration="27886000" />
+      <workItem from="1721430229817" duration="13115000" />
+      <workItem from="1721811615871" duration="27836000" />
+      <workItem from="1722904356237" duration="7213000" />
+      <workItem from="1723404218663" duration="78000" />
+      <workItem from="1723404314858" duration="55000" />
+      <workItem from="1723404418255" duration="13109000" />
+      <workItem from="1724200442013" duration="2365000" />
+      <workItem from="1724266607507" duration="31745000" />
+      <workItem from="1725806561471" duration="2069000" />
+      <workItem from="1725830821305" duration="20715000" />
+      <workItem from="1727484388316" duration="1288000" />
+      <workItem from="1727551284038" duration="2875000" />
+      <workItem from="1727644798578" duration="14359000" />
+      <workItem from="1728513003587" duration="15696000" />
+      <workItem from="1729720149089" duration="63000" />
+      <workItem from="1729720256967" duration="3770000" />
+      <workItem from="1729904407368" duration="3326000" />
+      <workItem from="1730034168217" duration="3213000" />
+      <workItem from="1731628473482" duration="86000" />
+      <workItem from="1731629293831" duration="1908000" />
+      <workItem from="1731774810394" duration="1397000" />
+      <workItem from="1731877639566" duration="1194000" />
+      <workItem from="1731945802389" duration="4215000" />
+      <workItem from="1734300369765" duration="4803000" />
+      <workItem from="1734566859529" duration="2291000" />
+      <workItem from="1736598371792" duration="1303000" />
+      <workItem from="1736606541342" duration="1875000" />
+      <workItem from="1736911911648" duration="599000" />
+      <workItem from="1737067369242" duration="658000" />
+      <workItem from="1737164134895" duration="1284000" />
+      <workItem from="1737209025236" duration="9999000" />
+      <workItem from="1737909482382" duration="3726000" />
+      <workItem from="1738142406167" duration="2465000" />
+      <workItem from="1738250865205" duration="2240000" />
+      <workItem from="1738271821264" duration="2437000" />
+      <workItem from="1738445377787" duration="5464000" />
+      <workItem from="1739040305479" duration="1810000" />
+      <workItem from="1739061631021" duration="6971000" />
+      <workItem from="1739331433772" duration="3205000" />
+      <workItem from="1739559149924" duration="8716000" />
+      <workItem from="1740014662346" duration="1792000" />
+      <workItem from="1740182416135" duration="2277000" />
+      <workItem from="1740346495665" duration="3699000" />
+      <workItem from="1740593138311" duration="2452000" />
+      <workItem from="1740929878707" duration="7275000" />
+      <workItem from="1741166320987" duration="5961000" />
+      <workItem from="1741466995338" duration="8693000" />
+      <workItem from="1741752694489" duration="988000" />
+      <workItem from="1742448308165" duration="1906000" />
+      <workItem from="1743133582105" duration="4861000" />
+      <workItem from="1743812542122" duration="1264000" />
+      <workItem from="1743946949846" duration="42000" />
+      <workItem from="1744178401235" duration="1267000" />
+      <workItem from="1744555725349" duration="5558000" />
+      <workItem from="1744874970774" duration="4911000" />
+      <workItem from="1745080238515" duration="12085000" />
+      <workItem from="1745524738719" duration="4395000" />
+      <workItem from="1745628268585" duration="1132000" />
+      <workItem from="1745634914570" duration="9091000" />
+      <workItem from="1746260896604" duration="14156000" />
+      <workItem from="1746878117167" duration="8263000" />
+      <workItem from="1747210794138" duration="1284000" />
+      <workItem from="1747232210409" duration="644000" />
+      <workItem from="1747607074906" duration="9792000" />
+      <workItem from="1749677177894" duration="10014000" />
+      <workItem from="1750283936968" duration="18134000" />
+      <workItem from="1750968499739" duration="1851000" />
+      <workItem from="1751008210011" duration="15559000" />
+      <workItem from="1752082767103" duration="51299000" />
+      <workItem from="1753255022398" duration="2590000" />
+      <workItem from="1753305927746" duration="11336000" />
+      <workItem from="1753539891573" duration="18306000" />
+      <workItem from="1753819800103" duration="9031000" />
+      <workItem from="1754071518288" duration="4494000" />
+      <workItem from="1754594100539" duration="6903000" />
+      <workItem from="1755096676334" duration="48245000" />
+      <workItem from="1756582699709" duration="183000" />
+      <workItem from="1756582957199" duration="8239000" />
+      <workItem from="1757086299562" duration="5418000" />
+      <workItem from="1757515993183" duration="8154000" />
+      <workItem from="1757704544848" duration="12004000" />
+      <workItem from="1758222899848" duration="4242000" />
+      <workItem from="1759062295545" duration="3674000" />
+      <workItem from="1759250342455" duration="3712000" />
+      <workItem from="1759530985634" duration="5905000" />
+      <workItem from="1760534406624" duration="5590000" />
+      <workItem from="1760639925181" duration="4843000" />
+      <workItem from="1760689899970" duration="2149000" />
+      <workItem from="1760802976851" duration="6025000" />
+      <workItem from="1761014096707" duration="3682000" />
+      <workItem from="1761234515921" duration="8759000" />
+      <workItem from="1761726574749" duration="3793000" />
+      <workItem from="1761922141550" duration="5041000" />
+      <workItem from="1762272960474" duration="17802000" />
+      <workItem from="1762972894996" duration="15590000" />
+      <workItem from="1763764177957" duration="17658000" />
+      <workItem from="1764966409162" duration="8454000" />
+      <workItem from="1765309677058" duration="743000" />
+      <workItem from="1765358044806" duration="19330000" />
+      <workItem from="1766266943673" duration="5463000" />
+      <workItem from="1766533364548" duration="53498000" />
+      <workItem from="1768087253309" duration="14140000" />
+      <workItem from="1768396190728" duration="25332000" />
+      <workItem from="1768955250307" duration="6817000" />
+      <workItem from="1769189093345" duration="10623000" />
+      <workItem from="1769309379037" duration="27086000" />
+      <workItem from="1769777603049" duration="30613000" />
+      <workItem from="1770475821720" duration="8825000" />
+      <workItem from="1770737239548" duration="2470000" />
+      <workItem from="1770788233842" duration="41490000" />
+      <workItem from="1771625115939" duration="13367000" />
+      <workItem from="1771987902849" duration="28638000" />
+      <workItem from="1772741696608" duration="7804000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>

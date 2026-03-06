@@ -7,7 +7,6 @@ namespace Application;
 
 
 use Application\Controller\ArticlesController;
-use Application\Controller\CategoriesController;
 use Application\Controller\ConferenceController;
 use Application\Controller\ContactController;
 use Application\Controller\ForumController;
@@ -19,7 +18,7 @@ use Application\Controller\RegisterController;
 use Application\Controller\SocialController;
 use Application\Controller\UserController;
 use Application\Controller\VerifyController;
-use Application\Model\Storage\LoginAuthServiceGateway;
+//use Application\Model\Storage\LoginAuthStorage;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
@@ -216,7 +215,6 @@ return [
 			Controller\LoginController::class => ReflectionBasedAbstractFactory::class,
 			Controller\UserController::class => ReflectionBasedAbstractFactory::class,
 			Controller\LogoutController::class => ReflectionBasedAbstractFactory::class,
-			Controller\CategoriesController::class => ReflectionBasedAbstractFactory::class,
 			Controller\ArticlesController::class => ReflectionBasedAbstractFactory::class,
 			Controller\ContactController::class => ReflectionBasedAbstractFactory::class,
             Controller\VerifyController::class => ReflectionBasedAbstractFactory::class,

@@ -3,10 +3,11 @@
 use Laminas\Db\Adapter;
 use Laminas\Navigation;
 
+
 return [
     'db' => [
     	'driver' => 'Pdo',
-	    'dsn' => 'mysql:dbname=infamous_kb;host=localhost',
+        'dsn' => 'mysql:dbname=infamous_kb;host=localhost;',
     ],
 	
 	'error_logging' => true,

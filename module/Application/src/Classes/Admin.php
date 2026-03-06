@@ -121,8 +121,9 @@
                     Adapter::QUERY_MODE_EXECUTE
                 );
 
+
                 if ($query->count() > 0) {
-                    // send an email to the user saying his or her session has been confirmed
+                    // email the user saying his or her session has been confirmed
                     $select = $this->select->columns(['email'])
                         ->from('users')
                         ->where(['username' => $this->meeting_details['client']]);
