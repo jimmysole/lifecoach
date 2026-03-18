@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="571a896b-e31f-4168-bf9c-06fd7afac324" name="Changes" comment="commit">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8953caa-9f64-49b8-bfb7-04daff70b387.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f8953caa-9f64-49b8-bfb7-04daff70b387.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/htdocs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/htdocs.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/autoload/global.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/autoload/global.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/autoload/local.php.dist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/modules.config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/modules.config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/cache/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/config/module.config.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/config/module.config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/Storage/LoginAuthStorage.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/Storage/LoginAuthStorage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Classes/Index.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Classes/Index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -403,7 +390,9 @@
       <workItem from="1770788233842" duration="41490000" />
       <workItem from="1771625115939" duration="13367000" />
       <workItem from="1771987902849" duration="28638000" />
-      <workItem from="1772741696608" duration="7804000" />
+      <workItem from="1772741696608" duration="14373000" />
+      <workItem from="1773216936096" duration="10371000" />
+      <workItem from="1773617281730" duration="3177000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1679596924075</created>

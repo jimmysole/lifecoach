@@ -17,10 +17,6 @@
 		protected Sql $sql;
 		protected Select $select;
 		
-		protected array $categories = [];
-		protected array $sellers = [];
-		protected array $new_stores = [];
-		
 		
 		public function __construct(TableGateway\TableGateway $gateway)
 		{
@@ -36,7 +32,7 @@
 		{
 			$select = $this->select->columns([
 				'article_id', 'author', 'title', 'subject', 'body', 'date_written', 'image' ]
-			)->from('articles')->limit(5);
+			)->from('articles')->limit(15);
 			
 			$query = $this->sql->getAdapter()->query(
 				$this->sql->buildSqlString($select),
